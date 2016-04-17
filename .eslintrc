@@ -1,0 +1,18 @@
+{
+  "extends": ["standard", "standard-react"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+  },
+  "plugins": [
+    "react", "standard"
+  ],
+  "settings": {
+    "import/parser": "babel-eslint",
+    "import/resolve": {
+      moduleDirectory: ["node_modules", "src"]
+    }
+  }
+}

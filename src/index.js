@@ -1,7 +1,11 @@
 import EpubView from './EpubView/EpubView'
-import EpubReader from './EpubReader/EpubReader'
+import EpubViewStyle from './EpubView/style'
+import ReactReader from './ReactReader/ReactReader'
+import ReactReaderStyle from './ReactReader/style'
 
 export {
   EpubView,
-  EpubReader
+  EpubViewStyle,
+  ReactReader,
+  ReactReaderStyle
 }

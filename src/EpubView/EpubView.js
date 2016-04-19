@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import Epub from 'epubjs'
-import throttle from 'lodash.throttle'
-import styles from './style'
+import defaultStyles from './style'
 
 class EpubView extends Component {
 
@@ -15,28 +14,21 @@ class EpubView extends Component {
   }
 
   componentDidMount () {
-    const {epubUrl, tocChanged} = this.props
-    this.book = new Epub(epubUrl)
+    const {url, tocChanged} = this.props
+    this.book = new Epub(url)
     this.book.loaded.navigation.then((toc) => {
       this.setState({
         isLoaded: true,
         toc: toc
       }, () => {
-        console.log(toc)
         tocChanged && tocChanged(toc)
         this.initReader()
       })
     })
-    global.addEventListener('resize', throttle(() => this.handleResize(), 1000))
   }
 
   componentWillUnmount () {
-    global.removeEventListener('resize', throttle(() => this.handleResize(), 1000))
     this.book = this.rendition = this.prevPage = this.nextPage = null
-  }
-
-  handleResize (e) {
-    console.log(window.innerWidth, window.innerHeight, 'resize')
   }
 
   shouldComponentUpdate (nextProps, nextState) {
@@ -50,8 +42,8 @@ class EpubView extends Component {
     this.rendition = this.book.renderTo(viewer, {
       method: 'paginate',
       contained: true,
-      width: '100%', // viewer.offsetWidth,
-      height: '100%' // viewer.offsetHeight
+      width: '100%',
+      height: '100%'
     })
     this.rendition.display(location || toc[0].href)
 
@@ -62,7 +54,7 @@ class EpubView extends Component {
       this.rendition.next()
     }
     this.rendition.on('locationChanged', (loc) => {
-      locationChanged && locationChanged(loc.end)
+      loc && loc.end && locationChanged && locationChanged(loc.end)
     })
   }
 
@@ -73,6 +65,7 @@ class EpubView extends Component {
   }
 
   renderBook () {
+    const {styles} = this.props
     return (
       <div ref='viewer' style={styles.view}></div>
     )
@@ -80,10 +73,10 @@ class EpubView extends Component {
 
   render () {
     const {isLoaded} = this.state
-    const {loadingView} = this.props
+    const {loadingView, styles} = this.props
     return (
       <div style={styles.viewHolder}>
-        {isLoaded && this.renderBook() || loadingView && loadingView()}
+        {isLoaded && this.renderBook() || loadingView}
       </div>
     )
   }
@@ -92,17 +85,20 @@ class EpubView extends Component {
 EpubView.defaultProps = {
   loadingView: null,
   locationChanged: null,
-  tocChanged: null
+  tocChanged: null,
+  styles: defaultStyles
 }
 
 EpubView.propTypes = {
-  epubUrl: PropTypes.string,
+  url: PropTypes.string,
+  loadingView: PropTypes.element,
   location: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
   ]),
   locationChanged: PropTypes.func,
-  tocChanged: PropTypes.func
+  tocChanged: PropTypes.func,
+  styles: PropTypes.object
 }
 
 export default EpubView

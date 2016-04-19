@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import {EpubReader} from '../src'
+import {ReactReader} from '../src'
 import styles from './style'
+import logo from 'file!./react-reader.svg'
 
 class App extends Component {
   constructor (props) {
@@ -14,9 +15,11 @@ class App extends Component {
     this.setState({
       fullscreen: !this.state.fullscreen
     }, () => {
-      const evt = document.createEvent('UIEvents')
-      evt.initUIEvent('resize', true, false, global, 0)
-      global.dispatchEvent(evt)
+      setTimeout(() => {
+        const evt = document.createEvent('UIEvents')
+        evt.initUIEvent('resize', true, false, global, 0)
+        global.dispatchEvent(evt)
+      }, 1000)
     })
   }
 
@@ -25,10 +28,23 @@ class App extends Component {
     return (
       <div style={styles.container}>
         <div style={styles.bar}>
-          <button onClick={this.toggleFullscreen.bind(this)}>Toggle</button>
+          <a href='https://github.com/gerhardsletten/react-reader'>
+            <img src={logo} style={styles.logo} alt='React-reader - powered by epubjs' />
+          </a>
+          <button onClick={this.toggleFullscreen.bind(this)} style={styles.closeLink}>
+            Use full browser window
+            <span style={styles.closeIcon}>
+              <span style={Object.assign({}, styles.closeIconBar)} />
+              <span style={Object.assign({}, styles.closeIconBar, styles.closeIconBarLast)} />
+            </span>
+          </button>
         </div>
         <div style={Object.assign({}, styles.readerHolder, fullscreen ? styles.readerHolderFullscreen : {})}>
-          <EpubReader url={'/alice/OPS/package.opf'} title={'Alice in Wonderland'} />
+          <ReactReader
+            url={'/alice/OPS/package.opf'}
+            title={'Alice in wonderland'}
+            location={'https://s3-eu-west-1.amazonaws.com/react-reader/alice.epub'}
+          />
         </div>
       </div>
     )

@@ -1,4 +1,7 @@
 export default {
+  container: {
+    overflow: 'hidden'
+  },
   readerArea: {
     position: 'relative',
     zIndex: 1,
@@ -104,9 +107,18 @@ export default {
     transition: 'all .5s ease'
   },
   tocButtonBarTop: {
-    top: '27%'
+    top: '35%'
   },
   tocButtonBottom: {
-    top: '73%'
+    top: '66%'
+  },
+  loadingView: {
+    position: 'absolute',
+    top: '50%',
+    left: '10%',
+    right: '10%',
+    color: '#ccc',
+    textAlign: 'center',
+    margintop: '-.5em'
   }
 }

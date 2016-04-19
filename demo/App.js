@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {ReactReader} from '../src'
 import styles from './style'
-import logo from 'file!./react-reader.svg'
+import logo from 'file?name=[name].[ext]!./react-reader.svg'
 
 class App extends Component {
   constructor (props) {
@@ -41,9 +41,9 @@ class App extends Component {
         </div>
         <div style={Object.assign({}, styles.readerHolder, fullscreen ? styles.readerHolderFullscreen : {})}>
           <ReactReader
-            url={'/alice/OPS/package.opf'}
+            url={'https://s3-eu-west-1.amazonaws.com/react-reader/alice.epub'}
             title={'Alice in wonderland'}
-            location={'https://s3-eu-west-1.amazonaws.com/react-reader/alice.epub'}
+            location={'chapter_001.xhtml'}
           />
         </div>
       </div>

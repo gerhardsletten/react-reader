@@ -29,10 +29,6 @@ module.exports = {
         },
         include: path.join(__dirname, '..'),
         exclude: /node_modules/
-      },
-      {
-        test: /\.less$/,
-        loader: 'style!css!less'
       }
     ]
   }

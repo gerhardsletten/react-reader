@@ -35,4 +35,4 @@ node_modules
 
 lib
 www/bundle.js
-www/alice
+www/*.svg

@@ -2,7 +2,6 @@ var path = require('path')
 var webpack = require('webpack')
 var OpenBrowserPlugin = require('open-browser-webpack-plugin')
 
-console.log(__dirname)
 module.exports = {
   devtool: 'eval',
   entry: [
@@ -38,14 +37,12 @@ module.exports = {
           cacheDirectory: true
         },
         exclude: /node_modules/
-      }
-      /*
+      },
       {
         test: /\.js$/,
         loader: 'eslint-loader',
         exclude: /node_modules/
       }
-      */
     ]
   }
 }

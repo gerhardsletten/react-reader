@@ -12,12 +12,14 @@ Since it the underlaying library is using [epub.js](https://github.com/futurepre
 
 [epub.js](https://github.com/futurepress/epub.js) is a great library, and this is a wrapper for this library, making it easier to use in a React-app.
 
+```js
 import {
   EpubView, // Underlaying epub-canvas (wrapper for epub.js iframe)
   EpubViewStyle, // Styles for EpubView, you can pass it to the instance as a style prop for customize it
   ReactReader, // A simple epub-reader with left/right button and chapter navigation
   ReactReaderStyle // Styles for the epub-reader it you need to customize it
 } from 'react-reader'
+```
 
 ## Usage ##
 

@@ -45,7 +45,6 @@
   },
   "dependencies": {
     "epubjs": "git+ssh://git@github.com/gerhardsletten/epub.js.git#v0.3",
-    "lodash.throttle": "^4.0.1",
     "react": "^0.14.6"
   }
 }

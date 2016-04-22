@@ -11,7 +11,7 @@
     "lint": "eslint -c .eslintrc src demo; exit 0",
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "gh-pages-deploy",
-    "clean-source": "rimraf demo lib node_modules src www .babelrc .eslintrc .npmignore package.json README.md webpack.build.config.js webpack.config.js react-reader.svg index.html bundle.js"
+    "clean-source": "rimraf demo lib node_modules src www .babelrc .eslintrc .npmignore package.json README.md webpack.build.config.js webpack.config.js"
   },
   "repository": {
     "type": "git",

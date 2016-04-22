@@ -10,7 +10,8 @@
     "build": "webpack -p --verbose --colors --display-error-details --config ./webpack.build.config.js",
     "lint": "eslint -c .eslintrc src demo; exit 0",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "gh-pages-deploy"
+    "deploy": "gh-pages-deploy",
+    "clean-source": "rimraf demo lib node_modules src www .babelrc .eslintrc .npmignore package.json README.md webpack.build.config.js webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -42,6 +43,7 @@
     "open-browser-webpack-plugin": "0.0.2",
     "react-dom": "^0.14.6",
     "react-hot-loader": "^1.3.0",
+    "rimraf": "^2.5.2",
     "style-loader": "^0.13.1",
     "webpack": "^1.12.11",
     "webpack-dev-server": "^1.14.1"

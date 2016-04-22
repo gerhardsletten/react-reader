@@ -55,7 +55,7 @@
   "gh-pages-deploy": {
     "staticpath": "www",
     "prep": [
-      "npm run build"
+      "build"
     ],
     "post": [
       "clean-source"

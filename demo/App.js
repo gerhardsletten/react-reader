@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {ReactReader} from '../src'
-import styles from './style'
+import styles from './App.css'
 import logo from 'file?name=[name].[ext]!./react-reader.svg'
 
 class App extends Component {
@@ -26,20 +26,17 @@ class App extends Component {
   render () {
     const {fullscreen} = this.state
     return (
-      <div style={styles.container}>
-        <div style={styles.bar}>
+      <div className={styles.container}>
+        <div className={styles.bar}>
           <a href='https://github.com/gerhardsletten/react-reader'>
-            <img src={logo} style={styles.logo} alt='React-reader - powered by epubjs' />
+            <img src={logo} className={styles.logo} alt='React-reader - powered by epubjs' />
           </a>
-          <button onClick={this.toggleFullscreen.bind(this)} style={styles.closeLink}>
+          <button onClick={this.toggleFullscreen.bind(this)} className={styles.closeLink}>
             Use full browser window
-            <span style={styles.closeIcon}>
-              <span style={Object.assign({}, styles.closeIconBar)} />
-              <span style={Object.assign({}, styles.closeIconBar, styles.closeIconBarLast)} />
-            </span>
+            <span className={styles.closeIcon}></span>
           </button>
         </div>
-        <div style={Object.assign({}, styles.readerHolder, fullscreen ? styles.readerHolderFullscreen : {})}>
+        <div className={fullscreen ? styles.readerHolderFullscreen : styles.readerHolder}>
           <ReactReader
             url={'https://s3-eu-west-1.amazonaws.com/react-reader/alice.epub'}
             title={'Alice in wonderland'}

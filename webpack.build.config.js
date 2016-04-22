@@ -29,6 +29,10 @@ module.exports = {
         },
         include: path.join(__dirname, '..'),
         exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        loader: 'style!css?modules'
       }
     ]
   }

@@ -36,24 +36,32 @@ import {ReactReader} from 'react-reader'
 class App extends Component {
   render () {
     return (
-      /* The ReactReader will expand to 100% of width/height, so be sure to set a height on the parent element, either with position it absolute of window, set height or use paddingTop for proporsjonal scaling */
-      <div style={{position: 'relative', height: '100%'}}>
+      <div style={{position: 'relative', height: '100%'}}> // * Container needs a height..
         <ReactReader 
           url={'/alice.epub'} 
           title={'Alice in wonderland'}
-          loadingView={return (
-            <div style={{position: 'absolute', top: '50%', left: '10%', right: '10%', textAlign: 'center'}}>Loading epub</div>
-          )} 
-          showToc={false}
           location={'epubcfi(/6/2[cover]!/6)'}
           locationChanged={(epubcifi) => console.log(epubcifi)}
-          tocChanged={(toc) => console.log(toc)}
         />
       </div>
     )
   }
 }
 ```
+
+#### ReactReader props ####
+
+* `url` [string, required] - url to the epub-file, if its on another domain, remember to add cors for the file
+* `title` [string] - the title of the book, displayed above the reading-canvas
+* `loadingView` [element] - if you want to customize the loadingView
+* `showToc` [bool] - wheather to show the toc / toc-nav
+* `location` [string, number] - set / update location of the epub
+* `locationChange` [func] - a function that recives the current location while user is reading
+* `tocChange` [func] - when the the reader has parsed the book you will recive an array of the chapters
+
+
+*Container needs a height..*
+The ReactReader will expand to 100% of width/height, so be sure to set a height on the parent element, either with position it absolute of window, set height or use paddingTop for proporsjonal scaling.
 
 ### Optional use the underlaying EpubView ###
 
@@ -65,15 +73,11 @@ import {EpubView} from 'react-reader'
 
 class App extends Component {
   render () {
-    const {fullscreen} = this.state
     return (
       /* The ReactReader will expand to 100% of width/height, so be sure to set a height on the parent element, either with position it absolute of window, set height or use paddingTop for proporsjonal scaling */
       <div style={{position: 'relative', height: '100%'}}>
         <EpubView 
           url={'/alice.epub'} 
-          loadingView={return (
-            <div style={{position: 'absolute', top: '50%', left: '10%', right: '10%', textAlign: 'center'}}>Loading epub</div>
-          )} 
           location={'epubcfi(/6/2[cover]!/6)'}
           locationChanged={(epubcifi) => console.log(epubcifi)}
           tocChanged={(toc) => console.log(toc)}
@@ -83,5 +87,13 @@ class App extends Component {
   }
 }
 ```
+
+#### EpubView props ####
+
+* `url` [string, required] - url to the epub-file, if its on another domain, remember to add cors for the file
+* `loadingView` [element] - if you want to customize the loadingView
+* `location` [string, number] - set / update location of the epub
+* `locationChange` [func] - a function that recives the current location while user is reading
+* `tocChange` [func] - when the the reader has parsed the book you will recive an array of the chapters
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)

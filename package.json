@@ -9,7 +9,8 @@
     "start": "webpack-dev-server --port 3001 --host 0.0.0.0 --progress --colors --hot --content-base ./www --config ./webpack.config.js",
     "build": "webpack -p --verbose --colors --display-error-details --config ./webpack.build.config.js",
     "lint": "eslint -c .eslintrc src demo; exit 0",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "gh-pages-deploy"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
     "eslint-plugin-react": "^3.15.0",
     "eslint-plugin-standard": "^1.3.1",
     "file-loader": "^0.8.5",
+    "gh-pages-deploy": "^0.4.2",
     "open-browser-webpack-plugin": "0.0.2",
     "react-dom": "^0.14.6",
     "react-hot-loader": "^1.3.0",
@@ -47,5 +49,15 @@
   "dependencies": {
     "epubjs": "git+ssh://git@github.com/gerhardsletten/epub.js.git#v0.3",
     "react": "^0.14.6"
-  }
+  },
+  "gh-pages-deploy": {
+    "staticpath": "www",
+    "prep": [
+      "npm run build"
+    ],
+    "post": [
+      "clean-source"
+    ],
+    "noprompt": false
+  },
 }

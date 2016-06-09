@@ -49,7 +49,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "epubjs": "git+ssh://git@github.com/gerhardsletten/epub.js.git#v0.3"
+    "epubjs": "git+https://git@github.com/gerhardsletten/epub.js.git#v0.3"
   },
   "peerDependencies": {
     "react": ">=15.0.0"

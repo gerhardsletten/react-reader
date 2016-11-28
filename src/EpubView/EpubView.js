@@ -2,6 +2,8 @@ import React, {Component, PropTypes} from 'react'
 import Epub from 'epubjs'
 import defaultStyles from './style'
 
+global.ePub = Epub // Fix for v3 branch of epub.js -> needs ePub to by a global var
+
 class EpubView extends Component {
 
   constructor (props) {
@@ -40,7 +42,6 @@ class EpubView extends Component {
     const {toc} = this.state
     const {location, locationChanged} = this.props
     this.rendition = this.book.renderTo(viewer, {
-      method: 'paginate',
       contained: true,
       width: '100%',
       height: '100%'
@@ -67,7 +68,7 @@ class EpubView extends Component {
   renderBook () {
     const {styles} = this.props
     return (
-      <div ref='viewer' style={styles.view}></div>
+      <div ref='viewer' style={styles.view} />
     )
   }
 

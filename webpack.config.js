@@ -5,6 +5,7 @@ var OpenBrowserPlugin = require('open-browser-webpack-plugin')
 module.exports = {
   devtool: 'eval',
   entry: [
+    'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:3001',
     'webpack/hot/only-dev-server',
     './demo/index'
@@ -20,16 +21,17 @@ module.exports = {
     new OpenBrowserPlugin({ url: 'http://localhost:3001' })
   ],
   resolve: {
+    alias: {
+      'path': 'path-webpack'
+    },
     extensions: ['', '.js', '.jsx']
+  },
+  devServer: {
+    hot: true,
+    contentBase: './www'
   },
   module: {
     loaders: [
-      {
-        test: /\.js$/,
-        loader: 'react-hot',
-        include: path.join(__dirname, '..'),
-        exclude: /node_modules/
-      },
       {
         test: /\.js$/,
         loader: 'babel',

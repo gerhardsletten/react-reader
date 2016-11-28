@@ -4,7 +4,6 @@ var webpack = require('webpack')
 module.exports = {
   entry: {
     main: [
-      'babel-polyfill',
       './demo/index'
     ]
   },
@@ -14,9 +13,17 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    })
   ],
   resolve: {
+    alias: {
+      'path': 'path-webpack'
+    },
     extensions: ['', '.js', '.jsx']
   },
   module: {

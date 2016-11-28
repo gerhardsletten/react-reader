@@ -11,7 +11,7 @@ class App extends Component {
     }
   }
 
-  toggleFullscreen () {
+  toggleFullscreen = () => {
     this.setState({
       fullscreen: !this.state.fullscreen
     }, () => {
@@ -31,9 +31,9 @@ class App extends Component {
           <a href='https://github.com/gerhardsletten/react-reader'>
             <img src={logo} className={styles.logo} alt='React-reader - powered by epubjs' />
           </a>
-          <button onClick={this.toggleFullscreen.bind(this)} className={styles.closeLink}>
+          <button onClick={this.toggleFullscreen} className={styles.closeLink}>
             Use full browser window
-            <span className={styles.closeIcon}></span>
+            <span className={styles.closeIcon} />
           </button>
         </div>
         <div className={fullscreen ? styles.readerHolderFullscreen : styles.readerHolder}>

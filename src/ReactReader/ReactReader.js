@@ -2,6 +2,25 @@ import React, {Component, PropTypes} from 'react'
 import {EpubView} from '..'
 import defaultStyles from './style'
 
+class TocItem extends Component {
+  setLocation = () => {
+    this.props.setLocation(this.props.href)
+  }
+  render () {
+    const {label, styles} = this.props
+    return (
+      <button onClick={this.setLocation} style={styles}>{label}</button>
+    )
+  }
+}
+
+TocItem.propTypes = {
+  label: PropTypes.string,
+  href: PropTypes.string,
+  setLocation: PropTypes.func,
+  styles: PropTypes.object
+}
+
 class ReactReader extends Component {
 
   constructor (props) {
@@ -14,35 +33,30 @@ class ReactReader extends Component {
     }
   }
 
-  toggleToc () {
+  toggleToc = () => {
     this.setState({
       expanedToc: !this.state.expanedToc
     })
   }
 
-  next () {
+  next = () => {
     this.refs.reader.nextPage()
   }
 
-  prev () {
+  prev = () => {
     this.refs.reader.prevPage()
   }
 
-  onTocChange (toc) {
+  onTocChange = (navigation) => {
     const {tocChanged} = this.props
     this.setState({
-      toc: toc
-    }, () => tocChanged && tocChanged(toc))
+      toc: navigation.toc
+    }, () => tocChanged && tocChanged(navigation.toc))
   }
 
-  onLocationChange (loc) {
+  onLocationChange = (loc) => {
     const {locationChanged} = this.props
     return locationChanged && locationChanged(loc)
-    /* Should we update location?
-    this.setState({
-      location: loc
-    }, () => locationChanged && locationChanged(loc))
-    */
   }
 
   renderToc () {
@@ -52,14 +66,14 @@ class ReactReader extends Component {
       <div style={styles.tocArea}>
         <div style={styles.toc}>
           {toc.map((item, i) =>
-            <button key={item.href} onClick={this.setLocation.bind(this, item.href)} style={styles.tocAreaButton}>{item.label}</button>
+            <TocItem key={item.href} {...item} setLocation={this.setLocation} styles={styles.tocAreaButton} />
           )}
         </div>
       </div>
     )
   }
 
-  setLocation (loc) {
+  setLocation = (loc) => {
     this.setState({
       location: loc,
       expanedToc: false
@@ -70,7 +84,7 @@ class ReactReader extends Component {
     const {expanedToc} = this.state
     const {styles} = this.props
     return (
-      <button style={Object.assign({}, styles.tocButton, expanedToc ? styles.tocButtonExpaned : {})} onClick={this.toggleToc.bind(this)}>
+      <button style={Object.assign({}, styles.tocButton, expanedToc ? styles.tocButtonExpaned : {})} onClick={this.toggleToc}>
         <span style={Object.assign({}, styles.tocButtonBar, styles.tocButtonBarTop)} />
         <span style={Object.assign({}, styles.tocButtonBar, styles.tocButtonBottom)} />
       </button>
@@ -92,12 +106,12 @@ class ReactReader extends Component {
               url={url}
               location={location}
               loadingView={loadingView}
-              tocChanged={this.onTocChange.bind(this)}
-              locationChanged={this.onLocationChange.bind(this)}
+              tocChanged={this.onTocChange}
+              locationChanged={this.onLocationChange}
             />
           </div>
-          <button style={Object.assign({}, styles.arrow, styles.prev)} onClick={this.prev.bind(this)}>‹</button>
-          <button style={Object.assign({}, styles.arrow, styles.next)} onClick={this.next.bind(this)}>›</button>
+          <button style={Object.assign({}, styles.arrow, styles.prev)} onClick={this.prev}>‹</button>
+          <button style={Object.assign({}, styles.arrow, styles.next)} onClick={this.next}>›</button>
         </div>
         {showToc && toc && this.renderToc()}
       </div>

@@ -18,7 +18,7 @@ class EpubView extends Component {
   componentDidMount () {
     const {url, tocChanged} = this.props
     this.book = new Epub(url)
-    this.book.loaded.navigation.then((toc) => {
+    this.book.loaded.navigation.then(({toc}) => {
       this.setState({
         isLoaded: true,
         toc: toc
@@ -46,7 +46,7 @@ class EpubView extends Component {
       width: '100%',
       height: '100%'
     })
-    this.rendition.display(location || toc[0].href)
+    this.rendition.display(location === undefined ? toc[0].href : location)
 
     this.prevPage = () => {
       this.rendition.prev()

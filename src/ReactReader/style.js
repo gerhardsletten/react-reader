@@ -1,6 +1,7 @@
 export default {
   container: {
-    overflow: 'hidden'
+    overflow: 'hidden',
+    height: '100%'
   },
   readerArea: {
     position: 'relative',

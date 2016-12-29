@@ -21,9 +21,6 @@ module.exports = {
     })
   ],
   resolve: {
-    alias: {
-      'path': 'path-webpack'
-    },
     extensions: ['', '.js', '.jsx']
   },
   module: {

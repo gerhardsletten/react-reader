@@ -45,7 +45,6 @@
     "file-loader": "^0.9.0",
     "gh-pages-deploy": "^0.4.2",
     "open-browser-webpack-plugin": "0.0.3",
-    "path-webpack": "0.0.2",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-hot-loader": "^3.0.0-beta.6",
@@ -56,7 +55,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "epubjs": "git+https://git@github.com/futurepress/epub.js.git#v0.3"
+    "epubjs": "^0.3.7"
   },
   "peerDependencies": {
     "react": ">=15.0.0"

@@ -21,9 +21,6 @@ module.exports = {
     new OpenBrowserPlugin({ url: 'http://localhost:3001' })
   ],
   resolve: {
-    alias: {
-      'path': 'path-webpack'
-    },
     extensions: ['', '.js', '.jsx']
   },
   devServer: {

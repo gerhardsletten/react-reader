@@ -1,6 +1,5 @@
 var path = require('path')
 var webpack = require('webpack')
-var OpenBrowserPlugin = require('open-browser-webpack-plugin')
 
 module.exports = {
   devtool: 'eval',
@@ -17,8 +16,7 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new OpenBrowserPlugin({ url: 'http://localhost:3001' })
+    new webpack.NoErrorsPlugin()
   ],
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -41,11 +39,11 @@ module.exports = {
         test: /\.css$/,
         loader: 'style!css?modules'
       },
-      {
+      /*{
         test: /\.js$/,
         loader: 'eslint-loader',
         exclude: /node_modules/
-      }
+      }*/
     ]
   }
 }

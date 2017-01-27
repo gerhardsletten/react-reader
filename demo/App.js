@@ -3,11 +3,14 @@ import {ReactReader} from '../src'
 import styles from './App.css'
 import logo from 'file?name=[name].[ext]!./react-reader.svg'
 
+const storage = global.localStorage || null
+
 class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      fullscreen: false
+      fullscreen: true,
+      location: (storage && storage.getItem('epub-location')) ? storage.getItem('epub-location') : 0
     }
   }
 
@@ -23,8 +26,12 @@ class App extends Component {
     })
   }
 
+  onLocationChanged = (loc) => {
+    storage && storage.setItem('epub-location', loc)
+  }
+
   render () {
-    const {fullscreen} = this.state
+    const {fullscreen, location} = this.state
     return (
       <div className={styles.container}>
         <div className={styles.bar}>
@@ -39,8 +46,9 @@ class App extends Component {
         <div className={fullscreen ? styles.readerHolderFullscreen : styles.readerHolder}>
           <ReactReader
             url={'https://s3-eu-west-1.amazonaws.com/react-reader/alice.epub'}
+            locationChanged={this.onLocationChanged}
             title={'Alice in wonderland'}
-            location={'chapter_001.xhtml'}
+            location={location}
           />
         </div>
       </div>

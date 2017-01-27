@@ -9,6 +9,6 @@ render((<AppContainer><App /></AppContainer>), document.getElementById('main'))
 if (module.hot) {
   module.hot.accept('./App', () => {
     const NextRoot = require('./App').default
-    render((<NextRoot />), document.getElementById('main'))
+    render((<AppContainer><NextRoot /></AppContainer>), document.getElementById('main'))
   })
 }

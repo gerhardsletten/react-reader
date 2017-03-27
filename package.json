@@ -55,7 +55,7 @@
     "webpack-dev-server": "^2.4.2"
   },
   "dependencies": {
-    "epubjs": "^0.3.18"
+    "epubjs": "^0.3.22"
   },
   "peerDependencies": {
     "react": ">=15.0.0"

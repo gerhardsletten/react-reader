@@ -118,14 +118,8 @@ class ReactReader extends Component {
   }
 }
 
-class LoadingView extends Component {
-  render () {
-    return <div style={defaultStyles.loadingView}>Loading…</div>
-  }
-}
-
 ReactReader.defaultProps = {
-  loadingView: <LoadingView />,
+  loadingView: <div style={defaultStyles.loadingView}>Loading…</div>,
   locationChanged: null,
   tocChanged: null,
   showToc: true,

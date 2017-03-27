@@ -1,11 +1,10 @@
 import React, {Component, PropTypes} from 'react'
-import Epub from 'epubjs'
+import Epub from 'epubjs/lib/index.js'
 import defaultStyles from './style'
 
 global.ePub = Epub // Fix for v3 branch of epub.js -> needs ePub to by a global var
 
 class EpubView extends Component {
-
   constructor (props) {
     super(props)
     this.state = {
@@ -77,7 +76,7 @@ class EpubView extends Component {
     const {loadingView, styles} = this.props
     return (
       <div style={styles.viewHolder}>
-        {isLoaded && this.renderBook() || loadingView}
+        {(isLoaded && this.renderBook()) || loadingView}
       </div>
     )
   }

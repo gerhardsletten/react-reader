@@ -22,7 +22,6 @@ TocItem.propTypes = {
 }
 
 class ReactReader extends Component {
-
   constructor (props) {
     super(props)
     const {location} = this.props

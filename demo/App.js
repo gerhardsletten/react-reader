@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {ReactReader} from '../src'
 import styles from './App.css'
-import logo from 'file?name=[name].[ext]!./react-reader.svg'
+import logo from './react-reader.svg'
 
 const storage = global.localStorage || null
 
@@ -21,7 +21,7 @@ class App extends Component {
       setTimeout(() => {
         const evt = document.createEvent('UIEvents')
         evt.initUIEvent('resize', true, false, global, 0)
-        global.dispatchEvent(evt)
+        // global.dispatchEvent(evt)
       }, 1000)
     })
   }

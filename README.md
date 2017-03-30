@@ -6,9 +6,9 @@ An ePub-reader for react powered by EpubJS #react #epubjs #webpack #babel #stand
 
 ![React Reader logo](https://s3-eu-west-1.amazonaws.com/react-reader/react-reader.svg)
 
-## In beta ##
+## React wrapper for epubjs ##
 
-Since it the underlaying library is using [epub.js](https://github.com/futurepress/epub.js) we need their v0.3 version to be finalized which bring commom modules to the library. Write now we use a custom fork of the work in progress branch.
+React reader is an react-wrapper for [epub.js](https://github.com/futurepress/epub.js), using the v.03 branch.
 
 ## About ##
 

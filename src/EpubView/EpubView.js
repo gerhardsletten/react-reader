@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react'
-import Epub from 'epubjs/lib/index.js'
+import Epub from '@gerhardsletten/epubjs/lib/index.js'
 import defaultStyles from './style'
 
 global.ePub = Epub // Fix for v3 branch of epub.js -> needs ePub to by a global var
@@ -39,11 +39,12 @@ class EpubView extends Component {
   initReader () {
     const {viewer} = this.refs
     const {toc} = this.state
-    const {location, locationChanged} = this.props
+    const {location, locationChanged, epubOptions} = this.props
     this.rendition = this.book.renderTo(viewer, {
       contained: true,
       width: '100%',
-      height: '100%'
+      height: '100%',
+      ...epubOptions
     })
     this.rendition.display(location === undefined ? toc[0].href : location)
 
@@ -86,7 +87,8 @@ EpubView.defaultProps = {
   loadingView: null,
   locationChanged: null,
   tocChanged: null,
-  styles: defaultStyles
+  styles: defaultStyles,
+  epubOptions: {}
 }
 
 EpubView.propTypes = {
@@ -98,7 +100,8 @@ EpubView.propTypes = {
   ]),
   locationChanged: PropTypes.func,
   tocChanged: PropTypes.func,
-  styles: PropTypes.object
+  styles: PropTypes.object,
+  epubOptions: PropTypes.object
 }
 
 export default EpubView

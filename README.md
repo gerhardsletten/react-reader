@@ -8,7 +8,7 @@ An ePub-reader for react powered by EpubJS #react #epubjs #webpack #babel #stand
 
 ## React wrapper for epubjs ##
 
-React reader is an react-wrapper for [epub.js](https://github.com/futurepress/epub.js), using the v.03 branch.
+React reader is an react-wrapper for [epub.js](https://github.com/futurepress/epub.js), using the v.03 branch. We are currently using a [custom branch of epub.js#v3](https://github.com/gerhardsletten/epub.js) to ensure that breaking changes is avoided. Its published on to [@gerhardsletten/epubjs](https://www.npmjs.com/package/@gerhardsletten/epubjs)
 
 ## About ##
 
@@ -58,6 +58,8 @@ class App extends Component {
 * `location` [string, number] - set / update location of the epub
 * `locationChange` [func] - a function that recives the current location while user is reading
 * `tocChange` [func] - when the the reader has parsed the book you will recive an array of the chapters
+* `styles` [object] - override the default styles
+* `epubOptions` [object] - pass custom properties to the epub rendition
 
 
 *Container needs a height..*
@@ -71,6 +73,10 @@ This is just the plain epub canvas, you will then need to implement the reader s
 import React, {Component} from 'react'
 import {EpubView} from 'react-reader'
 
+const epubOptions = {
+  disableSrcdoc: true // If you use react-reader within cordova you need to set this because cordova webview will silently disable srcdoc for iframes, see https://issues.apache.org/jira/browse/CB-7379
+}
+
 class App extends Component {
   render () {
     return (
@@ -81,6 +87,7 @@ class App extends Component {
           location={'epubcfi(/6/2[cover]!/6)'}
           locationChanged={(epubcifi) => console.log(epubcifi)}
           tocChanged={(toc) => console.log(toc)}
+          epubOptions={epubOptions}
         />
       </div>
     )
@@ -95,5 +102,7 @@ class App extends Component {
 * `location` [string, number] - set / update location of the epub
 * `locationChange` [func] - a function that recives the current location while user is reading
 * `tocChange` [func] - when the the reader has parsed the book you will recive an array of the chapters
+* `styles` [object] - override the default styles
+* `epubOptions` [object] - pass custom properties to the epub rendition
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)

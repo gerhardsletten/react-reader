@@ -42,12 +42,32 @@ class App extends Component {
           title={'Alice in wonderland'}
           location={'epubcfi(/6/2[cover]!/6)'}
           locationChanged={(epubcifi) => console.log(epubcifi)}
+          getRendition={this.getRendition}
         />
       </div>
     )
   }
+  onRenditionSelection = (cfiRange, contents) => {
+    console.log('Selection was created', cfiRange, contents)
+    contents.mark(cfiRange, {}, (e) => {
+      console.log('You clicked the selection')
+    })
+    contents.highlight(cfiRange)
+    contents.window.getSelection().removeAllRanges()
+  }
+  getRendition = (rendition) => {
+    // Get access to core events from epubjs
+    rendition.on('selected', this.onRenditionSelection)
+    // Add custom styles
+    rendition.themes.default({
+      '::selection': {
+        'background': 'rgba(255,255,0, 0.3)'
+      }
+    })
 }
 ```
+
+See `demo/App.js` for an example of using the selection api in epubjs.
 
 #### ReactReader props ####
 
@@ -60,6 +80,7 @@ class App extends Component {
 * `tocChange` [func] - when the the reader has parsed the book you will recive an array of the chapters
 * `styles` [object] - override the default styles
 * `epubOptions` [object] - pass custom properties to the epub rendition
+* `getRendition` [func] - when epubjs has rendered the epub-file you can get access to the epubjs-rendition object here
 
 
 *Container needs a height..*
@@ -104,5 +125,6 @@ class App extends Component {
 * `tocChange` [func] - when the the reader has parsed the book you will recive an array of the chapters
 * `styles` [object] - override the default styles
 * `epubOptions` [object] - pass custom properties to the epub rendition
+* `getRendition` [func] - when epubjs has rendered the epub-file you can get access to the epubjs-rendition object here
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)

@@ -27,10 +27,12 @@ class EpubView extends Component {
         this.initReader()
       })
     })
+    document.addEventListener('keydown', this.handleKeyPress, false)
   }
 
   componentWillUnmount () {
     this.book = this.rendition = this.prevPage = this.nextPage = null
+    document.removeEventListener('keydown', this.handleKeyPress, false)
   }
 
   shouldComponentUpdate (nextProps, nextState) {
@@ -40,7 +42,7 @@ class EpubView extends Component {
   initReader () {
     const {viewer} = this.refs
     const {toc} = this.state
-    const {location, locationChanged, epubOptions} = this.props
+    const {location, locationChanged, epubOptions, getRendition} = this.props
     this.rendition = this.book.renderTo(viewer, {
       contained: true,
       width: '100%',
@@ -58,6 +60,7 @@ class EpubView extends Component {
     this.rendition.on('locationChanged', (loc) => {
       loc && loc.end && locationChanged && locationChanged(loc.end)
     })
+    getRendition && getRendition(this.rendition)
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -71,6 +74,11 @@ class EpubView extends Component {
     return (
       <div ref='viewer' style={styles.view} />
     )
+  }
+
+  handleKeyPress = ({key}) => {
+    key && key === 'ArrowRight' && this.nextPage()
+    key && key === 'ArrowLeft' && this.prevPage()
   }
 
   render () {
@@ -102,7 +110,8 @@ EpubView.propTypes = {
   locationChanged: PropTypes.func,
   tocChanged: PropTypes.func,
   styles: PropTypes.object,
-  epubOptions: PropTypes.object
+  epubOptions: PropTypes.object,
+  getRendition: PropTypes.func
 }
 
 export default EpubView

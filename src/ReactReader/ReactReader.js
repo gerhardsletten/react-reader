@@ -92,7 +92,7 @@ class ReactReader extends Component {
   }
 
   render () {
-    const {url, title, showToc, loadingView, epubOptions, styles} = this.props
+    const {url, title, showToc, loadingView, epubOptions, styles, getRendition} = this.props
     const {toc, location, expanedToc} = this.state
     return (
       <div style={styles.container}>
@@ -108,6 +108,7 @@ class ReactReader extends Component {
               tocChanged={this.onTocChange}
               locationChanged={this.onLocationChange}
               epubOptions={epubOptions}
+              getRendition={getRendition}
             />
           </div>
           <button style={Object.assign({}, styles.arrow, styles.prev)} onClick={this.prev}>‹</button>
@@ -139,7 +140,8 @@ ReactReader.propTypes = {
   locationChanged: PropTypes.func,
   tocChanged: PropTypes.func,
   styles: PropTypes.object,
-  epubOptions: PropTypes.object
+  epubOptions: PropTypes.object,
+  getRendition: PropTypes.func
 }
 
 export default ReactReader

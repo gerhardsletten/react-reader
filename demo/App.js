@@ -9,7 +9,7 @@ class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      fullscreen: true,
+      fullscreen: false,
       location: (storage && storage.getItem('epub-location')) ? storage.getItem('epub-location') : 0
     }
   }

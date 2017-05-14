@@ -33,6 +33,14 @@ class ReactReader extends Component {
     }
   }
 
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.location !== this.props.location) {
+      this.setState({
+        location: nextProps.location
+      })
+    }
+  }
+
   toggleToc = () => {
     this.setState({
       expanedToc: !this.state.expanedToc

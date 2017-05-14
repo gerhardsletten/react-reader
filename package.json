@@ -55,7 +55,7 @@
     "webpack-dev-server": "^2.4.2"
   },
   "dependencies": {
-    "@gerhardsletten/epubjs": "0.3.33",
+    "@gerhardsletten/epubjs": "0.3.34",
     "prop-type": "0.0.1"
   },
   "peerDependencies": {

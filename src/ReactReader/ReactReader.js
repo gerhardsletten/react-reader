@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import {EpubView} from '..'
 import defaultStyles from './style'
 
-class TocItem extends Component {
+class TocItem extends PureComponent {
   setLocation = () => {
     this.props.setLocation(this.props.href)
   }
@@ -22,25 +22,14 @@ TocItem.propTypes = {
   styles: PropTypes.object
 }
 
-class ReactReader extends Component {
+class ReactReader extends PureComponent {
   constructor (props) {
     super(props)
-    const {location} = this.props
     this.state = {
       expanedToc: false,
-      toc: false,
-      location: location
+      toc: false
     }
   }
-
-  componentWillReceiveProps (nextProps, nextState) {
-    if (nextProps.location !== this.props.location && nextProps.location !== this.state.location) {
-      this.setState({
-        location: nextProps.location
-      })
-    }
-  }
-
   toggleToc = () => {
     this.setState({
       expanedToc: !this.state.expanedToc
@@ -77,10 +66,10 @@ class ReactReader extends Component {
   }
 
   setLocation = (loc) => {
+    const {locationChanged} = this.props
     this.setState({
-      location: loc,
       expanedToc: false
-    })
+    }, () => locationChanged && locationChanged(loc))
   }
 
   renderTocToggle () {
@@ -95,8 +84,8 @@ class ReactReader extends Component {
   }
 
   render () {
-    const {url, title, showToc, loadingView, epubOptions, styles, getRendition, locationChanged} = this.props
-    const {toc, location, expanedToc} = this.state
+    const {url, title, showToc, loadingView, epubOptions, styles, getRendition, locationChanged, location} = this.props
+    const {toc, expanedToc} = this.state
     return (
       <div style={styles.container}>
         <div style={Object.assign({}, styles.readerArea, expanedToc ? styles.containerExpaned : {})}>

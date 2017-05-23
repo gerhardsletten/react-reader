@@ -12,6 +12,7 @@ class EpubView extends PureComponent {
       isLoaded: false,
       toc: []
     }
+    this.location = props.location
     this.book = this.rendition = this.prevPage = this.nextPage = null
   }
 
@@ -39,9 +40,9 @@ class EpubView extends PureComponent {
     return !this.state.isLoaded || nextProps.location !== this.props.location
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.location !== this.props.location) {
-      this.rendition.display(nextProps.location)
+  componentDidUpdate (prevProps) {
+    if (prevProps.location !== this.props.location && this.location !== this.props.location) {
+      this.rendition.display(this.props.location)
     }
   }
 
@@ -70,7 +71,10 @@ class EpubView extends PureComponent {
   onLocationChange = (loc) => {
     const {location, locationChanged} = this.props
     const newLocation = loc && loc.start
-    return location !== newLocation && newLocation && locationChanged && locationChanged(newLocation)
+    if (location !== newLocation) {
+      this.location = newLocation
+      locationChanged && locationChanged(newLocation)
+    }
   }
 
   renderBook () {

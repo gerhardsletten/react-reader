@@ -58,7 +58,7 @@ class EpubView extends Component {
       this.rendition.next()
     }
     this.rendition.on('locationChanged', (loc) => {
-      loc && loc.end && locationChanged && locationChanged(loc.end)
+      loc && loc.start && locationChanged && locationChanged(loc.start)
     })
     getRendition && getRendition(this.rendition)
   }

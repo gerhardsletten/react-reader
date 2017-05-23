@@ -1,11 +1,11 @@
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import Epub from '@gerhardsletten/epubjs/lib/index.js'
 import defaultStyles from './style'
 
 global.ePub = Epub // Fix for v3 branch of epub.js -> needs ePub to by a global var
 
-class EpubView extends Component {
+class EpubView extends PureComponent {
   constructor (props) {
     super(props)
     this.state = {
@@ -36,13 +36,19 @@ class EpubView extends Component {
   }
 
   shouldComponentUpdate (nextProps, nextState) {
-    return !this.state.isLoaded || nextProps.location !== this.state.location
+    return !this.state.isLoaded || nextProps.location !== this.props.location
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.location !== this.props.location) {
+      this.rendition.display(nextProps.location)
+    }
   }
 
   initReader () {
     const {viewer} = this.refs
     const {toc} = this.state
-    const {location, locationChanged, epubOptions, getRendition} = this.props
+    const {location, epubOptions, getRendition} = this.props
     this.rendition = this.book.renderTo(viewer, {
       contained: true,
       width: '100%',
@@ -57,16 +63,14 @@ class EpubView extends Component {
     this.nextPage = () => {
       this.rendition.next()
     }
-    this.rendition.on('locationChanged', (loc) => {
-      loc && loc.start && locationChanged && locationChanged(loc.start)
-    })
+    this.rendition.on('locationChanged', this.onLocationChange)
     getRendition && getRendition(this.rendition)
   }
 
-  componentDidUpdate (prevProps, prevState) {
-    if (prevProps.location !== this.props.location) {
-      this.rendition.display(this.props.location)
-    }
+  onLocationChange = (loc) => {
+    const {location, locationChanged} = this.props
+    const newLocation = loc && loc.start
+    return location !== newLocation && newLocation && locationChanged && locationChanged(newLocation)
   }
 
   renderBook () {

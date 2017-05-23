@@ -26,8 +26,12 @@ class App extends Component {
     })
   }
 
-  onLocationChanged = (loc) => {
-    storage && storage.setItem('epub-location', loc)
+  onLocationChanged = (location) => {
+    this.setState({
+      location
+    }, () => {
+      storage && storage.setItem('epub-location', location)
+    })
   }
 
   onRenditionSelection = (cfiRange, contents) => {
@@ -40,7 +44,6 @@ class App extends Component {
   }
 
   getRendition = (rendition) => {
-    console.log('getRendition callback with epubs rendition object', rendition)
     rendition.on('selected', this.onRenditionSelection)
     rendition.themes.default({
       '::selection': {

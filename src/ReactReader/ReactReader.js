@@ -33,8 +33,8 @@ class ReactReader extends Component {
     }
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.location !== this.props.location) {
+  componentWillReceiveProps (nextProps, nextState) {
+    if (nextProps.location !== this.props.location && nextProps.location !== this.state.location) {
       this.setState({
         location: nextProps.location
       })
@@ -60,11 +60,6 @@ class ReactReader extends Component {
     this.setState({
       toc: toc
     }, () => tocChanged && tocChanged(toc))
-  }
-
-  onLocationChange = (loc) => {
-    const {locationChanged} = this.props
-    return locationChanged && locationChanged(loc)
   }
 
   renderToc () {
@@ -100,7 +95,7 @@ class ReactReader extends Component {
   }
 
   render () {
-    const {url, title, showToc, loadingView, epubOptions, styles, getRendition} = this.props
+    const {url, title, showToc, loadingView, epubOptions, styles, getRendition, locationChanged} = this.props
     const {toc, location, expanedToc} = this.state
     return (
       <div style={styles.container}>
@@ -114,7 +109,7 @@ class ReactReader extends Component {
               location={location}
               loadingView={loadingView}
               tocChanged={this.onTocChange}
-              locationChanged={this.onLocationChange}
+              locationChanged={locationChanged}
               epubOptions={epubOptions}
               getRendition={getRendition}
             />

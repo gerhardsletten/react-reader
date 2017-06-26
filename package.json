@@ -56,7 +56,8 @@
   },
   "dependencies": {
     "@gerhardsletten/epubjs": "0.3.35",
-    "prop-type": "0.0.1"
+    "prop-type": "0.0.1",
+    "react-swipeable": "^4.0.0"
   },
   "peerDependencies": {
     "react": ">=15.0.0"

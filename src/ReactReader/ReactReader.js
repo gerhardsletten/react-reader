@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
+import Swipeable from 'react-swipeable'
 import {EpubView} from '..'
 import defaultStyles from './style'
 
@@ -84,25 +85,32 @@ class ReactReader extends PureComponent {
   }
 
   render () {
-    const {url, title, showToc, loadingView, epubOptions, styles, getRendition, locationChanged, location} = this.props
+    const {url, title, showToc, loadingView, epubOptions, styles, getRendition, locationChanged, location, swipeable} = this.props
     const {toc, expanedToc} = this.state
     return (
       <div style={styles.container}>
         <div style={Object.assign({}, styles.readerArea, expanedToc ? styles.containerExpaned : {})}>
           {showToc && this.renderTocToggle()}
           <div style={styles.titleArea}>{title}</div>
-          <div style={styles.reader}>
-            <EpubView
-              ref='reader'
-              url={url}
-              location={location}
-              loadingView={loadingView}
-              tocChanged={this.onTocChange}
-              locationChanged={locationChanged}
-              epubOptions={epubOptions}
-              getRendition={getRendition}
-            />
-          </div>
+          <Swipeable
+            onSwipedRight={this.prev}
+            onSwipedLeft={this.next}
+            trackMouse
+          >
+            <div style={styles.reader}>
+              <EpubView
+                ref='reader'
+                url={url}
+                location={location}
+                loadingView={loadingView}
+                tocChanged={this.onTocChange}
+                locationChanged={locationChanged}
+                epubOptions={epubOptions}
+                getRendition={getRendition}
+              />
+              {swipeable && <div style={styles.swipeWrapper} />}
+            </div>
+          </Swipeable>
           <button style={Object.assign({}, styles.arrow, styles.prev)} onClick={this.prev}>‹</button>
           <button style={Object.assign({}, styles.arrow, styles.next)} onClick={this.next}>›</button>
         </div>
@@ -133,7 +141,8 @@ ReactReader.propTypes = {
   tocChanged: PropTypes.func,
   styles: PropTypes.object,
   epubOptions: PropTypes.object,
-  getRendition: PropTypes.func
+  getRendition: PropTypes.func,
+  swipeable: PropTypes.bool
 }
 
 export default ReactReader

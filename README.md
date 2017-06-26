@@ -81,6 +81,7 @@ See `demo/App.js` for an example of using the selection api in epubjs.
 * `styles` [object] - override the default styles
 * `epubOptions` [object] - pass custom properties to the epub rendition
 * `getRendition` [func] - when epubjs has rendered the epub-file you can get access to the epubjs-rendition object here
+* `swipeable` [bool, default false] - enable swiping left/right with [react-swipeable](https://github.com/dogfessional/react-swipeable). *Warning* this will disable interacting with epub.js iframe content like selection
 
 
 *Container needs a height..*

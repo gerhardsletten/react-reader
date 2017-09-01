@@ -69,7 +69,6 @@ class ReactReader extends PureComponent {
   setLocation = (loc) => {
     const {locationChanged} = this.props
     this.setState({
-      expanedToc: false
     }, () => locationChanged && locationChanged(loc))
   }
 

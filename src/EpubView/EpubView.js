@@ -114,7 +114,7 @@ EpubView.propTypes = {
   url: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.instanceOf(ArrayBuffer)
-  ])
+  ]),
   loadingView: PropTypes.element,
   location: PropTypes.oneOfType([
     PropTypes.string,

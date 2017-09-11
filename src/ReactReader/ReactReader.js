@@ -130,7 +130,10 @@ ReactReader.defaultProps = {
 ReactReader.propTypes = {
   title: PropTypes.string,
   loadingView: PropTypes.element,
-  url: PropTypes.string,
+  url: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(ArrayBuffer)
+  ]),
   showToc: PropTypes.bool,
   location: PropTypes.oneOfType([
     PropTypes.string,

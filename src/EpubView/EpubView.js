@@ -58,7 +58,7 @@ class EpubView extends PureComponent {
       height: '100%',
       ...epubOptions
     })
-    this.rendition.display(location === undefined ? toc[0].href : location)
+    this.rendition.display(typeof location === 'string' || typeof location === 'number' ? location : toc[0].href)
 
     this.prevPage = () => {
       this.rendition.prev()

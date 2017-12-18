@@ -8,7 +8,7 @@ An ePub-reader for react powered by EpubJS #react #epubjs #webpack #babel #stand
 
 ## React wrapper for epubjs ##
 
-React reader is an react-wrapper for [epub.js](https://github.com/futurepress/epub.js), using the v.03 branch. We are currently using a [custom branch of epub.js#v3](https://github.com/gerhardsletten/epub.js) to ensure that breaking changes is avoided. Its published on to [@gerhardsletten/epubjs](https://www.npmjs.com/package/@gerhardsletten/epubjs)
+React reader is an react-wrapper for [epub.js](https://github.com/futurepress/epub.js), using the v.03 branch. 
 
 ## About ##
 
@@ -77,8 +77,8 @@ See `demo/App.js` for an example of using the selection api in epubjs.
 * `loadingView` [element] - if you want to customize the loadingView
 * `showToc` [bool] - wheather to show the toc / toc-nav
 * `location` [string, number] - set / update location of the epub
-* `locationChange` [func] - a function that recives the current location while user is reading
-* `tocChange` [func] - when the the reader has parsed the book you will recive an array of the chapters
+* `locationChanged` [func] - a function that recives the current location while user is reading
+* `tocChanged` [func] - when the the reader has parsed the book you will recive an array of the chapters
 * `styles` [object] - override the default styles
 * `epubOptions` [object] - pass custom properties to the epub rendition
 * `getRendition` [func] - when epubjs has rendered the epub-file you can get access to the epubjs-rendition object here
@@ -123,8 +123,8 @@ class App extends Component {
 * `url` [string, required] - url to the epub-file, if its on another domain, remember to add cors for the file
 * `loadingView` [element] - if you want to customize the loadingView
 * `location` [string, number] - set / update location of the epub
-* `locationChange` [func] - a function that recives the current location while user is reading
-* `tocChange` [func] - when the the reader has parsed the book you will recive an array of the chapters
+* `locationChanged` [func] - a function that recives the current location while user is reading
+* `tocChanged` [func] - when the the reader has parsed the book you will recive an array of the chapters
 * `styles` [object] - override the default styles
 * `epubOptions` [object] - pass custom properties to the epub rendition
 * `getRendition` [func] - when epubjs has rendered the epub-file you can get access to the epubjs-rendition object here

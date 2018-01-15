@@ -11,7 +11,7 @@ class App extends Component {
     this.state = {
       fullscreen: false,
       location: (storage && storage.getItem('epub-location')) ? storage.getItem('epub-location') : 2,
-      largeText: true
+      largeText: false
     }
     this.rendition = null
   }

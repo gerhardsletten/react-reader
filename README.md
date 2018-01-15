@@ -96,10 +96,6 @@ This is just the plain epub canvas, you will then need to implement the reader s
 import React, {Component} from 'react'
 import {EpubView} from 'react-reader'
 
-const epubOptions = {
-  disableSrcdoc: true // If you use react-reader within cordova you need to set this because cordova webview will silently disable srcdoc for iframes, see https://issues.apache.org/jira/browse/CB-7379
-}
-
 class App extends Component {
   render () {
     return (
@@ -110,7 +106,6 @@ class App extends Component {
           location={'epubcfi(/6/2[cover]!/6)'}
           locationChanged={(epubcifi) => console.log(epubcifi)}
           tocChanged={(toc) => console.log(toc)}
-          epubOptions={epubOptions}
         />
       </div>
     )
@@ -128,5 +123,15 @@ class App extends Component {
 * `styles` [object] - override the default styles
 * `epubOptions` [object] - pass custom properties to the epub rendition
 * `getRendition` [func] - when epubjs has rendered the epub-file you can get access to the epubjs-rendition object here
+
+#### Usage in cordova ####
+
+There is a limitation with iframe and `srcdoc` so you need to add this to your config.xml to make react-reader work within an cordova application:
+
+```
+<allow-navigation href="about:*" />
+```
+
+See [stackoverflow.com/questions/39165545/cordova-iframe-with-html-inside-not-showing-on-ios-device](https://stackoverflow.com/questions/39165545/cordova-iframe-with-html-inside-not-showing-on-ios-device)
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)

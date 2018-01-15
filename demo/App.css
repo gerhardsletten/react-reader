@@ -4,6 +4,10 @@
   height: 100%;
   background: linear-gradient(to bottom, #f2f2f2 0%,#333 100%);
 }
+.readerHolder,
+.readerHolderFullscreen {
+  font-size: 16px;
+}
 .readerHolder {
   position: absolute;
   top: 135px;

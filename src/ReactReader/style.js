@@ -62,12 +62,19 @@ export default {
   arrowHover: {
     color: '#777'
   },
+  tocBackground: {
+    position: 'absolute',
+    left: 256,
+    top: 0,
+    bottom: 0,
+    right: 0,
+    zIndex: 1
+  },
   tocArea: {
     position: 'absolute',
     left: 0,
     top: 0,
     bottom: 0,
-    right: 0,
     zIndex: 0,
     width: 256,
     overflowY: 'auto',

@@ -53,15 +53,18 @@ class ReactReader extends PureComponent {
   }
 
   renderToc () {
-    const {toc} = this.state
+    const {toc, expanedToc} = this.state
     const {styles} = this.props
     return (
-      <div style={styles.tocArea}>
-        <div style={styles.toc}>
-          {toc.map((item, i) =>
-            <TocItem key={item.href} {...item} setLocation={this.setLocation} styles={styles.tocAreaButton} />
-          )}
+      <div>
+        <div style={styles.tocArea}>
+          <div style={styles.toc}>
+            {toc.map((item, i) =>
+              <TocItem key={item.href} {...item} setLocation={this.setLocation} styles={styles.tocAreaButton} />
+            )}
+          </div>
         </div>
+        {expanedToc && <div style={styles.tocBackground} onClick={this.toggleToc} />}
       </div>
     )
   }
@@ -69,6 +72,7 @@ class ReactReader extends PureComponent {
   setLocation = (loc) => {
     const {locationChanged} = this.props
     this.setState({
+      expanedToc: false
     }, () => locationChanged && locationChanged(loc))
   }
 

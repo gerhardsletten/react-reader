@@ -83,13 +83,14 @@ export default {
     display: 'block',
     fontFamily: 'sans-serif',
     width: '100%',
-    fontSize: '.8em',
+    fontSize: '.9rem',
     textAlign: 'left',
-    padding: '8px 10px',
+    padding: '.8rem 1rem',
     borderBottom: '1px solid #ddd',
     color: '#aaa',
     boxSizing: 'border-box',
-    outline: 'none'
+    outline: 'none',
+    cursor: 'pointer'
   },
   tocButton: {
     background: 'none',

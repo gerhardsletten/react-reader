@@ -1,11 +1,11 @@
-import React, {PureComponent} from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Epub from 'epubjs'
 import defaultStyles from './style'
 
 global.ePub = Epub // Fix for v3 branch of epub.js -> needs ePub to by a global var
 
-class EpubView extends PureComponent {
+class EpubView extends Component {
   constructor (props) {
     super(props)
     this.state = {

@@ -7,9 +7,9 @@
 .readerHolder {
   position: absolute;
   top: 135px;
-  left: 20px;
-  right: 20px;
-  bottom: 20px;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
   box-shadow: 0 0 5px rgba(0,0,0,.3);
   transition: all .6s ease;
 }
@@ -93,4 +93,17 @@
 }
 .closeIcon:after {
   transform: rotate(-90deg)
+}
+.toggleFontSize {
+  position: fixed;
+  bottom: 1.5rem;
+  right:  1.5rem;
+  z-index: 10;
+  background: #eee;
+  border: none;
+  font-family: inherit;
+  font-size:  inherit;
+  border-radius: 2px;
+  padding: .5rem;
+  outline: none;
 }

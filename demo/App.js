@@ -10,8 +10,10 @@ class App extends Component {
     super(props)
     this.state = {
       fullscreen: false,
-      location: (storage && storage.getItem('epub-location')) ? storage.getItem('epub-location') : 0
+      location: (storage && storage.getItem('epub-location')) ? storage.getItem('epub-location') : 2,
+      largeText: true
     }
+    this.rendition = null
   }
 
   toggleFullscreen = () => {
@@ -21,7 +23,6 @@ class App extends Component {
       setTimeout(() => {
         const evt = document.createEvent('UIEvents')
         evt.initUIEvent('resize', true, false, global, 0)
-        // global.dispatchEvent(evt)
       }, 1000)
     })
   }
@@ -43,7 +44,21 @@ class App extends Component {
     contents.window.getSelection().removeAllRanges()
   }
 
+  onToggleFontSize = () => {
+    const nextState = !this.state.largeText
+    this.setState({
+      largeText: nextState
+    }, () => {
+      this.rendition.themes.fontSize(nextState ? '140%' : '100%')
+    })
+  }
+
   getRendition = (rendition) => {
+    // Set inital font-size, and add a pointer to rendition for later updates
+    const {largeText} = this.state
+    this.rendition = rendition
+    rendition.themes.fontSize(largeText ? '140%' : '100%')
+    // Selection stuff for rendition
     rendition.on('selected', this.onRenditionSelection)
     rendition.themes.default({
       '::selection': {
@@ -92,6 +107,7 @@ class App extends Component {
             location={location}
             getRendition={this.getRendition}
           />
+          <button className={styles.toggleFontSize} onClick={this.onToggleFontSize}>Toggle font-size</button>
         </div>
       </div>
     )

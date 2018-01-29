@@ -37,33 +37,14 @@ class App extends Component {
   render () {
     return (
       <div style={{position: 'relative', height: '100%'}}> // * Container needs a height..
-        <ReactReader 
-          url={'/alice.epub'} 
+        <ReactReader
+          url={'/alice.epub'}
           title={'Alice in wonderland'}
           location={'epubcfi(/6/2[cover]!/6)'}
           locationChanged={(epubcifi) => console.log(epubcifi)}
-          getRendition={this.getRendition}
         />
       </div>
     )
-  }
-  onRenditionSelection = (cfiRange, contents) => {
-    console.log('Selection was created', cfiRange, contents)
-    contents.mark(cfiRange, {}, (e) => {
-      console.log('You clicked the selection')
-    })
-    contents.highlight(cfiRange)
-    contents.window.getSelection().removeAllRanges()
-  }
-  getRendition = (rendition) => {
-    // Get access to core events from epubjs
-    rendition.on('selected', this.onRenditionSelection)
-    // Add custom styles
-    rendition.themes.default({
-      '::selection': {
-        'background': 'rgba(255,255,0, 0.3)'
-      }
-    })
   }
 }
 ```

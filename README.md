@@ -114,5 +114,3 @@ There is a limitation with iframe and `srcdoc` so you need to add this to your c
 ```
 
 See [stackoverflow.com/questions/39165545/cordova-iframe-with-html-inside-not-showing-on-ios-device](https://stackoverflow.com/questions/39165545/cordova-iframe-with-html-inside-not-showing-on-ios-device)
-
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)

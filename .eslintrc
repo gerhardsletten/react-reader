@@ -1,19 +1,17 @@
 {
   "parser": "babel-eslint",
-  "extends": ["standard", "standard-react"],
+  "extends": [
+    "prettier",
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "rules": {
+    "space-before-function-paren": ["error", "never"],
+    "react/no-unused-prop-types": 0
+  },
   "env": {
     "browser": true,
-    "node": true
-  },
-  "rules": {
-  },
-  "plugins": [
-    "react", "standard"
-  ],
-  "settings": {
-    "import/parser": "babel-eslint",
-    "import/resolve": {
-      moduleDirectory: ["node_modules", "src"]
-    }
+    "node": true,
+    "es6": true
   }
 }

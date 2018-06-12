@@ -14,17 +14,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gerhardsletten/react-reader.git"
+    "url": "git+https://github.com/mohanrajoria/react-reader.git"
   },
   "author": "Eyvind Gerhard Sletten",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/gerhardsletten/react-reader/issues"
+    "url": "https://github.com/mohanrajoria/react-reader/issues"
   },
   "standard": {
     "parser": "babel-eslint"
   },
-  "homepage": "https://github.com/gerhardsletten/react-reader#readme",
+  "homepage": "https://github.com/mohanrajoria/react-reader#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",

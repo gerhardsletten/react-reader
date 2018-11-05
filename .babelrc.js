@@ -1,5 +1,3 @@
-const { NODE_ENV } = process.env
-const modules = NODE_ENV === 'production' ? false : 'commonjs'
 const loose = true
 
 module.exports = {
@@ -7,8 +5,7 @@ module.exports = {
     [
       'env',
       {
-        loose,
-        modules
+        loose
       }
     ],
     'react'

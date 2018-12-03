@@ -34,7 +34,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
-    "gh-pages-deploy": "^0.5.0",
+    "gh-pages-deploy": "^0.4.2",
     "husky": "^1.2.0",
     "prettier": "^1.12.1",
     "pretty-quick": "^1.4.1",

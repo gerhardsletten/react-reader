@@ -9,3 +9,5 @@ webpack.build.config.js
 .babelrc.js
 .eslintrc
 .prettierrc
+build
+public

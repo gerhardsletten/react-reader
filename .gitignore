@@ -36,3 +36,4 @@ node_modules
 lib
 www/bundle.js
 www/*.svg
+build

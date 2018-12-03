@@ -1,6 +1,5 @@
-import EpubView from './EpubView/EpubView'
-import EpubViewStyle from './EpubView/style'
-import ReactReader from './ReactReader/ReactReader'
-import ReactReaderStyle from './ReactReader/style'
+import React from "react";
+import { render } from "react-dom";
+import App from "./App";
 
-export { EpubView, EpubViewStyle, ReactReader, ReactReaderStyle }
+render(<App />, document.getElementById("root"));

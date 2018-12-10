@@ -2,7 +2,7 @@
 
 An ePub-reader for react powered by EpubJS #react #epubjs #webpack #babel #standardjs
 
-[See demo](https://github.com/gerhardsletten/react-reader")
+[See demo](https://github.com/gerhardsletten/react-reader)
 
 ![React Reader logo](https://gerhardsletten.github.io/react-reader/files/react-reader.svg)
 

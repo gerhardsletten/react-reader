@@ -106,7 +106,7 @@ class App extends Component {
         <Bar>
           <a href="https://github.com/gerhardsletten/react-reader">
             <Logo
-              src="https://s3-eu-west-1.amazonaws.com/react-reader/react-reader.svg"
+              src="https://gerhardsletten.github.io/react-reader/files/react-reader.svg"
               alt="React-reader - powered by epubjs"
             />
           </a>
@@ -117,7 +117,9 @@ class App extends Component {
         </Bar>
         <ReaderContainer fullscreen={fullscreen}>
           <ReactReader
-            url={"https://s3-eu-west-1.amazonaws.com/react-reader/alice.epub"}
+            url={
+              "https://gerhardsletten.github.io/react-reader/files/alice.epub"
+            }
             locationChanged={this.onLocationChanged}
             title={"Alice in wonderland"}
             location={location}

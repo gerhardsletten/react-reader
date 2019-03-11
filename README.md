@@ -63,7 +63,7 @@ See `demo/App.js` for an example of using the selection api in epubjs.
 - `locationChanged` [func] - a function that recives the current location while user is reading
 - `tocChanged` [func] - when the the reader has parsed the book you will recive an array of the chapters
 - `styles` [object] - override the default styles
-- `epubOptions` [object] - pass custom properties to the epub rendition
+- `epubOptions` [object] - pass custom properties to the epub rendition, see [epub.js](http://epubjs.org/documentation/0.3/#epub)
 - `getRendition` [func] - when epubjs has rendered the epub-file you can get access to the epubjs-rendition object here
 - `swipeable` [bool, default false] - enable swiping left/right with [react-swipeable](https://github.com/dogfessional/react-swipeable). _Warning_ this will disable interacting with epub.js iframe content like selection
 

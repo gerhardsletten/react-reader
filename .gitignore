@@ -37,3 +37,4 @@ lib
 www/bundle.js
 www/*.svg
 build
+.DS_Store

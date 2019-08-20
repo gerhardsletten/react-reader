@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import Swipeable from "react-swipeable";
+import { Swipeable } from "react-swipeable";
 import { EpubView } from "..";
 import defaultStyles from "./style";
 
@@ -67,10 +67,10 @@ class ReactReader extends PureComponent {
       <div>
         <div style={styles.tocArea}>
           <div style={styles.toc}>
-            {toc.map(item => (
+            {toc.map((item, i) => (
               <TocItem
-                key={item.href}
                 {...item}
+                key={i}
                 setLocation={this.setLocation}
                 styles={styles.tocAreaButton}
               />

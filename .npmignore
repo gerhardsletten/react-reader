@@ -11,3 +11,5 @@ webpack.build.config.js
 .prettierrc
 build
 public
+.DS_Store
+files

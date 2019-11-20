@@ -9,7 +9,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "deploy": "gh-pages-deploy",
-    "clean-source": "rimraf moduels lib src public .babelrc .eslintrc .npmignore package.json README.md",
+    "clean-source": "rimraf modules lib src public .babelrc .eslintrc .npmignore package.json README.md",
     "precommit": "pretty-quick --staged",
     "format": "prettier --write \"src/**/*.js\"",
     "test": "eslint -c .eslintrc src"

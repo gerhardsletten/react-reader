@@ -101,8 +101,8 @@ class App extends Component {
 - `locationChanged` [func] - a function that recives the current location while user is reading
 - `tocChanged` [func] - when the the reader has parsed the book you will recive an array of the chapters
 - `styles` [object] - override the default styles
-- `epubOptions` [object] - pass custom properties to the epub rendition, see [epub.js](http://epubjs.org/documentation/0.3/#epub)
-- `epubInitOptions` [object] - pass custom properties to the epub init function, see [epub.js bookrenderto](http://epubjs.org/documentation/0.3/#bookrenderto)
+- `epubInitOptions` [object] - pass custom properties to the epub init function, see [epub.js](http://epubjs.org/documentation/0.3/#epub)
+- `epubOptions` [object] - pass custom properties to the epub rendition, see [epub.js's book.renderTo function](http://epubjs.org/documentation/0.3/#bookrenderto)
 - `getRendition` [func] - when epubjs has rendered the epub-file you can get access to the epubjs-rendition object here
 
 #### Usage in cordova

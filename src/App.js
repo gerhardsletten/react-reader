@@ -115,7 +115,7 @@ class App extends Component {
       this.setState({
         localFile: e.target.result,
         localName: file.name,
-        location: 0
+        location: null
       });
     }
   };

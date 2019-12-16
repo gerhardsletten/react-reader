@@ -40,6 +40,7 @@
     "pretty-quick": "^2.0.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-file-reader-input": "^2.0.0",
     "react-scripts": "^3.3.0",
     "rimraf": "^3.0.0",
     "styled-components": "^4.4.1",

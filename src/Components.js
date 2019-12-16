@@ -23,6 +23,24 @@ export const Bar = styled.header`
   top: 10px;
   left: 20px;
   right: 20px;
+
+  ${breakpoint("tablet")`
+    display: flex;
+    align-items: flex-end;
+  `};
+`;
+export const ButtonWrapper = styled.div`
+  ${breakpoint("mobile")`
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    padding-top: 0.5rem;
+  `};
+`;
+export const LogoWrapper = styled.a`
+  ${breakpoint("tablet")`
+    margin-right: auto;
+  `};
 `;
 export const Logo = styled.img`
   width: 250px;
@@ -46,21 +64,21 @@ const Button = styled.button`
   appearance: none;
   background: none;
 `;
-export const CloseButton = styled(Button)`
+export const GenericButton = styled(Button)`
   color: #808080;
-  float: right;
-  margin: 0;
   font-size: 12px;
+  display: inline-block;
+  margin-left: 1rem;
   ${breakpoint("tablet")`
-    margin-top: 75px;
     font-size: 16px;
+    
   `};
 `;
 export const CloseIcon = styled.i`
   vertical-align: middle;
   display: inline-block;
-  width: 30px;
-  height: 30px;
+  width: 2rem;
+  height: 2rem;
   background: #666;
   margin-left: 5px;
   border-radius: 50%;

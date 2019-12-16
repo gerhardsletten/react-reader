@@ -18,7 +18,15 @@ class EpubView extends Component {
   }
 
   componentDidMount() {
+    this.initBook(true);
+    document.addEventListener("keydown", this.handleKeyPress, false);
+  }
+
+  initBook(first) {
     const { url, tocChanged, epubInitOptions } = this.props;
+    if (this.book) {
+      this.book.destroy();
+    }
     this.book = new Epub(url, { epubInitOptions });
     this.book.loaded.navigation.then(({ toc }) => {
       this.setState(
@@ -32,7 +40,6 @@ class EpubView extends Component {
         }
       );
     });
-    document.addEventListener("keydown", this.handleKeyPress, false);
   }
 
   componentWillUnmount() {
@@ -41,7 +48,11 @@ class EpubView extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return !this.state.isLoaded || nextProps.location !== this.props.location;
+    return (
+      !this.state.isLoaded ||
+      nextProps.location !== this.props.location ||
+      nextProps.location !== this.props.location
+    );
   }
 
   componentDidUpdate(prevProps) {
@@ -50,6 +61,9 @@ class EpubView extends Component {
       this.location !== this.props.location
     ) {
       this.rendition.display(this.props.location);
+    }
+    if (prevProps.url !== this.props.url) {
+      this.initBook();
     }
   }
 

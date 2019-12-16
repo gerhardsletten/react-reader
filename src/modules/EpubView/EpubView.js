@@ -18,10 +18,8 @@ class EpubView extends Component {
   }
 
   componentDidMount() {
-    const { url, tocChanged } = this.props;
-    // use empty options to avoid ArrayBuffer urls being treated as options in epub.js
-    const epubOptions = {};
-    this.book = new Epub(url, epubOptions);
+    const { url, tocChanged, epubInitOptions } = this.props;
+    this.book = new Epub(url, { epubInitOptions });
     this.book.loaded.navigation.then(({ toc }) => {
       this.setState(
         {
@@ -116,7 +114,8 @@ EpubView.defaultProps = {
   locationChanged: null,
   tocChanged: null,
   styles: defaultStyles,
-  epubOptions: {}
+  epubOptions: {},
+  epubInitOptions: {}
 };
 
 EpubView.propTypes = {
@@ -129,6 +128,7 @@ EpubView.propTypes = {
   locationChanged: PropTypes.func,
   tocChanged: PropTypes.func,
   styles: PropTypes.object,
+  epubInitOptions: PropTypes.object,
   epubOptions: PropTypes.object,
   getRendition: PropTypes.func
 };

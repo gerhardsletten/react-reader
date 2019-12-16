@@ -118,16 +118,13 @@ class ReactReader extends PureComponent {
 
   render() {
     const {
-      url,
       title,
       showToc,
       loadingView,
-      epubOptions,
       styles,
-      getRendition,
       locationChanged,
-      location,
-      swipeable
+      swipeable,
+      ...props
     } = this.props;
     const { toc, expanedToc } = this.state;
     return (
@@ -149,13 +146,10 @@ class ReactReader extends PureComponent {
             <div style={styles.reader}>
               <EpubView
                 ref={this.readerRef}
-                url={url}
-                location={location}
                 loadingView={loadingView}
+                {...props}
                 tocChanged={this.onTocChange}
                 locationChanged={locationChanged}
-                epubOptions={epubOptions}
-                getRendition={getRendition}
               />
               {swipeable && <div style={styles.swipeWrapper} />}
             </div>
@@ -190,17 +184,10 @@ ReactReader.defaultProps = {
 ReactReader.propTypes = {
   title: PropTypes.string,
   loadingView: PropTypes.element,
-  url: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.instanceOf(ArrayBuffer)
-  ]),
   showToc: PropTypes.bool,
-  location: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   locationChanged: PropTypes.func,
   tocChanged: PropTypes.func,
   styles: PropTypes.object,
-  epubOptions: PropTypes.object,
-  getRendition: PropTypes.func,
   swipeable: PropTypes.bool
 };
 

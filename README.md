@@ -55,17 +55,15 @@ See `demo/App.js` for an example of using the selection api in epubjs.
 
 #### ReactReader props
 
-- `url` [string, required] - url to the epub-file, if its on another domain, remember to add cors for the file
 - `title` [string] - the title of the book, displayed above the reading-canvas
 - `loadingView` [element] - if you want to customize the loadingView
 - `showToc` [bool] - wheather to show the toc / toc-nav
-- `location` [string, number] - set / update location of the epub
 - `locationChanged` [func] - a function that recives the current location while user is reading
 - `tocChanged` [func] - when the the reader has parsed the book you will recive an array of the chapters
 - `styles` [object] - override the default styles
-- `epubOptions` [object] - pass custom properties to the epub rendition, see [epub.js](http://epubjs.org/documentation/0.3/#epub)
-- `getRendition` [func] - when epubjs has rendered the epub-file you can get access to the epubjs-rendition object here
 - `swipeable` [bool, default false] - enable swiping left/right with [react-swipeable](https://github.com/dogfessional/react-swipeable). _Warning_ this will disable interacting with epub.js iframe content like selection
+
+Additional props will be passed to the underlaying EpubView component, like url, location, epubOptions, epubInitOptions and getRendition.
 
 _Container needs a height.._
 The ReactReader will expand to 100% of width/height, so be sure to set a height on the parent element, either with position it absolute of window, set height or use paddingTop for proporsjonal scaling.
@@ -103,7 +101,8 @@ class App extends Component {
 - `locationChanged` [func] - a function that recives the current location while user is reading
 - `tocChanged` [func] - when the the reader has parsed the book you will recive an array of the chapters
 - `styles` [object] - override the default styles
-- `epubOptions` [object] - pass custom properties to the epub rendition
+- `epubOptions` [object] - pass custom properties to the epub rendition, see [epub.js](http://epubjs.org/documentation/0.3/#epub)
+- `epubInitOptions` [object] - pass custom properties to the epub init function, see [epub.js bookrenderto](http://epubjs.org/documentation/0.3/#bookrenderto)
 - `getRendition` [func] - when epubjs has rendered the epub-file you can get access to the epubjs-rendition object here
 
 #### Usage in cordova

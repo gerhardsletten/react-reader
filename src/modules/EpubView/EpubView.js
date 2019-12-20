@@ -27,7 +27,7 @@ class EpubView extends Component {
     if (this.book) {
       this.book.destroy();
     }
-    this.book = new Epub(url, { epubInitOptions });
+    this.book = new Epub(url, epubInitOptions);
     this.book.loaded.navigation.then(({ toc }) => {
       this.setState(
         {

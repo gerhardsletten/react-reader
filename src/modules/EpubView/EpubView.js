@@ -19,7 +19,7 @@ class EpubView extends Component {
 
   componentDidMount() {
     this.initBook(true);
-    document.addEventListener("keydown", this.handleKeyPress, false);
+    document.addEventListener("keyup", this.handleKeyPress, false);
   }
 
   initBook(first) {
@@ -44,7 +44,7 @@ class EpubView extends Component {
 
   componentWillUnmount() {
     this.book = this.rendition = this.prevPage = this.nextPage = null;
-    document.removeEventListener("keydown", this.handleKeyPress, false);
+    document.removeEventListener("keyup", this.handleKeyPress, false);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -90,6 +90,7 @@ class EpubView extends Component {
       this.rendition.next();
     };
     this.rendition.on("locationChanged", this.onLocationChange);
+    this.rendition.on("keyup", this.handleKeyPress);
     getRendition && getRendition(this.rendition);
   }
 

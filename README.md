@@ -105,6 +105,25 @@ class App extends Component {
 - `epubOptions` [object] - pass custom properties to the epub rendition, see [epub.js's book.renderTo function](http://epubjs.org/documentation/0.3/#bookrenderto)
 - `getRendition` [func] - when epubjs has rendered the epub-file you can get access to the epubjs-rendition object here
 
+#### Handling not valid epub-files
+
+A tip if you have problems with not valid epub-files is to override the build in DOMParser and modify the markup-string passed to its parseFromString function. This example fixes a not valid `<title/>` tag in an old epub, which would render as a blank page if not fixed:
+
+```
+const DOMParser = window.DOMParser
+
+class OwnParser {
+  parseFromString(markup, mime) {
+    if (markup.indexOf('<title/>') !== -1) {
+      markup = markup.replace('<title/>', '');
+    }
+    return new DOMParser().parseFromString(markup, mime)
+  }
+}
+
+window.DOMParser = OwnParser
+```
+
 #### Usage in cordova
 
 There is a limitation with iframe and `srcdoc` so you need to add this to your config.xml to make react-reader work within an cordova application:

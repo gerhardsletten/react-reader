@@ -77,11 +77,6 @@ class EpubView extends Component {
       height: "100%",
       ...epubOptions
     });
-    this.rendition.display(
-      typeof location === "string" || typeof location === "number"
-        ? location
-        : toc[0].href
-    );
 
     this.prevPage = () => {
       this.rendition.prev();
@@ -92,6 +87,11 @@ class EpubView extends Component {
     this.rendition.on("locationChanged", this.onLocationChange);
     this.rendition.on("keyup", this.handleKeyPress);
     getRendition && getRendition(this.rendition);
+    this.rendition.display(
+      typeof location === "string" || typeof location === "number"
+        ? location
+        : toc[0].href
+    );
   }
 
   onLocationChange = loc => {

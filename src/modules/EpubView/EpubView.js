@@ -69,7 +69,7 @@ class EpubView extends Component {
 
   initReader() {
     const { toc } = this.state;
-    const { location, epubOptions, getRendition } = this.props;
+    const { location, epubOptions, getRendition, handleKeyPress } = this.props;
     const node = this.viewerRef.current;
     this.rendition = this.book.renderTo(node, {
       contained: true,
@@ -85,7 +85,7 @@ class EpubView extends Component {
       this.rendition.next();
     };
     this.rendition.on("locationChanged", this.onLocationChange);
-    this.rendition.on("keyup", this.handleKeyPress);
+    this.rendition.on("keyup", handleKeyPress || this.handleKeyPress);
     getRendition && getRendition(this.rendition);
     this.rendition.display(
       typeof location === "string" || typeof location === "number"
@@ -145,7 +145,8 @@ EpubView.propTypes = {
   styles: PropTypes.object,
   epubInitOptions: PropTypes.object,
   epubOptions: PropTypes.object,
-  getRendition: PropTypes.func
+  getRendition: PropTypes.func,
+  handleKeyPress: PropTypes.func
 };
 
 export default EpubView;

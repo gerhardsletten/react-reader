@@ -34,6 +34,8 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
+    "@types/react": "^16.9.49",
+    "csstype": "^3.0.3",
     "gh-pages-deploy": "^0.5.1",
     "husky": "^4.2.5",
     "prettier": "^2.0.5",
@@ -44,7 +46,8 @@
     "react-scripts": "^3.4.1",
     "rimraf": "^3.0.2",
     "styled-components": "^5.1.1",
-    "styled-components-breakpoint": "^2.1.1"
+    "styled-components-breakpoint": "^2.1.1",
+    "typescript": "^4.0.2"
   },
   "dependencies": {
     "epubjs": "^0.3.88",
@@ -69,5 +72,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "types": "types/index.d.ts"
 }

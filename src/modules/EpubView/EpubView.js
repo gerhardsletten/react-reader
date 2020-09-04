@@ -22,7 +22,7 @@ class EpubView extends Component {
     document.addEventListener("keyup", this.handleKeyPress, false);
   }
 
-  initBook(first) {
+  initBook() {
     const { url, tocChanged, epubInitOptions } = this.props;
     if (this.book) {
       this.book.destroy();
@@ -69,7 +69,7 @@ class EpubView extends Component {
 
   initReader() {
     const { toc } = this.state;
-    const { location, epubOptions, getRendition, handleKeyPress } = this.props;
+    const { location, epubOptions, getRendition } = this.props;
     const node = this.viewerRef.current;
     this.rendition = this.book.renderTo(node, {
       contained: true,
@@ -84,14 +84,22 @@ class EpubView extends Component {
     this.nextPage = () => {
       this.rendition.next();
     };
-    this.rendition.on("locationChanged", this.onLocationChange);
-    this.rendition.on("keyup", handleKeyPress || this.handleKeyPress);
+    this.registerEvents();
     getRendition && getRendition(this.rendition);
     this.rendition.display(
       typeof location === "string" || typeof location === "number"
         ? location
         : toc[0].href
     );
+  }
+
+  registerEvents() {
+    const { handleKeyPress, handleTextSelected } = this.props;
+    this.rendition.on("locationChanged", this.onLocationChange);
+    this.rendition.on("keyup", handleKeyPress || this.handleKeyPress);
+    if (handleTextSelected) {
+      this.rendition.on('selected', handleTextSelected);
+    }
   }
 
   onLocationChange = loc => {
@@ -146,7 +154,8 @@ EpubView.propTypes = {
   epubInitOptions: PropTypes.object,
   epubOptions: PropTypes.object,
   getRendition: PropTypes.func,
-  handleKeyPress: PropTypes.func
+  handleKeyPress: PropTypes.func,
+  handleTextSelected: PropTypes.func
 };
 
 export default EpubView;

@@ -11,7 +11,7 @@ export default {
     backgroundColor: "#fff",
     transition: "all .3s ease"
   },
-  containerExpaned: {
+  containerExpanded: {
     transform: "translateX(256px)"
   },
   titleArea: {
@@ -110,7 +110,7 @@ export default {
     borderRadius: 2,
     outline: "none"
   },
-  tocButtonExpaned: {
+  tocButtonExpanded: {
     background: "#f2f2f2"
   },
   tocButtonBar: {

@@ -16,7 +16,7 @@ interface EpubViewProps {
   tocChanged?(value: Toc): void;
   getRendition?(rendition: Rendition): void;
   handleKeyPress?(): void;
-  handleTextSelected?(cfiRange: EpubCFI, contents: Contents):void;
+  handleTextSelected?(cfiRange: string, contents: Contents): void;
 }
 
 declare class EpubView extends React.Component<EpubViewProps> {}
@@ -31,7 +31,7 @@ interface Toc {
   href: string;
 }
 
-interface ReactReaderProps extends Omit<EpubViewProps,'styles'> {
+interface ReactReaderProps extends Omit<EpubViewProps, "styles"> {
   title?: string;
   showToc?: boolean;
   styles?: ReactReaderStyles;

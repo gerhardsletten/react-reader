@@ -7,6 +7,7 @@ export const Container = styled.div`
   height: 100%;
   min-height: 100vh;
   background: linear-gradient(to bottom, #f2f2f2 0%, #333 100%);
+  overflow: hidden;
 `;
 export const ReaderContainer = styled.div`
   font-size: 16px;

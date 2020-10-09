@@ -8,7 +8,7 @@ An ePub-reader for react powered by EpubJS #react #epubjs #webpack #babel #stand
 
 ## React wrapper for epubjs
 
-React reader is an react-wrapper for [epub.js](https://github.com/futurepress/epub.js), using the v.03 branch.
+React reader is a react-wrapper for [epub.js](https://github.com/futurepress/epub.js), using the v.03 branch.
 
 ## About
 
@@ -57,20 +57,20 @@ See `demo/App.js` for an example of using the selection api in epubjs.
 
 - `title` [string] - the title of the book, displayed above the reading-canvas
 - `loadingView` [element] - if you want to customize the loadingView
-- `showToc` [bool] - wheather to show the toc / toc-nav
-- `locationChanged` [func] - a function that recives the current location while user is reading
-- `tocChanged` [func] - when the the reader has parsed the book you will recive an array of the chapters
+- `showToc` [bool] - whether to show the toc / toc-nav
+- `locationChanged` [func] - a function that receives the current location while user is reading
+- `tocChanged` [func] - when the reader has parsed the book you will receive an array of the chapters
 - `styles` [object] - override the default styles
 - `swipeable` [bool, default false] - enable swiping left/right with [react-swipeable](https://github.com/dogfessional/react-swipeable). _Warning_ this will disable interacting with epub.js iframe content like selection
 
-Additional props will be passed to the underlaying EpubView component, like url, location, epubOptions, epubInitOptions and getRendition.
+Additional props will be passed to the underlying EpubView component, like url, location, epubOptions, epubInitOptions and getRendition.
 
-_Container needs a height.._
-The ReactReader will expand to 100% of width/height, so be sure to set a height on the parent element, either with position it absolute of window, set height or use paddingTop for proporsjonal scaling.
+_Container needs a height._
+The ReactReader will expand to 100% of width/height, so be sure to set a height on the parent element, either with position it absolute of window, set height or use paddingTop for proporcional scaling.
 
-### Optional use the underlaying EpubView
+### Optional use the underlying EpubView
 
-This is just the plain epub canvas, you will then need to implement the reader stuff like chapter (toc) navigation and next/prev buttons. Take a look at the implemention in ReactReader.js
+This is just the plain epub canvas, you will then need to implement the reader stuff like chapter (toc) navigation and next/prev buttons. Take a look at the implementation in ReactReader.js
 
 ```js
 import React, { Component } from "react";
@@ -98,8 +98,8 @@ class App extends Component {
 - `url` [string, required] - url to the epub-file, if its on another domain, remember to add cors for the file
 - `loadingView` [element] - if you want to customize the loadingView
 - `location` [string, number] - set / update location of the epub
-- `locationChanged` [func] - a function that recives the current location while user is reading
-- `tocChanged` [func] - when the the reader has parsed the book you will recive an array of the chapters
+- `locationChanged` [func] - a function that receives the current location while user is reading
+- `tocChanged` [func] - when the reader has parsed the book you will receive an array of the chapters
 - `styles` [object] - override the default styles
 - `epubInitOptions` [object] - pass custom properties to the epub init function, see [epub.js](http://epubjs.org/documentation/0.3/#epub)
 - `epubOptions` [object] - pass custom properties to the epub rendition, see [epub.js's book.renderTo function](http://epubjs.org/documentation/0.3/#bookrenderto)
@@ -126,7 +126,7 @@ window.DOMParser = OwnParser
 
 #### Usage in cordova
 
-There is a limitation with iframe and `srcdoc` so you need to add this to your config.xml to make react-reader work within an cordova application:
+There is a limitation with iframe and `srcdoc` so you need to add this to your config.xml to make react-reader work within a cordova application:
 
 ```
 <allow-navigation href="about:*" />

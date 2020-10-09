@@ -17,7 +17,7 @@ import {
 const storage = global.localStorage || null;
 
 const DEMO_URL =
-  "https://gerhardsletten.github.io/react-reader/files/alice.epub";
+  "/react-reader/files/alice.epub";
 const DEMO_NAME = "Alice in wonderland";
 
 const GlobalStyle = createGlobalStyle`

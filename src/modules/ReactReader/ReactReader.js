@@ -30,13 +30,13 @@ class ReactReader extends PureComponent {
     super(props);
     this.readerRef = React.createRef();
     this.state = {
-      expanedToc: false,
+      expandedToc: false,
       toc: false
     };
   }
   toggleToc = () => {
     this.setState({
-      expanedToc: !this.state.expanedToc
+      expandedToc: !this.state.expandedToc
     });
   };
 
@@ -61,7 +61,7 @@ class ReactReader extends PureComponent {
   };
 
   renderToc() {
-    const { toc, expanedToc } = this.state;
+    const { toc, expandedToc } = this.state;
     const { styles } = this.props;
     return (
       <div>
@@ -77,7 +77,7 @@ class ReactReader extends PureComponent {
             ))}
           </div>
         </div>
-        {expanedToc && (
+        {expandedToc && (
           <div style={styles.tocBackground} onClick={this.toggleToc} />
         )}
       </div>
@@ -88,21 +88,21 @@ class ReactReader extends PureComponent {
     const { locationChanged } = this.props;
     this.setState(
       {
-        expanedToc: false
+        expandedToc: false
       },
       () => locationChanged && locationChanged(loc)
     );
   };
 
   renderTocToggle() {
-    const { expanedToc } = this.state;
+    const { expandedToc } = this.state;
     const { styles } = this.props;
     return (
       <button
         style={Object.assign(
           {},
           styles.tocButton,
-          expanedToc ? styles.tocButtonExpaned : {}
+          expandedToc ? styles.tocButtonExpanded : {}
         )}
         onClick={this.toggleToc}
       >
@@ -126,14 +126,14 @@ class ReactReader extends PureComponent {
       swipeable,
       ...props
     } = this.props;
-    const { toc, expanedToc } = this.state;
+    const { toc, expandedToc } = this.state;
     return (
       <div style={styles.container}>
         <div
           style={Object.assign(
             {},
             styles.readerArea,
-            expanedToc ? styles.containerExpaned : {}
+            expandedToc ? styles.containerExpanded : {}
           )}
         >
           {showToc && this.renderTocToggle()}

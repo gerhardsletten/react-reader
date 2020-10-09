@@ -41,7 +41,7 @@ declare class ReactReader extends React.Component<ReactReaderProps> {}
 interface ReactReaderStyles {
   container: CSS.Properties;
   readerArea: CSS.Properties;
-  containerExpaned: CSS.Properties;
+  containerExpanded: CSS.Properties;
   titleArea: CSS.Properties;
   reader: CSS.Properties;
   swipeWrapper: CSS.Properties;
@@ -53,7 +53,7 @@ interface ReactReaderStyles {
   tocArea: CSS.Properties;
   tocAreaButton: CSS.Properties;
   tocButton: CSS.Properties;
-  tocButtonExpaned: CSS.Properties;
+  tocButtonExpanded: CSS.Properties;
   tocButtonBar: CSS.Properties;
   tocButtonBarTop: CSS.Properties;
   tocButtonBarBottom: CSS.Properties;

@@ -23,7 +23,7 @@ import {
 } from "react-reader";
 ```
 
-## Usage
+## Basic usage
 
 `npm install react-reader --save`
 
@@ -51,7 +51,7 @@ class App extends Component {
 }
 ```
 
-See `demo/App.js` for an example of using the selection api in epubjs.
+[See src/App.js](blob/master/src/App.js) for an example of using the selection api in epubjs.
 
 #### ReactReader props
 
@@ -63,7 +63,9 @@ See `demo/App.js` for an example of using the selection api in epubjs.
 - `styles` [object] - override the default styles
 - `swipeable` [bool, default false] - enable swiping left/right with [react-swipeable](https://github.com/dogfessional/react-swipeable). _Warning_ this will disable interacting with epub.js iframe content like selection
 
-Additional props will be passed to the underlying EpubView component, like url, location, epubOptions, epubInitOptions and getRendition.
+[See also TypeScript definition](blob/master/types/index.d.ts) for React Reader here (thanks to [@rafaelsaback](#63))
+
+Additional props will be forwarded to the underlying EpubView component, like url, location, epubOptions, epubInitOptions and getRendition. [See its props here](#epubview-props)
 
 _Container needs a height._
 The ReactReader will expand to 100% of width/height, so be sure to set a height on the parent element, either with position it absolute of window, set height or use paddingTop for proporcional scaling.
@@ -95,7 +97,7 @@ class App extends Component {
 
 #### EpubView props
 
-- `url` [string, required] - url to the epub-file, if its on another domain, remember to add cors for the file
+- `url` [string, required] - url to the epub-file, if its on another domain, remember to add cors for the file. Epubjs fetch this by a http-call, so it need to be public available. 
 - `loadingView` [element] - if you want to customize the loadingView
 - `location` [string, number] - set / update location of the epub
 - `locationChanged` [func] - a function that receives the current location while user is reading

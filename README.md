@@ -51,7 +51,7 @@ class App extends Component {
 }
 ```
 
-[See src/App.js](blob/master/src/App.js) for an example of using the selection api in epubjs.
+[See src/App.js](src/App.js) for an example of using the selection api in epubjs.
 
 #### ReactReader props
 
@@ -63,7 +63,7 @@ class App extends Component {
 - `styles` [object] - override the default styles
 - `swipeable` [bool, default false] - enable swiping left/right with [react-swipeable](https://github.com/dogfessional/react-swipeable). _Warning_ this will disable interacting with epub.js iframe content like selection
 
-[See also TypeScript definition](blob/master/types/index.d.ts) for React Reader here (thanks to [@rafaelsaback](#63))
+[See also TypeScript definition](types/index.d.ts) for React Reader here (thanks to [@rafaelsaback](#63))
 
 Additional props will be forwarded to the underlying EpubView component, like url, location, epubOptions, epubInitOptions and getRendition. [See its props here](#epubview-props)
 

@@ -108,7 +108,8 @@ export default {
     top: 10,
     left: 10,
     borderRadius: 2,
-    outline: "none"
+    outline: "none",
+    cursor: "pointer"
   },
   tocButtonExpanded: {
     background: "#f2f2f2"

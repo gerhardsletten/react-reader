@@ -1,0 +1,63 @@
+import * as React from "react";
+import * as CSS from "csstype";
+import { BookOptions } from "epubjs/types/book";
+import Rendition, { RenditionOptions } from "epubjs/types/rendition";
+
+interface EpubViewProps {
+  url: string | ArrayBuffer;
+  epubInitOptions?: BookOptions;
+  epubOptions?: RenditionOptions;
+  styles?: EpubViewStyles;
+  loadingView?: React.ReactNode;
+  location?: string | number;
+  showToc?: boolean;
+  locationChanged?(value: string | number): void;
+  tocChanged?(value: Toc): void;
+  getRendition?(rendition: Rendition): void;
+  handleKeyPress?(): void;
+}
+
+declare class EpubView extends React.Component<EpubViewProps> {}
+
+interface EpubViewStyles {
+  viewHolder: CSS.Properties;
+  view: CSS.Properties;
+}
+
+interface Toc {
+  label: string;
+  href: string;
+}
+
+interface ReactReaderProps extends Omit<EpubViewProps,'styles'> {
+  title?: string;
+  showToc?: boolean;
+  styles?: ReactReaderStyles;
+  swipeable?: boolean;
+}
+
+declare class ReactReader extends React.Component<ReactReaderProps> {}
+
+interface ReactReaderStyles {
+  container: CSS.Properties;
+  readerArea: CSS.Properties;
+  containerExpaned: CSS.Properties;
+  titleArea: CSS.Properties;
+  reader: CSS.Properties;
+  swipeWrapper: CSS.Properties;
+  prev: CSS.Properties;
+  next: CSS.Properties;
+  arrow: CSS.Properties;
+  arrowHover: CSS.Properties;
+  tocBackground: CSS.Properties;
+  tocArea: CSS.Properties;
+  tocAreaButton: CSS.Properties;
+  tocButton: CSS.Properties;
+  tocButtonExpaned: CSS.Properties;
+  tocButtonBar: CSS.Properties;
+  tocButtonBarTop: CSS.Properties;
+  tocButtonBarBottom: CSS.Properties;
+  loadingView: CSS.Properties;
+}
+
+export { ReactReader, ReactReaderStyles, EpubView, EpubViewStyles };

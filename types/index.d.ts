@@ -1,7 +1,8 @@
 import * as React from "react";
 import * as CSS from "csstype";
 import { BookOptions } from "epubjs/types/book";
-import Rendition, { RenditionOptions } from "epubjs/types/rendition";
+import { RenditionOptions } from "epubjs/types/rendition";
+import { Contents, EpubCFI, Rendition } from "epubjs";
 
 interface EpubViewProps {
   url: string | ArrayBuffer;
@@ -15,6 +16,7 @@ interface EpubViewProps {
   tocChanged?(value: Toc): void;
   getRendition?(rendition: Rendition): void;
   handleKeyPress?(): void;
+  handleTextSelected?(cfiRange: string, contents: Contents): void;
 }
 
 declare class EpubView extends React.Component<EpubViewProps> {}
@@ -29,7 +31,7 @@ interface Toc {
   href: string;
 }
 
-interface ReactReaderProps extends Omit<EpubViewProps,'styles'> {
+interface ReactReaderProps extends Omit<EpubViewProps, "styles"> {
   title?: string;
   showToc?: boolean;
   styles?: ReactReaderStyles;

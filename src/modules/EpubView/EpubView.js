@@ -86,11 +86,14 @@ class EpubView extends Component {
     };
     this.registerEvents();
     getRendition && getRendition(this.rendition);
-    this.rendition.display(
-      typeof location === "string" || typeof location === "number"
-        ? location
-        : toc[0].href
-    );
+
+    if(typeof location === "string" || typeof location === "number") {
+      this.rendition.display(location);
+    } else if(toc.length > 0 && toc[0].href) {
+      this.rendition.display(toc[0].href);
+    } else {
+      this.rendition.display();
+    }
   }
 
   registerEvents() {

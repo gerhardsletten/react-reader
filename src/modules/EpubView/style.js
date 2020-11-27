@@ -1,4 +1,4 @@
-export default {
+const epubViewStyles = {
   viewHolder: {
     position: "relative",
     height: "100%",
@@ -8,3 +8,5 @@ export default {
     height: "100%"
   }
 };
+
+export default epubViewStyles

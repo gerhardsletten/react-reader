@@ -13,3 +13,4 @@ build
 public
 .DS_Store
 files
+.eslintcache

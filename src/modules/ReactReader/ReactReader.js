@@ -1,8 +1,13 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Swipeable } from "react-swipeable";
+import { useSwipeable } from "react-swipeable";
 import { EpubView } from "..";
 import defaultStyles from "./style";
+
+const Swipeable = ({children, ...props}) => {
+  const handlers = useSwipeable(props);
+  return (<div { ...handlers }>{children}</div>);
+}
 
 class TocItem extends PureComponent {
   setLocation = () => {

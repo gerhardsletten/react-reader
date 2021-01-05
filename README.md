@@ -104,7 +104,7 @@ class App extends Component {
 - `tocChanged` [func] - when the reader has parsed the book you will receive an array of the chapters
 - `styles` [object] - override the default styles
 - `epubInitOptions` [object] - pass custom properties to the epub init function, see [epub.js](http://epubjs.org/documentation/0.3/#epub)
-- `epubOptions` [object] - pass custom properties to the epub rendition, see [epub.js's book.renderTo function](http://epubjs.org/documentation/0.3/#bookrenderto)
+- `epubOptions` [object] - pass custom properties to the epub rendition, see [epub.js's book.renderTo function](http://epubjs.org/documentation/0.3/#rendition)
 - `getRendition` [func] - when epubjs has rendered the epub-file you can get access to the epubjs-rendition object here
 
 #### Handling not valid epub-files

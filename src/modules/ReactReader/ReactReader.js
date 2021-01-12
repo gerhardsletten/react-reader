@@ -152,6 +152,7 @@ class ReactReader extends PureComponent {
               <EpubView
                 ref={this.readerRef}
                 loadingView={loadingView}
+                styles={styles}
                 {...props}
                 tocChanged={this.onTocChange}
                 locationChanged={locationChanged}

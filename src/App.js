@@ -98,7 +98,7 @@ class App extends Component {
     );
   };
 
-  onLocationChanged = (location) => {
+  handleOnLocationChanged = (location) => {
     this.setState(
       {
         location,
@@ -194,6 +194,14 @@ class App extends Component {
     this.rendition.themes.fontSize(updatedSize);
   };
 
+  handleOnNextPressed = () => {
+    this.rendition.next();
+  };
+
+  handleOnPreviousPressed = () => {
+    this.rendition.prev();
+  };
+
   render() {
     const { fullscreen, location, localFile, localName } = this.state;
     return (
@@ -204,9 +212,11 @@ class App extends Component {
             url={localFile || DEMO_URL}
             title={localName || DEMO_NAME}
             location={location}
-            locationChanged={this.onLocationChanged}
+            onLocationChanged={this.handleOnLocationChanged}
             getRendition={this.getRendition}
             onFontSizeOptionSelected={this.handleOnFontSizeChange}
+            onNextPressed={this.handleOnNextPressed}
+            onPreviousPressed={this.handleOnPreviousPressed}
           />
         </ReaderContainer>
       </div>

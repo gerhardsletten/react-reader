@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useSwipeable } from "react-swipeable";
 import { EpubView } from "..";
 import defaultStyles from "./style";
+import TestEpub from "../../newModules/EpubView.tsx";
 
 const Swipeable = ({ children, ...props }) => {
   const handlers = useSwipeable(props);
@@ -56,13 +57,11 @@ class ReactReader extends PureComponent {
   };
 
   next = () => {
-    const node = this.readerRef.current;
-    node.nextPage();
+    this.props.onNextPressed();
   };
 
   prev = () => {
-    const node = this.readerRef.current;
-    node.prevPage();
+    this.props.onPreviousPressed();
   };
 
   onTocChange = (toc) => {
@@ -247,12 +246,12 @@ class ReactReader extends PureComponent {
   }
 
   setLocation = (loc) => {
-    const { locationChanged } = this.props;
+    const { onLocationChanged } = this.props;
     this.setState(
       {
         expandedToc: false,
       },
-      () => locationChanged && locationChanged(loc)
+      () => onLocationChanged && onLocationChanged(loc)
     );
   };
 
@@ -342,13 +341,13 @@ class ReactReader extends PureComponent {
             trackMouse
           >
             <div style={styles.reader}>
-              <EpubView
+              <TestEpub
+                {...props}
                 ref={this.readerRef}
                 loadingView={loadingView}
                 styles={epubViewStyles}
-                {...props}
-                tocChanged={this.onTocChange}
-                locationChanged={locationChanged}
+                onTocChanged={this.onTocChange}
+                onLocationChanged={locationChanged}
                 flow={this.state.selectedFlow}
                 theme={this.state.selectedTheme}
               />
@@ -381,8 +380,8 @@ class ReactReader extends PureComponent {
 
 ReactReader.defaultProps = {
   loadingView: <div style={defaultStyles.loadingView}>Loading…</div>,
-  locationChanged: null,
-  tocChanged: null,
+  onLocationChanged: null,
+  onTocChanged: null,
   showToc: true,
   styles: defaultStyles,
 };
@@ -396,6 +395,7 @@ ReactReader.propTypes = {
   styles: PropTypes.object,
   epubViewStyles: PropTypes.object,
   swipeable: PropTypes.bool,
+  onNextPressed: PropTypes.func,
 };
 
 export default ReactReader;

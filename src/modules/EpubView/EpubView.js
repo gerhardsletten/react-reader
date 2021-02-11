@@ -125,6 +125,7 @@ class EpubView extends Component {
 
   onLocationChange = (loc) => {
     const { location, locationChanged } = this.props;
+    console.log("LOCATION", location, "NEW LOC", loc);
     const newLocation = loc && loc.start;
     if (location !== newLocation) {
       this.location = newLocation;

@@ -12,8 +12,8 @@ interface EpubViewProps {
   loadingView?: React.ReactNode;
   location?: string | number;
   showToc?: boolean;
-  locationChanged?(value: string | number): void;
-  tocChanged?(value: Toc): void;
+  onLocationChanged?(value: string | number): void;
+  onTocChanged?(value: Toc): void;
   getRendition?(rendition: Rendition): void;
   handleKeyPress?(): void;
   handleTextSelected?(cfiRange: string, contents: Contents): void;

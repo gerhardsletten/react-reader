@@ -12,12 +12,12 @@ export const Container = styled.div`
 export const ReaderContainer = styled.div`
   font-size: 16px;
   position: absolute;
-  top: ${props => (props.fullscreen ? 0 : 135)}px;
-  left: ${props => (props.fullscreen ? 0 : 1)}rem;
-  right: ${props => (props.fullscreen ? 0 : 1)}rem;
-  bottom: ${props => (props.fullscreen ? 0 : 1)}rem;
+  top: ${(props) => (props.fullscreen ? 0 : 1)}px;
+  left: ${(props) => (props.fullscreen ? 0 : 1)}rem;
+  right: ${(props) => (props.fullscreen ? 0 : 1)}rem;
+  bottom: ${(props) => (props.fullscreen ? 0 : 1)}rem;
   transition: all 0.6s ease;
-  ${props => !props.fullscreen && "0 0 5px rgba(0,0,0,.3);"};
+  ${(props) => !props.fullscreen && "0 0 5px rgba(0,0,0,.3);"};
 `;
 export const Bar = styled.header`
   position: absolute;

@@ -10,7 +10,7 @@ class EpubView extends Component {
     super(props);
     this.state = {
       isLoaded: false,
-      toc: []
+      toc: [],
     };
     this.viewerRef = React.createRef();
     this.location = props.location;
@@ -32,7 +32,7 @@ class EpubView extends Component {
       this.setState(
         {
           isLoaded: true,
-          toc: toc
+          toc: toc,
         },
         () => {
           tocChanged && tocChanged(toc);
@@ -51,7 +51,8 @@ class EpubView extends Component {
     return (
       !this.state.isLoaded ||
       nextProps.location !== this.props.location ||
-      nextProps.location !== this.props.location
+      nextProps.flow !== this.props.flow ||
+      nextProps.theme !== this.props.theme
     );
   }
 
@@ -65,18 +66,35 @@ class EpubView extends Component {
     if (prevProps.url !== this.props.url) {
       this.initBook();
     }
+    if (prevProps.flow !== this.props.flow) {
+      this.initBook();
+    }
+    if (prevProps.theme !== this.props.theme) {
+      this.initBook();
+    }
   }
 
   initReader() {
     const { toc } = this.state;
-    const { location, epubOptions, getRendition } = this.props;
+    const { location, epubOptions, getRendition, flow, theme } = this.props;
     const node = this.viewerRef.current;
-    this.rendition = this.book.renderTo(node, {
-      contained: true,
-      width: "100%",
-      height: "100%",
-      ...epubOptions
-    });
+    this.rendition =
+      flow === "scroll"
+        ? this.book.renderTo(node, {
+            manager: "continuous",
+            flow: "scrolled",
+            width: "100%",
+            height: "100%",
+            ...epubOptions,
+          })
+        : this.book.renderTo(node, {
+            contained: true,
+            width: "100%",
+            height: "100%",
+            ...epubOptions,
+          });
+
+    this.rendition.themes.select(theme);
 
     this.prevPage = () => {
       this.rendition.prev();
@@ -87,9 +105,9 @@ class EpubView extends Component {
     this.registerEvents();
     getRendition && getRendition(this.rendition);
 
-    if(typeof location === "string" || typeof location === "number") {
+    if (typeof location === "string" || typeof location === "number") {
       this.rendition.display(location);
-    } else if(toc.length > 0 && toc[0].href) {
+    } else if (toc.length > 0 && toc[0].href) {
       this.rendition.display(toc[0].href);
     } else {
       this.rendition.display();
@@ -101,11 +119,11 @@ class EpubView extends Component {
     this.rendition.on("locationChanged", this.onLocationChange);
     this.rendition.on("keyup", handleKeyPress || this.handleKeyPress);
     if (handleTextSelected) {
-      this.rendition.on('selected', handleTextSelected);
+      this.rendition.on("selected", handleTextSelected);
     }
   }
 
-  onLocationChange = loc => {
+  onLocationChange = (loc) => {
     const { location, locationChanged } = this.props;
     const newLocation = loc && loc.start;
     if (location !== newLocation) {
@@ -141,13 +159,13 @@ EpubView.defaultProps = {
   tocChanged: null,
   styles: defaultStyles,
   epubOptions: {},
-  epubInitOptions: {}
+  epubInitOptions: {},
 };
 
 EpubView.propTypes = {
   url: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.instanceOf(ArrayBuffer)
+    PropTypes.instanceOf(ArrayBuffer),
   ]),
   loadingView: PropTypes.element,
   location: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -158,7 +176,7 @@ EpubView.propTypes = {
   epubOptions: PropTypes.object,
   getRendition: PropTypes.func,
   handleKeyPress: PropTypes.func,
-  handleTextSelected: PropTypes.func
+  handleTextSelected: PropTypes.func,
 };
 
 export default EpubView;

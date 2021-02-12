@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { createGlobalStyle } from "styled-components";
 import FileReaderInput from "react-file-reader-input";
 import { ReactReader } from "./modules";
+import Reader from "./newModules/Reader";
 import {
   Container,
   ReaderContainer,
@@ -208,7 +209,7 @@ class App extends Component {
       <div>
         <GlobalStyle />
         <ReaderContainer fullscreen={fullscreen}>
-          <ReactReader
+          <Reader
             url={localFile || DEMO_URL}
             title={localName || DEMO_NAME}
             location={location}

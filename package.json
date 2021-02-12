@@ -8,26 +8,14 @@
     "prepare": "npm run compile",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "gh-pages-deploy",
-    "clean-source": "rimraf lib src public .babelrc .eslintrc .npmignore package.json README.md",
-    "precommit": "pretty-quick --staged",
     "format": "prettier --write \"src/**/*.js\"",
     "test": "eslint -c .eslintrc src",
     "build-webpack": "webpack build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gerhardsletten/react-reader.git"
-  },
-  "author": "Eyvind Gerhard Sletten",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/gerhardsletten/react-reader/issues"
-  },
   "standard": {
     "parser": "babel-eslint"
   },
-  "homepage": "https://gerhardsletten.github.io/react-reader",
   "devDependencies": {
     "@babel/cli": "^7.12.8",
     "@babel/core": "^7.12.9",
@@ -37,36 +25,22 @@
     "@babel/preset-react": "^7.12.7",
     "@types/react": "^17.0.0",
     "csstype": "^3.0.5",
-    "gh-pages-deploy": "^0.5.1",
-    "husky": "^4.3.0",
     "prettier": "^2.2.0",
-    "pretty-quick": "^3.1.0",
     "react": "^16.13.1",
     "react-dom": "^17.0.1",
-    "react-file-reader-input": "^2.0.0",
     "react-scripts": "^4.0.1",
-    "rimraf": "^3.0.2",
     "styled-components": "^5.2.1",
     "styled-components-breakpoint": "^2.1.1",
     "typescript": "^4.1.2"
   },
   "dependencies": {
+    "@types/styled-components": "^5.1.7",
     "epubjs": "^0.3.88",
     "prop-types": "^15.7.2",
     "react-swipeable": "^6.0.0"
   },
   "peerDependencies": {
     "react": ">=17.0.1"
-  },
-  "gh-pages-deploy": {
-    "staticpath": "build",
-    "prep": [
-      "build"
-    ],
-    "post": [
-      "clean-source"
-    ],
-    "noprompt": false
   },
   "browserslist": [
     ">0.2%",

@@ -1,19 +1,7 @@
 import React, { Component } from "react";
 import { createGlobalStyle } from "styled-components";
-import FileReaderInput from "react-file-reader-input";
-import { ReactReader } from "./modules";
 import Reader from "./newModules/Reader";
-import {
-  Container,
-  ReaderContainer,
-  Bar,
-  LogoWrapper,
-  Logo,
-  GenericButton,
-  CloseIcon,
-  FontSizeButton,
-  ButtonWrapper,
-} from "./Components";
+import { ReaderContainer } from "./Components";
 
 const DEMO_URL = "/react-reader/files/alice.epub";
 const DEMO_NAME = "Alice in wonderland";
@@ -174,19 +162,6 @@ class App extends Component {
     rendition.themes.fontSize(largeText ? "200%" : "100%");
     rendition.themes.registerThemes(readerThemes);
     rendition.on("selected", this.onSelection);
-  };
-  handleChangeFile = (event, results) => {
-    if (results.length > 0) {
-      const [e, file] = results[0];
-      if (file.type !== "application/epub+zip") {
-        return alert("Unsupported type");
-      }
-      this.setState({
-        localFile: e.target.result,
-        localName: file.name,
-        location: null,
-      });
-    }
   };
 
   handleOnFontSizeChange = (fontSize) => {

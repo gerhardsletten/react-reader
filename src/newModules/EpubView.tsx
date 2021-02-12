@@ -37,7 +37,6 @@ const EpubView = (props: EpubViewProps) => {
     onTocChanged,
     epubInitOptions,
     location,
-    loadingView,
     epubOptions,
     getRendition,
     flow,
@@ -114,7 +113,9 @@ const EpubView = (props: EpubViewProps) => {
 
   return (
     <div style={styles.viewHolder}>
-      {(isLoaded && renderBook()) || loadingView}
+      {(isLoaded && renderBook()) || (
+        <div style={defaultStyles.loadingView}>Loading…</div>
+      )}
     </div>
   );
 };

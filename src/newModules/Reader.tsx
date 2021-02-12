@@ -4,7 +4,7 @@ import * as CSS from "csstype";
 import { useSwipeable } from "react-swipeable";
 import defaultStyles from "../modules/ReactReader/style";
 import TestEpub from "./EpubView";
-import { NavItem } from "epubjs";
+import { NavItem, Rendition } from "epubjs";
 
 const Swipeable = ({ children, ...props }) => {
   const handlers = useSwipeable(props);
@@ -19,13 +19,13 @@ interface EpubViewStyles {
 interface ReaderProps {
   url: string;
   title: string;
-  loadingView: React.ReactNode;
-  showToc: boolean;
+  location: string | number;
+  getRendition: (rendition: Rendition) => void;
   onLocationChanged?(value: string | number): void;
   onTocChanged?(value: NavItem[]): void;
-  styles: any;
-  epubViewStyles: EpubViewStyles;
-  swipeable: boolean;
+  styles?: any;
+  epubViewStyles?: EpubViewStyles;
+  swipeable?: boolean;
   onNextPressed: () => void;
   onPreviousPressed: () => void;
   onFontSizeOptionSelected: (fontSize: string) => void;

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { createGlobalStyle } from "styled-components";
-import Reader from "./Reader";
-import { ReaderContainer } from "../Components";
+import Reader from "./modules/ReactReader/Reader";
+import { ReaderContainer } from "./Components";
 import { Rendition } from "epubjs";
 
 const GlobalStyle = createGlobalStyle`
@@ -58,7 +58,7 @@ const readerThemes = {
   },
 };
 
-const DEMO_URL = "/react-reader/files/alice.epub";
+const DEMO_URL = "/web-reader/files/alice.epub";
 const DEMO_NAME = "Alice in wonderland";
 
 const App = () => {
@@ -93,7 +93,9 @@ const App = () => {
       <GlobalStyle />
       <ReaderContainer>
         <Reader
-          url={DEMO_URL}
+          url={
+            "https://s3.amazonaws.com/epubjs/books/moby-dick/OPS/package.opf"
+          }
           title={DEMO_NAME}
           location={location}
           onLocationChanged={handleOnLocationChanged}

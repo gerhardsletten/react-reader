@@ -5,7 +5,7 @@ import Epub from "epubjs/lib/index";
 import { BookOptions } from "epubjs/types/book";
 import { RenditionOptions } from "epubjs/types/rendition";
 import { Contents, Rendition, Book, NavItem, Location } from "epubjs";
-import defaultStyles from "../modules/EpubView/style";
+import defaultStyles from "./style";
 
 global.ePub = Epub; // Fix for v3 branch of epub.js -> needs ePub to by a global var
 

@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import * as CSS from "csstype";
 import { useSwipeable } from "react-swipeable";
-import defaultStyles from "../modules/ReactReader/style";
-import TestEpub from "./EpubView";
+import defaultStyles from "./style";
+import EpubView from "../EpubView/EpubView";
 import { NavItem, Rendition } from "epubjs";
 
 const Swipeable = ({ children, ...props }) => {
@@ -300,7 +300,7 @@ const Reader = (props: ReaderProps) => {
           trackMouse
         >
           <div style={styles.reader}>
-            <TestEpub
+            <EpubView
               {...props}
               loadingView={loadingView}
               styles={epubViewStyles}

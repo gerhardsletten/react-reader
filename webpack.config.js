@@ -7,7 +7,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.m?js$/,
+        test: /\.m?js$|\.ts|\.tsx$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -15,6 +15,7 @@ module.exports = {
             presets: [
               ["@babel/preset-env", { targets: "defaults" }],
               ["@babel/preset-react", { targets: "defaults" }],
+              ["@babel/preset-typescript"],
             ],
           },
         },

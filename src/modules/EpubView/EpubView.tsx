@@ -76,7 +76,6 @@ const EpubView = (props: EpubViewProps) => {
   };
 
   const initReader = () => {
-    console.log("BOOK", book.current);
     const node = viewerRef.current;
     const newRendition =
       flow === "scroll"

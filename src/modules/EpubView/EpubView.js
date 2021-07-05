@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import Epub from "epubjs/lib/index";
 import defaultStyles from "./style";
 
-global.ePub = Epub; // Fix for v3 branch of epub.js -> needs ePub to by a global var
+// MTL removed - line does not seem like a requirement any more (and was causing an error)
+// global.ePub = Epub; // Fix for v3 branch of epub.js -> needs ePub to by a global var
 
 class EpubView extends Component {
   constructor(props) {

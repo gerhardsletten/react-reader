@@ -1,4 +1,4 @@
-# React ePub reader
+# React Reader - an easy way to embed a ePub into your webapp
 
 An ePub-reader for react powered by EpubJS #react #epubjs #webpack #babel #standardjs
 
@@ -6,7 +6,7 @@ An ePub-reader for react powered by EpubJS #react #epubjs #webpack #babel #stand
 
 ![React Reader logo](https://gerhardsletten.github.io/react-reader/files/react-reader.svg)
 
-## React wrapper for epubjs
+## React wrapper for EpubJS
 
 React Reader is a react-wrapper for [epub.js](https://github.com/futurepress/epub.js) using the v.03 branch.
 
@@ -14,14 +14,15 @@ React Reader is a react-wrapper for [epub.js](https://github.com/futurepress/epu
 
 [epub.js](https://github.com/futurepress/epub.js) is a great library and this is a wrapper for it.  This wrapper makes it easy to use in a React-app.
 
-```js
-import {
-  EpubView, // Underlaying epub-canvas (wrapper for epub.js iframe)
-  EpubViewStyle, // Styles for EpubView, you can pass it to the instance as a style prop for customize it
-  ReactReader, // A simple epub-reader with left/right button and chapter navigation
-  ReactReaderStyle // Styles for the epub-reader it you need to customize it
-} from "react-reader";
-```
+This package publish 4 named exports:
+
+* ReactReader - Most used, a basic epub-reader to embed into your webapp
+* ReactReaderStyle - styles for above if you need to overwrite them, [see the file](https://github.com/gerhardsletten/react-reader/blob/master/src/modules/ReactReader/style.js)
+* EpubView - Underlaying epub-canvas (wrapper for epub.js iframe)
+* EpubViewStyle - styles for above if you need to overwrite them, [see the file](https://github.com/gerhardsletten/react-reader/blob/master/src/modules/EpubView/style.js)
+
+Also note that EpubJS is a browser-based epub-reader and it works by rendering the current epub-chapter into an iframe, and then by css-columns it will display the current page. [See limitations below](#limitations)
+
 
 ## Basic usage
 
@@ -34,85 +35,320 @@ import {
 And in your react-component...
 
 ```js
-import React, { Component } from "react";
-import { ReactReader } from "react-reader";
+import React, { useState } from "react"
+import { ReactReader } from "react-reader"
 
-class App extends Component {
-  render() {
-    return (
-      <div style={{ position: "relative", height: "100%" }}>
-        {" "}
-        // * Container needs a height..
-        <ReactReader
-          url={"/alice.epub"}
-          title={"Alice in wonderland"}
-          location={"epubcfi(/6/2[cover]!/6)"}
-          locationChanged={epubcifi => console.log(epubcifi)}
-        />
-      </div>
-    );
+const App = () => {
+  // And your own state logic to persist state
+  const [location, setLocation] = useState(null)
+  const locationChanged = (epubcifi) => {
+    // epubcifi is a internal string used by epubjs to point to a location in an epub. It looks like this: epubcfi(/6/6[titlepage]!/4/2/12[pgepubid00003]/3:0)
+    setLocation(epubcifi)
   }
+  return (
+    <div style={{ height: "100vh" }}>
+      <ReactReader
+        location={location}
+        locationChanged={locationChanged}
+        url="https://gerhardsletten.github.io/react-reader/files/alice.epub"
+      />
+    </div>
+  )
 }
+
+export default App
+
 ```
 
-[See src/App.js](src/App.js) for an example of using the selection api in epubjs.
-
-#### ReactReader props
+### ReactReader props
 
 - `title` [string] - the title of the book, displayed above the reading-canvas
-- `loadingView` [element] - if you want to customize the loadingView
 - `showToc` [bool] - whether to show the toc / toc-nav
-- `locationChanged` [func] - a function that receives the current location while user is reading
-- `tocChanged` [func] - when the reader has parsed the book you will receive an array of the chapters
 - `styles` [object] - override the default styles
 - `epubViewStyles` [object] - override the default styles for inner EpubView
 - `swipeable` [bool, default false] - enable swiping left/right with [react-swipeable](https://github.com/dogfessional/react-swipeable). _Warning_ this will disable interacting with epub.js iframe content like selection
 
-[See also TypeScript definition](types/index.d.ts) for React Reader here (thanks to [@rafaelsaback](#63))
+### ReactReader props passed to inner EpubView
 
-Additional props will be forwarded to the underlying EpubView component, like url, location, epubOptions, epubInitOptions and getRendition. [See its props here](#epubview-props)
-
-_Container needs a height._
-The ReactReader will expand to 100% of width/height, so be sure to set a height on the parent element, either with position it absolute of window, set height or use paddingTop for proporcional scaling.
-
-### Optional use the underlying EpubView
-
-This is just the plain epub canvas, you will then need to implement the reader stuff like chapter (toc) navigation and next/prev buttons. Take a look at the implementation in ReactReader.js
-
-```js
-import React, { Component } from "react";
-import { EpubView } from "react-reader";
-
-class App extends Component {
-  render() {
-    return (
-      /* The ReactReader will expand to 100% of width/height, so be sure to set a height on the parent element, either with position it absolute of window, set height or use paddingTop for proporsjonal scaling */
-      <div style={{ position: "relative", height: "100%" }}>
-        <EpubView
-          url={"/alice.epub"}
-          location={"epubcfi(/6/2[cover]!/6)"}
-          locationChanged={epubcifi => console.log(epubcifi)}
-          tocChanged={toc => console.log(toc)}
-        />
-      </div>
-    );
-  }
-}
-```
-
-#### EpubView props
-
-- `url` [string, required] - url to the epub-file, if its on another domain, remember to add cors for the file. Epubjs fetch this by a http-call, so it need to be public available. 
+- `url` [string, required] - url to the epub-file, if its on another domain, remember to add cors for the file. Epubjs fetch this by a http-call, so it need to be public available.
 - `loadingView` [element] - if you want to customize the loadingView
 - `location` [string, number] - set / update location of the epub
 - `locationChanged` [func] - a function that receives the current location while user is reading
 - `tocChanged` [func] - when the reader has parsed the book you will receive an array of the chapters
-- `styles` [object] - override the default styles
 - `epubInitOptions` [object] - pass custom properties to the epub init function, see [epub.js](http://epubjs.org/documentation/0.3/#epub)
 - `epubOptions` [object] - pass custom properties to the epub rendition, see [epub.js's book.renderTo function](http://epubjs.org/documentation/0.3/#rendition)
 - `getRendition` [func] - when epubjs has rendered the epub-file you can get access to the epubjs-rendition object here
 
-#### Handling not valid epub-files
+### EpubView props
+
+`EpubView` is just the iframe-view from EpubJS if you would like to build the reader yourself, see above for props
+
+## Recipes and tips
+
+### TypeScript support
+
+[See also TypeScript definition](types/index.d.ts) for React Reader here (thanks to [@rafaelsaback](#63))
+
+Can community supply an example of this
+
+### Overwrite styles with react-styles
+
+Import the published styles and extend them, or you can wrap it in a custom container where you can overwrite styles by nested css-styles
+
+```js
+import React from "react"
+import {
+  ReactReader,
+  ReactReaderStyle
+} from "react-reader"
+
+const ownStyles = {
+  ...ReactReaderStyle,
+  arrow: {
+    ...ReactReaderStyle.arrow,
+    color: 'red'
+  }
+}
+
+const App = () => {
+  return (
+    <div style={{ height: "100vh" }} className="myReader">
+      <ReactReader
+        url="https://gerhardsletten.github.io/react-reader/files/alice.epub"
+        styles={ownStyles}
+      />
+    </div>
+  )
+}
+```
+
+### Display page number for current chapter
+
+We store the epubjs rendition in a ref, and get the page numbers in the callback when location is changed. Note that in this example we also find them name of the current chapter from the toc. Also see limitation for pagination for the whole book.
+
+```js
+import React, { useRef, useState } from "react"
+import { ReactReader } from "react-reader"
+
+const App = () => {
+  const [page, setPage] = useState('')
+  const renditionRef = useRef(null)
+  const tocRef = useRef(null)
+  const locationChanged = (epubcifi) => {
+    if (renditionRef.current && tocRef.current) {
+      const { displayed, href } = renditionRef.current.location.start
+      const chapter = tocRef.current.find((item) => item.href === href)
+      setPage(`Page ${displayed.page} of ${displayed.total} in chapter ${chapter ? chapter.label : 'n/a'}`)
+    }
+  }
+  return (
+    <>
+      <div style={{ height: "100vh" }}>
+        <ReactReader
+          locationChanged={locationChanged}
+          url="https://gerhardsletten.github.io/react-reader/files/alice.epub"
+          getRendition={(rendition) => renditionRef.current = rendition}
+          tocChanged={toc => tocRef.current = toc}
+        />
+      </div>
+      <div style={{ position: 'absolute', bottom: '1rem', right: '1rem', left: '1rem', textAlign: 'center', zIndex: 1}}>
+        {page}
+      </div>
+    </>
+  )
+}
+```
+
+### Change font-size
+
+Hooking into epubJS rendition object is the key for this also.
+
+```js
+import React, { useRef, useState, useEffect } from "react"
+import { ReactReader } from "react-reader"
+
+const App = () => {
+  const [size, setSize] = useState(100)
+  const renditionRef = useRef(null)
+  const changeSize = (newSize) => {
+    setSize(newSize)
+  }
+  useEffect(() => {
+    if (renditionRef.current) {
+      renditionRef.current.themes.fontSize(`${size}%`)
+    }
+  }, [size])
+  return (
+    <>
+      <div style={{ height: "100vh" }}>
+        <ReactReader
+          url="https://gerhardsletten.github.io/react-reader/files/alice.epub"
+          getRendition={(rendition) => {
+            renditionRef.current = rendition
+            renditionRef.current.themes.fontSize(`${size}%`)
+          }}
+        />
+      </div>
+      <div style={{ position: 'absolute', bottom: '1rem', right: '1rem', left: '1rem', textAlign: 'center', zIndex: 1}}>
+        <button onClick={() => changeSize(Math.max(80, size - 10))}>-</button>
+        <span>Current size: {size}%</span>
+        <button onClick={() => changeSize(Math.min(130, size + 10))}>+</button>
+      </div>
+    </>
+  )
+}
+```
+
+### Add / adjust custom css for the epub-html
+
+EpubJS render the epub-file inside a iframe so you will need to create a custom theme and apply it:
+
+```js
+import React from "react"
+import { ReactReader } from "react-reader"
+
+const App = () => {
+  return (
+    <div style={{ height: "100vh" }}>
+      <ReactReader
+        url="https://gerhardsletten.github.io/react-reader/files/alice.epub"
+        getRendition={(rendition) => {
+          rendition.themes.register('custom', {
+            img: {
+              border: '1px solid red'
+            },
+            p: {
+              border: '1px solid green'
+            }
+          })
+          rendition.themes.select('custom')
+        }}
+      />
+    </div>
+  )
+}
+```
+
+### Hightlight selection in epub
+
+This shows how to hook into epubJS annotations object and let the user highlight selection and store this in a list where user can go to a selection or delete it. 
+
+```js
+import React, { useRef, useState, useEffect } from "react"
+import { ReactReader } from "react-reader"
+
+const App = () => {
+  const [selections, setSelections] = useState([])
+  const renditionRef = useRef(null)
+  useEffect(() => {
+    if (renditionRef.current) {
+      function setRenderSelection(cfiRange, contents) {
+        setSelections(selections.concat({
+          text: renditionRef.current.getRange(cfiRange).toString(),
+          cfiRange
+        }))
+        renditionRef.current.annotations.add("highlight", cfiRange, {}, null , "hl", {"fill": "red", "fill-opacity": "0.5", "mix-blend-mode": "multiply"})
+        contents.window.getSelection().removeAllRanges()
+      }
+      renditionRef.current.on("selected", setRenderSelection)
+      return () => {
+        renditionRef.current.off("selected", setRenderSelection)
+      }
+    }
+  }, [setSelections, selections])
+  return (
+    <>
+      <div style={{ height: "100vh" }}>
+        <ReactReader
+          url="https://gerhardsletten.github.io/react-reader/files/alice.epub"
+          getRendition={(rendition) => {
+            renditionRef.current = rendition
+            renditionRef.current.themes.default({
+              '::selection': {
+                'background': 'orange'
+              }
+            })
+            setSelections([])
+          }}
+        />
+      </div>
+      <div style={{ position: 'absolute', bottom: '1rem', right: '1rem', zIndex: 1, backgroundColor: 'white'}}>
+        Selection:
+        <ul>
+          {selections.map(({text, cfiRange}, i) => (
+            <li key={i}>
+              {text} <button onClick={() => {
+                renditionRef.current.display(cfiRange)
+              }}>Show</button>
+              <button onClick={() => {
+                renditionRef.current.annotations.remove(cfiRange, 'highlight')
+                setSelections(selections.filter((item, j) => j !== i))
+              }}>x</button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
+  )
+}
+```
+
+### Handling missing mime-types on server
+
+EpubJS will try to parse the epub-file you pass to it, but if the server send wrong mine-types or the file does not contain `.epub` you can use the epubInitOptions prop to force reading it right.
+
+```js
+import React from "react"
+import { ReactReader } from "react-reader"
+
+const App = () => {
+  return (
+    <div style={{ height: "100vh" }}>
+      <ReactReader
+        url="/my-epub-service"
+        epubInitOptions={{
+          openAs: 'epub'
+        }}
+      />
+    </div>
+  )
+}
+```
+
+### Display a scrolled epub-view
+
+Pass options for this into epubJS in the prop `epubOptions`
+
+```js
+import React from "react"
+import { ReactReader } from "react-reader"
+
+const App = () => {
+  return (
+    <div style={{ height: "100vh" }}>
+      <ReactReader
+        url="https://gerhardsletten.github.io/react-reader/files/alice.epub"
+        epubOptions={{
+          flow: "scrolled",
+          manager: "continuous"
+        }}
+      />
+    </div>
+  )
+}
+```
+
+## Limitations
+
+EpubJS is a browser-based epub-reader and it works by rendering the current epub-chapter into an iframe, and then by css-columns it will display the current page.
+
+* EpubJS will need to render the current chapter before it will now how many pages it will have in the current viewport. Because of this it will not be able to tell you at which page in the whole epub-book you are at, nor will you be able to get the total pages for the whole book
+* Performance for a web-based epub-reader will not be the same as native readers.
+* EpubJS support `epub 2` standard, but most `epub 3` features should work since its based on regular html-tags, but there can be more issues with those [See Epub on Wikipedia](https://en.wikipedia.org/wiki/EPUB)
+
+Also be aware that the epub-standard is basically a zip of html-files, and there is a range in quality. Most publishers create pretty ok epubs, but in some older books there could be errors that will make rendering fails.
+
+### Handling not valid epub-files
 
 A tip if you have problems with not valid epub-files is to override the build in DOMParser and modify the markup-string passed to its parseFromString function. This example fixes a not valid `<title/>` tag in an old epub, which would render as a blank page if not fixed:
 
@@ -131,12 +367,3 @@ class OwnParser {
 window.DOMParser = OwnParser
 ```
 
-#### Usage in cordova
-
-There is a limitation with iframe and `srcdoc` so you need to add this to your config.xml to make react-reader work within a cordova application:
-
-```
-<allow-navigation href="about:*" />
-```
-
-See [stackoverflow.com/questions/39165545/cordova-iframe-with-html-inside-not-showing-on-ios-device](https://stackoverflow.com/questions/39165545/cordova-iframe-with-html-inside-not-showing-on-ios-device)

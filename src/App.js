@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { createGlobalStyle } from "styled-components";
-import FileReaderInput from "react-file-reader-input";
-import { ReactReader } from "./modules";
+import React, { Component } from 'react'
+import { createGlobalStyle } from 'styled-components'
+import FileReaderInput from 'react-file-reader-input'
+import { ReactReader } from './modules'
 import {
   Container,
   ReaderContainer,
@@ -12,13 +12,12 @@ import {
   CloseIcon,
   FontSizeButton,
   ButtonWrapper
-} from "./Components";
+} from './Components'
 
-const storage = global.localStorage || null;
+const storage = global.localStorage || null
 
-const DEMO_URL =
-  "/react-reader/files/alice.epub";
-const DEMO_NAME = "Alice in wonderland";
+const DEMO_URL = '/react-reader/files/alice.epub'
+const DEMO_NAME = 'Alice in wonderland'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -45,22 +44,22 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     color: #fff;
   }
-`;
+`
 
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       fullscreen: false,
       location:
-        storage && storage.getItem("epub-location")
-          ? storage.getItem("epub-location")
+        storage && storage.getItem('epub-location')
+          ? storage.getItem('epub-location')
           : 2,
       localFile: null,
       localName: null,
       largeText: false
-    };
-    this.rendition = null;
+    }
+    this.rendition = null
   }
 
   toggleFullscreen = () => {
@@ -70,12 +69,12 @@ class App extends Component {
       },
       () => {
         setTimeout(() => {
-          const evt = document.createEvent("UIEvents");
-          evt.initUIEvent("resize", true, false, global, 0);
-        }, 1000);
+          const evt = document.createEvent('UIEvents')
+          evt.initUIEvent('resize', true, false, global, 0)
+        }, 1000)
       }
-    );
-  };
+    )
+  }
 
   onLocationChanged = location => {
     this.setState(
@@ -83,45 +82,45 @@ class App extends Component {
         location
       },
       () => {
-        storage && storage.setItem("epub-location", location);
+        storage && storage.setItem('epub-location', location)
       }
-    );
-  };
+    )
+  }
 
   onToggleFontSize = () => {
-    const nextState = !this.state.largeText;
+    const nextState = !this.state.largeText
     this.setState(
       {
         largeText: nextState
       },
       () => {
-        this.rendition.themes.fontSize(nextState ? "140%" : "100%");
+        this.rendition.themes.fontSize(nextState ? '140%' : '100%')
       }
-    );
-  };
+    )
+  }
 
   getRendition = rendition => {
     console.log('getRendition callback', rendition)
     // Set inital font-size, and add a pointer to rendition for later updates
-    const { largeText } = this.state;
-    this.rendition = rendition;
-    rendition.themes.fontSize(largeText ? "140%" : "100%");
-  };
+    const { largeText } = this.state
+    this.rendition = rendition
+    rendition.themes.fontSize(largeText ? '140%' : '100%')
+  }
   handleChangeFile = (event, results) => {
     if (results.length > 0) {
-      const [e, file] = results[0];
-      if (file.type !== "application/epub+zip") {
-        return alert("Unsupported type");
+      const [e, file] = results[0]
+      if (file.type !== 'application/epub+zip') {
+        return alert('Unsupported type')
       }
       this.setState({
         localFile: e.target.result,
         localName: file.name,
         location: null
-      });
+      })
     }
-  };
+  }
   render() {
-    const { fullscreen, location, localFile, localName } = this.state;
+    const { fullscreen, location, localFile, localName } = this.state
     return (
       <Container>
         <GlobalStyle />
@@ -155,8 +154,8 @@ class App extends Component {
           </FontSizeButton>
         </ReaderContainer>
       </Container>
-    );
+    )
   }
 }
 
-export default App;
+export default App

@@ -10,52 +10,47 @@
     "build": "react-scripts build",
     "deploy": "gh-pages-deploy",
     "clean-source": "rimraf lib src public .babelrc .eslintrc .npmignore package.json README.md",
-    "precommit": "pretty-quick --staged",
     "format": "prettier --write \"src/**/*.js\"",
-    "test": "eslint -c .eslintrc src"
+    "test": "eslint src"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gerhardsletten/react-reader.git"
   },
-  "author": "Eyvind Gerhard Sletten",
+  "author": "Gerhard Sletten",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/gerhardsletten/react-reader/issues"
   },
-  "standard": {
-    "parser": "babel-eslint"
-  },
   "homepage": "https://gerhardsletten.github.io/react-reader",
   "devDependencies": {
-    "@babel/cli": "^7.12.8",
-    "@babel/core": "^7.12.9",
-    "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
-    "@babel/preset-env": "^7.12.7",
-    "@babel/preset-react": "^7.12.7",
-    "@types/react": "^17.0.0",
-    "csstype": "^3.0.5",
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.14.8",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.14.7",
+    "@babel/preset-env": "^7.14.9",
+    "@babel/preset-react": "^7.14.5",
+    "@types/react": "^17.0.15",
+    "csstype": "^3.0.8",
+    "eslint-plugin-prettier": "^3.4.0",
     "gh-pages-deploy": "^0.5.1",
-    "husky": "^4.3.0",
-    "prettier": "^2.2.0",
-    "pretty-quick": "^3.1.0",
-    "react": "^16.13.1",
-    "react-dom": "^17.0.1",
+    "prettier": "^2.3.2",
+    "react": "^16.14.0",
+    "react-dom": "^17.0.2",
     "react-file-reader-input": "^2.0.0",
-    "react-scripts": "^4.0.1",
+    "react-scripts": "^4.0.3",
     "rimraf": "^3.0.2",
-    "styled-components": "^5.2.1",
+    "styled-components": "^5.3.0",
     "styled-components-breakpoint": "^2.1.1",
-    "typescript": "^4.1.2"
+    "typescript": "^4.3.5"
   },
   "dependencies": {
     "epubjs": "^0.3.88",
     "prop-types": "^15.7.2",
-    "react-swipeable": "^6.0.0"
+    "react-swipeable": "^6.1.2"
   },
   "peerDependencies": {
-    "react": ">=17.0.1"
+    "react": ">=17.0.2"
   },
   "gh-pages-deploy": {
     "staticpath": "build",
@@ -66,6 +61,21 @@
       "clean-source"
     ],
     "noprompt": false
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "none",
+    "arrowParens": "avoid"
+  },
+  "eslintConfig": {
+    "extends": "react-app",
+    "plugins": [
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": "warn"
+    }
   },
   "browserslist": [
     ">0.2%",

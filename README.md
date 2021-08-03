@@ -8,11 +8,11 @@ An ePub-reader for react powered by EpubJS #react #epubjs #webpack #babel #stand
 
 ## React wrapper for epubjs
 
-React reader is a react-wrapper for [epub.js](https://github.com/futurepress/epub.js), using the v.03 branch.
+React Reader is a react-wrapper for [epub.js](https://github.com/futurepress/epub.js) using the v.03 branch.
 
 ## About
 
-[epub.js](https://github.com/futurepress/epub.js) is a great library, and this is a wrapper for this library, making it easier to use in a React-app.
+[epub.js](https://github.com/futurepress/epub.js) is a great library and this is a wrapper for it.  This wrapper makes it easy to use in a React-app.
 
 ```js
 import {
@@ -26,6 +26,10 @@ import {
 ## Basic usage
 
 `npm install react-reader --save`
+
+-or-
+
+`yarn add react-reader`
 
 And in your react-component...
 

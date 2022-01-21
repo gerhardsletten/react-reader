@@ -24,30 +24,30 @@
   },
   "homepage": "https://gerhardsletten.github.io/react-reader",
   "devDependencies": {
-    "@babel/cli": "^7.14.8",
-    "@babel/core": "^7.14.8",
-    "@babel/plugin-proposal-class-properties": "^7.14.5",
-    "@babel/plugin-proposal-object-rest-spread": "^7.14.7",
-    "@babel/preset-env": "^7.14.9",
-    "@babel/preset-react": "^7.14.5",
-    "@types/react": "^17.0.15",
-    "csstype": "^3.0.8",
-    "eslint-plugin-prettier": "^3.4.0",
+    "@babel/cli": "^7.16.8",
+    "@babel/core": "^7.16.10",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/plugin-proposal-object-rest-spread": "^7.16.7",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@types/react": "^17.0.38",
+    "csstype": "^3.0.10",
+    "eslint-plugin-prettier": "^4.0.0",
     "gh-pages-deploy": "^0.5.1",
-    "prettier": "^2.3.2",
-    "react": "^16.14.0",
+    "prettier": "^2.5.1",
+    "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-file-reader-input": "^2.0.0",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "^5.0.0",
     "rimraf": "^3.0.2",
-    "styled-components": "^5.3.0",
+    "styled-components": "^5.3.3",
     "styled-components-breakpoint": "^2.1.1",
-    "typescript": "^4.3.5"
+    "typescript": "^4.5.5"
   },
   "dependencies": {
-    "epubjs": "^0.3.88",
-    "prop-types": "^15.7.2",
-    "react-swipeable": "^6.1.2"
+    "epubjs": "^0.3.92",
+    "prop-types": "^15.8.1",
+    "react-swipeable": "^6.2.0"
   },
   "peerDependencies": {
     "react": ">=17.0.2"

@@ -100,7 +100,6 @@ class App extends Component {
   }
 
   getRendition = rendition => {
-    console.log('getRendition callback', rendition)
     // Set inital font-size, and add a pointer to rendition for later updates
     const { largeText } = this.state
     this.rendition = rendition

@@ -2,9 +2,9 @@
 
 An ePub-reader for react powered by EpubJS #react #epubjs #webpack #babel #standardjs
 
-[See demo](https://gerhardsletten.github.io/react-reader)
+[See demo](https://react-reader.metabits.no)
 
-![React Reader logo](https://gerhardsletten.github.io/react-reader/files/react-reader.svg)
+![React Reader logo](https://react-reader.metabits.no/files/react-reader.svg)
 
 ## React wrapper for EpubJS
 
@@ -50,7 +50,7 @@ const App = () => {
       <ReactReader
         location={location}
         locationChanged={locationChanged}
-        url="https://gerhardsletten.github.io/react-reader/files/alice.epub"
+        url="https://react-reader.metabits.no/files/alice.epub"
       />
     </div>
   )
@@ -114,7 +114,7 @@ const App = () => {
   return (
     <div style={{ height: "100vh" }} className="myReader">
       <ReactReader
-        url="https://gerhardsletten.github.io/react-reader/files/alice.epub"
+        url="https://react-reader.metabits.no/files/alice.epub"
         styles={ownStyles}
       />
     </div>
@@ -146,7 +146,7 @@ const App = () => {
       <div style={{ height: "100vh" }}>
         <ReactReader
           locationChanged={locationChanged}
-          url="https://gerhardsletten.github.io/react-reader/files/alice.epub"
+          url="https://react-reader.metabits.no/files/alice.epub"
           getRendition={(rendition) => renditionRef.current = rendition}
           tocChanged={toc => tocRef.current = toc}
         />
@@ -182,7 +182,7 @@ const App = () => {
     <>
       <div style={{ height: "100vh" }}>
         <ReactReader
-          url="https://gerhardsletten.github.io/react-reader/files/alice.epub"
+          url="https://react-reader.metabits.no/files/alice.epub"
           getRendition={(rendition) => {
             renditionRef.current = rendition
             renditionRef.current.themes.fontSize(`${size}%`)
@@ -211,7 +211,7 @@ const App = () => {
   return (
     <div style={{ height: "100vh" }}>
       <ReactReader
-        url="https://gerhardsletten.github.io/react-reader/files/alice.epub"
+        url="https://react-reader.metabits.no/files/alice.epub"
         getRendition={(rendition) => {
           rendition.themes.register('custom', {
             img: {
@@ -260,7 +260,7 @@ const App = () => {
     <>
       <div style={{ height: "100vh" }}>
         <ReactReader
-          url="https://gerhardsletten.github.io/react-reader/files/alice.epub"
+          url="https://react-reader.metabits.no/files/alice.epub"
           getRendition={(rendition) => {
             renditionRef.current = rendition
             renditionRef.current.themes.default({
@@ -327,7 +327,7 @@ const App = () => {
   return (
     <div style={{ height: "100vh" }}>
       <ReactReader
-        url="https://gerhardsletten.github.io/react-reader/files/alice.epub"
+        url="https://react-reader.metabits.no/files/alice.epub"
         epubOptions={{
           flow: "scrolled",
           manager: "continuous"

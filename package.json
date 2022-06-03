@@ -22,28 +22,28 @@
   },
   "homepage": "https://react-reader.metabits.no",
   "devDependencies": {
-    "@babel/cli": "^7.17.6",
-    "@babel/core": "^7.17.9",
-    "@babel/plugin-proposal-class-properties": "^7.16.7",
-    "@babel/plugin-proposal-object-rest-spread": "^7.17.3",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-react": "^7.16.7",
-    "@types/react": "^18.0.7",
-    "csstype": "^3.0.11",
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.2",
+    "@babel/plugin-proposal-class-properties": "^7.17.12",
+    "@babel/plugin-proposal-object-rest-spread": "^7.18.0",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-react": "^7.17.12",
+    "@types/react": "^18.0.10",
+    "csstype": "^3.1.0",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.6.2",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
     "react-file-reader-input": "^2.0.0",
     "react-scripts": "^5.0.1",
     "styled-components": "^5.3.5",
     "styled-components-breakpoint": "^2.1.1",
-    "typescript": "^4.6.3"
+    "typescript": "^4.7.2"
   },
   "dependencies": {
     "epubjs": "^0.3.93",
     "prop-types": "^15.8.1",
-    "react-swipeable": "^6.2.1"
+    "react-swipeable": "^7.0.0"
   },
   "peerDependencies": {
     "react": ">=17.0.2"

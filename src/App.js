@@ -16,7 +16,7 @@ import {
 
 const storage = global.localStorage || null
 
-const DEMO_URL = '/react-reader/files/alice.epub'
+const DEMO_URL = '/files/alice.epub'
 const DEMO_NAME = 'Alice in wonderland'
 
 const GlobalStyle = createGlobalStyle`
@@ -126,7 +126,7 @@ class App extends Component {
         <Bar>
           <LogoWrapper href="https://github.com/gerhardsletten/react-reader">
             <Logo
-              src="https://gerhardsletten.github.io/react-reader/files/react-reader.svg"
+              src="https://react-reader.metabits.no/files/react-reader.svg"
               alt="React-reader - powered by epubjs"
             />
           </LogoWrapper>

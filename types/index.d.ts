@@ -2,13 +2,13 @@ import * as React from "react";
 import * as CSS from "csstype";
 import { BookOptions } from "epubjs/types/book";
 import { RenditionOptions } from "epubjs/types/rendition";
-import { Contents, EpubCFI, Rendition } from "epubjs";
+import { Contents, Rendition } from "epubjs";
 
 interface EpubViewProps {
   url: string | ArrayBuffer;
   epubInitOptions?: BookOptions;
   epubOptions?: RenditionOptions;
-  styles?: EpubViewStyles;
+  styles?: EpubViewStyle;
   loadingView?: React.ReactNode;
   location?: string | number;
   showToc?: boolean;
@@ -21,7 +21,7 @@ interface EpubViewProps {
 
 declare class EpubView extends React.Component<EpubViewProps> {}
 
-interface EpubViewStyles {
+interface EpubViewStyle {
   viewHolder: CSS.Properties;
   view: CSS.Properties;
 }
@@ -34,13 +34,13 @@ interface Toc {
 interface ReactReaderProps extends Omit<EpubViewProps, "styles"> {
   title?: string;
   showToc?: boolean;
-  styles?: ReactReaderStyles;
+  styles?: ReactReaderStyle;
   swipeable?: boolean;
 }
 
 declare class ReactReader extends React.Component<ReactReaderProps> {}
 
-interface ReactReaderStyles {
+interface ReactReaderStyle {
   container: CSS.Properties;
   readerArea: CSS.Properties;
   containerExpanded: CSS.Properties;
@@ -62,4 +62,4 @@ interface ReactReaderStyles {
   loadingView: CSS.Properties;
 }
 
-export { ReactReader, ReactReaderStyles, EpubView, EpubViewStyles };
+export { ReactReader, ReactReaderStyle, EpubView, EpubViewStyle };

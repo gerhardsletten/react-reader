@@ -218,6 +218,9 @@ const App = () => {
               border: '1px solid red'
             },
             p: {
+              'font-family': 'Helvetica, sans-serif'
+              'font-weight': '400'
+              'font-size': '20px'
               border: '1px solid green'
             }
           })

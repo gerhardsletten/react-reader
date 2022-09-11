@@ -44,6 +44,9 @@ class EpubView extends Component {
   }
 
   componentWillUnmount() {
+    if (this.book) {
+      this.book.destroy()
+    }
     this.book = this.rendition = this.prevPage = this.nextPage = null
     document.removeEventListener('keyup', this.handleKeyPress, false)
   }

@@ -73,7 +73,7 @@ export default App
 - `url` [string, required] - url to the epub-file, if its on another domain, remember to add cors for the file. Epubjs fetch this by a http-call, so it need to be public available.
 - `loadingView` [element] - if you want to customize the loadingView
 - `location` [string, number] - set / update location of the epub
-- `locationChanged` [func] - a function that receives the current location while user is reading
+- `locationChanged` [func] - a function that receives the current location while user is reading. This function is called everytime the page changes, and also when it first renders.
 - `tocChanged` [func] - when the reader has parsed the book you will receive an array of the chapters
 - `epubInitOptions` [object] - pass custom properties to the epub init function, see [epub.js](http://epubjs.org/documentation/0.3/#epub)
 - `epubOptions` [object] - pass custom properties to the epub rendition, see [epub.js's book.renderTo function](http://epubjs.org/documentation/0.3/#rendition)
@@ -90,6 +90,57 @@ export default App
 [See also TypeScript definition](types/index.d.ts) for React Reader here (thanks to [@rafaelsaback](#63))
 
 Can community supply an example of this
+
+### Save and retrieve progress from storage
+
+Saving the current page on storage is pretty simple, but we need to keep in mind that `locationChanged` also gets called on the very
+first render of our app.
+
+```js
+import React, { useState, useRef } from "react"
+import { ReactReader } from "react-reader"
+
+const App = () => {
+  // And your own state logic to persist state
+  const [location, setLocation] = useState(null)
+  const [firstRenderDone, setFirstRenderDone] = useState(false)
+  const renditionRef = useRef(null)
+  const locationChanged = (epubcifi) => {
+    // Since this function is also called on initial rendering, we are using custom state
+    // logic to check if this is the initial render.
+    // If you block this function from running (i.e not letting it change the page on the first render) your app crashes.
+
+    if (!firstRenderDone){
+      setLocation(localStorage.getItem("book-progress")) // getItem returns null if the item is not found.
+      setFirstRenderDone(true)
+      return;
+    }
+
+    // This is the code that runs everytime the page changes, after the initial render.
+    // Saving the current epubcifi on storage...
+    localStorage.setItem("book-progress", epubcifi)
+    // And then rendering it.
+    setLocation(epubcifi) // Or setLocation(localStorage.getItem("book-progress"))
+  }
+  return (
+    <div style={{ height: "100vh" }}>
+      <ReactReader
+        location={location}
+        locationChanged={locationChanged}
+        url="https://react-reader.metabits.no/files/alice.epub"
+        getRendition={(rendition) => renditionRef.current = rendition}
+      />
+    </div>
+  )
+}
+
+export default App
+
+```
+
+Why not use `useEffect` for this?  
+Because the `locationChanged` function would overwrite the `useEffect` changes, 
+and if we block it from running on initial rendering the book doesn't render.
 
 ### Overwrite styles with react-styles
 
@@ -201,7 +252,8 @@ const App = () => {
 
 ### Add / adjust custom css for the epub-html
 
-EpubJS render the epub-file inside a iframe so you will need to create a custom theme and apply it:
+EpubJS render the epub-file inside a iframe so you will need to create a custom theme and apply it.  
+This is useful for when you want to set custom font families, custom background and text colors, and everything CSS related.
 
 ```js
 import React from "react"
@@ -214,10 +266,18 @@ const App = () => {
         url="https://react-reader.metabits.no/files/alice.epub"
         getRendition={(rendition) => {
           rendition.themes.register('custom', {
+            "*": {
+              color: #FFFFFF,
+              backgroundColor: "#252525",
+            },
+            
             img: {
               border: '1px solid red'
             },
             p: {
+              'font-family': 'Helvetica, sans-serif',
+              'font-weight': '400',
+              'font-size': '20px',
               border: '1px solid green'
             }
           })
@@ -337,6 +397,23 @@ const App = () => {
   )
 }
 ```
+
+Quick reference for manager and flow options:
+```ts
+enum ManagerOptions {
+    default = "default", // Default setting, use when flow is set to auto/paginated.
+    continuous = "continuous", // Renders stuff offscreen, use when flow is set to "scrolled".
+}
+
+enum FlowOptions {
+    default = "auto", // Based on OPF settings, defaults to "paginated"
+    paginated = "paginated", // Left to right, paginated rendering. Better paired with the default manager.
+    scrolled = "scrolled", // Scrolled viewing, works best with "continuous" manager.
+    
+}
+```
+
+Things will look weird if you use the wrong manager/flow combination.
 
 ## Limitations
 

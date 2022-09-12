@@ -69,9 +69,8 @@ class App extends Component {
       },
       () => {
         setTimeout(() => {
-          const evt = document.createEvent('UIEvents')
-          evt.initUIEvent('resize', true, false, global, 0)
-        }, 1000)
+          this.rendition.resize()
+        }, 500)
       }
     )
   }

@@ -1,65 +1,73 @@
-import * as React from "react";
-import * as CSS from "csstype";
-import { BookOptions } from "epubjs/types/book";
-import { RenditionOptions } from "epubjs/types/rendition";
-import { Contents, Rendition } from "epubjs";
+import * as React from 'react'
+import * as CSS from 'csstype'
+import { BookOptions } from 'epubjs/types/book'
+import { RenditionOptions } from 'epubjs/types/rendition'
+import { Contents, Rendition } from 'epubjs'
+import reactReaderStyles from '../lib/ReactReader/style'
+import epubViewStyles from '../lib/EpubView/style'
 
-interface EpubViewProps {
-  url: string | ArrayBuffer;
-  epubInitOptions?: BookOptions;
-  epubOptions?: RenditionOptions;
-  styles?: EpubViewStyle;
-  loadingView?: React.ReactNode;
-  location?: string | number;
-  showToc?: boolean;
-  locationChanged?(value: string | number): void;
-  tocChanged?(value: Toc): void;
-  getRendition?(rendition: Rendition): void;
-  handleKeyPress?(): void;
-  handleTextSelected?(cfiRange: string, contents: Contents): void;
+export interface RenditionOptionsFix extends RenditionOptions {
+  allowPopups: boolean
 }
 
-declare class EpubView extends React.Component<EpubViewProps> {}
-
-interface EpubViewStyle {
-  viewHolder: CSS.Properties;
-  view: CSS.Properties;
+export interface IEpubViewProps {
+  url: string | ArrayBuffer
+  epubInitOptions?: BookOptions
+  epubOptions?: RenditionOptionsFix
+  styles?: EpubViewStyle
+  loadingView?: React.ReactNode
+  location?: string | number
+  showToc?: boolean
+  locationChanged?(value: string | number): void
+  tocChanged?(value: IToc): void
+  getRendition?(rendition: Rendition): void
+  handleKeyPress?(): void
+  handleTextSelected?(cfiRange: string, contents: Contents): void
 }
 
-interface Toc {
-  label: string;
-  href: string;
+export declare class EpubView extends React.Component<IEpubViewProps> {}
+
+export interface IEpubViewStyle {
+  viewHolder: CSS.Properties
+  view: CSS.Properties
 }
 
-interface ReactReaderProps extends Omit<EpubViewProps, "styles"> {
-  title?: string;
-  showToc?: boolean;
-  styles?: ReactReaderStyle;
-  swipeable?: boolean;
+export const EpubViewStyle: IEpubViewStyle = epubViewStyles
+
+export interface IToc {
+  label: string
+  href: string
 }
 
-declare class ReactReader extends React.Component<ReactReaderProps> {}
-
-interface ReactReaderStyle {
-  container: CSS.Properties;
-  readerArea: CSS.Properties;
-  containerExpanded: CSS.Properties;
-  titleArea: CSS.Properties;
-  reader: CSS.Properties;
-  swipeWrapper: CSS.Properties;
-  prev: CSS.Properties;
-  next: CSS.Properties;
-  arrow: CSS.Properties;
-  arrowHover: CSS.Properties;
-  tocBackground: CSS.Properties;
-  tocArea: CSS.Properties;
-  tocAreaButton: CSS.Properties;
-  tocButton: CSS.Properties;
-  tocButtonExpanded: CSS.Properties;
-  tocButtonBar: CSS.Properties;
-  tocButtonBarTop: CSS.Properties;
-  tocButtonBarBottom: CSS.Properties;
-  loadingView: CSS.Properties;
+export interface IReactReaderProps extends Omit<IEpubViewProps, 'styles'> {
+  title?: string
+  showToc?: boolean
+  styles?: IReactReaderStyle
+  swipeable?: boolean
 }
 
-export { ReactReader, ReactReaderStyle, EpubView, EpubViewStyle };
+export declare class ReactReader extends React.Component<IReactReaderProps> {}
+
+export interface IReactReaderStyle {
+  container: CSS.Properties
+  readerArea: CSS.Properties
+  containerExpanded: CSS.Properties
+  titleArea: CSS.Properties
+  reader: CSS.Properties
+  swipeWrapper: CSS.Properties
+  prev: CSS.Properties
+  next: CSS.Properties
+  arrow: CSS.Properties
+  arrowHover: CSS.Properties
+  tocBackground: CSS.Properties
+  tocArea: CSS.Properties
+  tocAreaButton: CSS.Properties
+  tocButton: CSS.Properties
+  tocButtonExpanded: CSS.Properties
+  tocButtonBar: CSS.Properties
+  tocButtonBarTop: CSS.Properties
+  tocButtonBarBottom: CSS.Properties
+  loadingView: CSS.Properties
+}
+
+export const ReactReaderStyle: IReactReaderStyle = reactReaderStyles

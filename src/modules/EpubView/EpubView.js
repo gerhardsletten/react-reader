@@ -119,8 +119,8 @@ class EpubView extends Component {
   }
 
   renderBook() {
-    const { styles } = this.props
-    return <div ref={this.viewerRef} style={styles.view} />
+    const { epubViewStyles } = this.props
+    return <div ref={this.viewerRef} style={epubViewStyles.view} />
   }
 
   handleKeyPress = ({ key }) => {
@@ -130,9 +130,9 @@ class EpubView extends Component {
 
   render() {
     const { isLoaded } = this.state
-    const { loadingView, styles } = this.props
+    const { loadingView, epubViewStyles } = this.props
     return (
-      <div style={styles.viewHolder}>
+      <div style={epubViewStyles.viewHolder}>
         {(isLoaded && this.renderBook()) || loadingView}
       </div>
     )
@@ -143,7 +143,7 @@ EpubView.defaultProps = {
   loadingView: null,
   locationChanged: null,
   tocChanged: null,
-  styles: defaultStyles,
+  epubViewStyles: defaultStyles,
   epubOptions: {},
   epubInitOptions: {}
 }
@@ -157,7 +157,7 @@ EpubView.propTypes = {
   location: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   locationChanged: PropTypes.func,
   tocChanged: PropTypes.func,
-  styles: PropTypes.object,
+  epubViewStyles: PropTypes.object,
   epubInitOptions: PropTypes.object,
   epubOptions: PropTypes.object,
   getRendition: PropTypes.func,

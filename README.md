@@ -62,7 +62,7 @@ export default App
 
 - `title` [string] - the title of the book, displayed above the reading-canvas
 - `showToc` [bool] - whether to show the toc / toc-nav
-- `styles` [object] - override the default styles
+- `readerStyles` [object] - override the default styles
 - `epubViewStyles` [object] - override the default styles for inner EpubView
 - `swipeable` [bool, default false] - enable swiping left/right with [react-swipeable](https://github.com/dogfessional/react-swipeable). _Warning_ this will disable interacting with epub.js iframe content like selection
 
@@ -160,7 +160,7 @@ const App = () => {
     <div style={{ height: '100vh' }} className="myReader">
       <ReactReader
         url="https://react-reader.metabits.no/files/alice.epub"
-        styles={ownStyles}
+        readerStyles={ownStyles}
       />
     </div>
   )

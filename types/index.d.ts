@@ -14,7 +14,7 @@ export interface IEpubViewProps {
   url: string | ArrayBuffer
   epubInitOptions?: BookOptions
   epubOptions?: RenditionOptionsFix
-  styles?: EpubViewStyle
+  epubViewStyles?: EpubViewStyle
   loadingView?: React.ReactNode
   location?: string | number
   showToc?: boolean
@@ -39,10 +39,11 @@ export interface IToc {
   href: string
 }
 
-export interface IReactReaderProps extends Omit<IEpubViewProps, 'styles'> {
+export interface IReactReaderProps extends IEpubViewProps {
   title?: string
   showToc?: boolean
-  styles?: IReactReaderStyle
+  readerStyles?: IReactReaderStyle
+  epubViewStyles?: IEpubViewStyle
   swipeable?: boolean
 }
 

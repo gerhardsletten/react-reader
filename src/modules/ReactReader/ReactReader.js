@@ -67,23 +67,23 @@ class ReactReader extends PureComponent {
 
   renderToc() {
     const { toc, expandedToc } = this.state
-    const { styles } = this.props
+    const { readerStyles } = this.props
     return (
       <div>
-        <div style={styles.tocArea}>
-          <div style={styles.toc}>
+        <div style={readerStyles.tocArea}>
+          <div style={readerStyles.toc}>
             {toc.map((item, i) => (
               <TocItem
                 {...item}
                 key={i}
                 setLocation={this.setLocation}
-                styles={styles.tocAreaButton}
+                styles={readerStyles.tocAreaButton}
               />
             ))}
           </div>
         </div>
         {expandedToc && (
-          <div style={styles.tocBackground} onClick={this.toggleToc} />
+          <div style={readerStyles.tocBackground} onClick={this.toggleToc} />
         )}
       </div>
     )
@@ -101,21 +101,29 @@ class ReactReader extends PureComponent {
 
   renderTocToggle() {
     const { expandedToc } = this.state
-    const { styles } = this.props
+    const { readerStyles } = this.props
     return (
       <button
         style={Object.assign(
           {},
-          styles.tocButton,
-          expandedToc ? styles.tocButtonExpanded : {}
+          readerStyles.tocButton,
+          expandedToc ? readerStyles.tocButtonExpanded : {}
         )}
         onClick={this.toggleToc}
       >
         <span
-          style={Object.assign({}, styles.tocButtonBar, styles.tocButtonBarTop)}
+          style={Object.assign(
+            {},
+            readerStyles.tocButtonBar,
+            readerStyles.tocButtonBarTop
+          )}
         />
         <span
-          style={Object.assign({}, styles.tocButtonBar, styles.tocButtonBottom)}
+          style={Object.assign(
+            {},
+            readerStyles.tocButtonBar,
+            readerStyles.tocButtonBottom
+          )}
         />
       </button>
     )
@@ -126,7 +134,7 @@ class ReactReader extends PureComponent {
       title,
       showToc,
       loadingView,
-      styles,
+      readerStyles,
       locationChanged,
       swipeable,
       epubViewStyles,
@@ -134,41 +142,41 @@ class ReactReader extends PureComponent {
     } = this.props
     const { toc, expandedToc } = this.state
     return (
-      <div style={styles.container}>
+      <div style={readerStyles.container}>
         <div
           style={Object.assign(
             {},
-            styles.readerArea,
-            expandedToc ? styles.containerExpanded : {}
+            readerStyles.readerArea,
+            expandedToc ? readerStyles.containerExpanded : {}
           )}
         >
           {showToc && this.renderTocToggle()}
-          <div style={styles.titleArea}>{title}</div>
+          <div style={readerStyles.titleArea}>{title}</div>
           <Swipeable
             onSwipedRight={this.prev}
             onSwipedLeft={this.next}
             trackMouse
           >
-            <div style={styles.reader}>
+            <div style={readerStyles.reader}>
               <EpubView
                 ref={this.readerRef}
                 loadingView={loadingView}
-                styles={epubViewStyles}
+                epubViewStyles={epubViewStyles}
                 {...props}
                 tocChanged={this.onTocChange}
                 locationChanged={locationChanged}
               />
-              {swipeable && <div style={styles.swipeWrapper} />}
+              {swipeable && <div style={readerStyles.swipeWrapper} />}
             </div>
           </Swipeable>
           <button
-            style={Object.assign({}, styles.arrow, styles.prev)}
+            style={Object.assign({}, readerStyles.arrow, readerStyles.prev)}
             onClick={this.prev}
           >
             ‹
           </button>
           <button
-            style={Object.assign({}, styles.arrow, styles.next)}
+            style={Object.assign({}, readerStyles.arrow, readerStyles.next)}
             onClick={this.next}
           >
             ›
@@ -185,7 +193,7 @@ ReactReader.defaultProps = {
   locationChanged: null,
   tocChanged: null,
   showToc: true,
-  styles: defaultStyles
+  readerStyles: defaultStyles
 }
 
 ReactReader.propTypes = {
@@ -194,7 +202,7 @@ ReactReader.propTypes = {
   showToc: PropTypes.bool,
   locationChanged: PropTypes.func,
   tocChanged: PropTypes.func,
-  styles: PropTypes.object,
+  readerStyles: PropTypes.object,
   epubViewStyles: PropTypes.object,
   swipeable: PropTypes.bool
 }

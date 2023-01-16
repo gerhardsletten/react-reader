@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { createGlobalStyle } from 'styled-components'
-import FileReaderInput from 'react-file-reader-input'
 import { ReactReader } from './modules'
 import {
   Container,
@@ -104,19 +103,6 @@ class App extends Component {
     this.rendition = rendition
     rendition.themes.fontSize(largeText ? '140%' : '100%')
   }
-  handleChangeFile = (event, results) => {
-    if (results.length > 0) {
-      const [e, file] = results[0]
-      if (file.type !== 'application/epub+zip') {
-        return alert('Unsupported type')
-      }
-      this.setState({
-        localFile: e.target.result,
-        localName: file.name,
-        location: null
-      })
-    }
-  }
   render() {
     const { fullscreen, location, localFile, localName } = this.state
     return (
@@ -130,9 +116,6 @@ class App extends Component {
             />
           </LogoWrapper>
           <ButtonWrapper>
-            <FileReaderInput as="buffer" onChange={this.handleChangeFile}>
-              <GenericButton>Upload local epub</GenericButton>
-            </FileReaderInput>
             <GenericButton onClick={this.toggleFullscreen}>
               Use full browser window
               <CloseIcon />

@@ -1,6 +1,7 @@
 const reactReaderStyles = {
   container: {
     overflow: 'hidden',
+    position: 'relative',
     height: '100%'
   },
   readerArea: {

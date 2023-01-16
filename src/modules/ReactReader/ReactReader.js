@@ -14,11 +14,20 @@ class TocItem extends PureComponent {
     this.props.setLocation(this.props.href)
   }
   render() {
-    const { label, styles } = this.props
+    const { label, styles, subitems } = this.props
     return (
-      <button onClick={this.setLocation} style={styles}>
-        {label}
-      </button>
+      <div>
+        <button onClick={this.setLocation} style={styles}>
+          {label}
+        </button>
+        {subitems && subitems.length > 0 && (
+          <div style={{ paddingLeft: 10 }}>
+            {subitems.map((item, i) => (
+              <TocItem key={i} {...this.props} {...item} />
+            ))}
+          </div>
+        )}
+      </div>
     )
   }
 }

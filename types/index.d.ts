@@ -14,7 +14,7 @@ export interface IEpubViewProps {
   url: string | ArrayBuffer
   epubInitOptions?: BookOptions
   epubOptions?: RenditionOptionsFix
-  epubViewStyles?: EpubViewStyle
+  epubViewStyles?: IEpubViewStyle
   loadingView?: React.ReactNode
   location?: string | number
   showToc?: boolean

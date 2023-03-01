@@ -1,4 +1,4 @@
-const reactReaderStyles = {
+export const reactReaderStyles = {
   container: {
     overflow: 'hidden',
     position: 'relative',
@@ -141,5 +141,3 @@ const reactReaderStyles = {
     margintop: '-.5em'
   }
 }
-
-export default reactReaderStyles

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { useSwipeable } from 'react-swipeable'
 import { EpubView } from '..'
-import defaultStyles from './style'
+import { reactReaderStyles as defaultStyles } from './style'
 
 const Swipeable = ({ children, ...props }) => {
   const handlers = useSwipeable(props)

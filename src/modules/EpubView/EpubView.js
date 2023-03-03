@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Epub from 'epubjs/lib/index'
-import { epubViewStyles as defaultStyles } from './style'
+import { EpubViewStyle as defaultStyles } from './style'
 
 // MTL removed - line does not seem like a requirement any more (and was causing an error)
 // global.ePub = Epub; // Fix for v3 branch of epub.js -> needs ePub to by a global var

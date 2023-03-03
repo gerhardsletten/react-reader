@@ -3,8 +3,6 @@ import * as CSS from 'csstype'
 import { BookOptions } from 'epubjs/types/book'
 import { RenditionOptions } from 'epubjs/types/rendition'
 import { Contents, Rendition } from 'epubjs'
-import { reactReaderStyles } from '../lib/ReactReader/style'
-import { epubViewStyles } from '../lib/EpubView/style'
 
 export interface RenditionOptionsFix extends RenditionOptions {
   allowPopups: boolean
@@ -32,7 +30,7 @@ export interface IEpubViewStyle {
   view: CSS.Properties
 }
 
-export declare const EpubViewStyle: IEpubViewStyle = epubViewStyles
+export declare const EpubViewStyle: IEpubViewStyle
 
 export interface IToc {
   label: string
@@ -71,4 +69,4 @@ export interface IReactReaderStyle {
   loadingView: CSS.Properties
 }
 
-export declare const ReactReaderStyle: IReactReaderStyle = reactReaderStyles
+export declare const ReactReaderStyle: IReactReaderStyle

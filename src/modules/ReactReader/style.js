@@ -1,4 +1,4 @@
-export const reactReaderStyles = {
+export const ReactReaderStyle = {
   container: {
     overflow: 'hidden',
     position: 'relative',

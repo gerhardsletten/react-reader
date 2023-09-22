@@ -55,7 +55,7 @@ class EpubView extends Component {
     return (
       !this.state.isLoaded ||
       nextProps.location !== this.props.location ||
-      nextProps.location !== this.props.location
+      nextProps.url !== this.props.url
     )
   }
 

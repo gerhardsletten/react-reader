@@ -37,7 +37,7 @@
     "react-scripts": "^5.0.1",
     "styled-components": "^6.0.8",
     "styled-components-breakpoint": "^2.1.1",
-    "typescript": "^5.2.2"
+    "typescript": "^4.9.5"
   },
   "dependencies": {
     "epubjs": "^0.3.93",

@@ -1,8 +1,33 @@
-export const ReactReaderStyle = {
+import type { CSSProperties } from 'react'
+
+export interface IReactReaderStyle {
+  container: CSSProperties
+  readerArea: CSSProperties
+  containerExpanded: CSSProperties
+  titleArea: CSSProperties
+  reader: CSSProperties
+  swipeWrapper: CSSProperties
+  prev: CSSProperties
+  next: CSSProperties
+  arrow: CSSProperties
+  arrowHover: CSSProperties
+  tocBackground: CSSProperties
+  toc: CSSProperties
+  tocArea: CSSProperties
+  tocAreaButton: CSSProperties
+  tocButton: CSSProperties
+  tocButtonExpanded: CSSProperties
+  tocButtonBar: CSSProperties
+  tocButtonBarTop: CSSProperties
+  loadingView: CSSProperties
+  tocButtonBottom: CSSProperties
+}
+
+export const ReactReaderStyle: IReactReaderStyle = {
   container: {
     overflow: 'hidden',
     position: 'relative',
-    height: '100%'
+    height: '100%',
   },
   readerArea: {
     position: 'relative',
@@ -10,10 +35,10 @@ export const ReactReaderStyle = {
     height: '100%',
     width: '100%',
     backgroundColor: '#fff',
-    transition: 'all .3s ease'
+    transition: 'all .3s ease',
   },
   containerExpanded: {
-    transform: 'translateX(256px)'
+    transform: 'translateX(256px)',
   },
   titleArea: {
     position: 'absolute',
@@ -21,14 +46,14 @@ export const ReactReaderStyle = {
     left: 50,
     right: 50,
     textAlign: 'center',
-    color: '#999'
+    color: '#999',
   },
   reader: {
     position: 'absolute',
     top: 50,
     left: 50,
     bottom: 20,
-    right: 50
+    right: 50,
   },
   swipeWrapper: {
     position: 'absolute',
@@ -36,13 +61,13 @@ export const ReactReaderStyle = {
     left: 0,
     bottom: 0,
     right: 0,
-    zIndex: 200
+    zIndex: 200,
   },
   prev: {
-    left: 1
+    left: 1,
   },
   next: {
-    right: 1
+    right: 1,
   },
   arrow: {
     outline: 'none',
@@ -58,18 +83,19 @@ export const ReactReaderStyle = {
     cursor: 'pointer',
     userSelect: 'none',
     appearance: 'none',
-    fontWeight: 'normal'
+    fontWeight: 'normal',
   },
   arrowHover: {
-    color: '#777'
+    color: '#777',
   },
+  toc: {},
   tocBackground: {
     position: 'absolute',
     left: 256,
     top: 0,
     bottom: 0,
     right: 0,
-    zIndex: 1
+    zIndex: 1,
   },
   tocArea: {
     position: 'absolute',
@@ -81,7 +107,7 @@ export const ReactReaderStyle = {
     overflowY: 'auto',
     WebkitOverflowScrolling: 'touch',
     background: '#f2f2f2',
-    padding: '10px 0'
+    padding: '10px 0',
   },
   tocAreaButton: {
     userSelect: 'none',
@@ -98,7 +124,7 @@ export const ReactReaderStyle = {
     color: '#aaa',
     boxSizing: 'border-box',
     outline: 'none',
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   tocButton: {
     background: 'none',
@@ -110,10 +136,10 @@ export const ReactReaderStyle = {
     left: 10,
     borderRadius: 2,
     outline: 'none',
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   tocButtonExpanded: {
-    background: '#f2f2f2'
+    background: '#f2f2f2',
   },
   tocButtonBar: {
     position: 'absolute',
@@ -123,13 +149,13 @@ export const ReactReaderStyle = {
     left: '50%',
     margin: '-1px -30%',
     top: '50%',
-    transition: 'all .5s ease'
+    transition: 'all .5s ease',
   },
   tocButtonBarTop: {
-    top: '35%'
+    top: '35%',
   },
   tocButtonBottom: {
-    top: '66%'
+    top: '66%',
   },
   loadingView: {
     position: 'absolute',
@@ -138,6 +164,6 @@ export const ReactReaderStyle = {
     right: '10%',
     color: '#ccc',
     textAlign: 'center',
-    margintop: '-.5em'
-  }
+    marginTop: '-.5em',
+  },
 }

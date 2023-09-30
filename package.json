@@ -1,6 +1,6 @@
 {
   "name": "react-reader",
-  "version": "1.2.2",
+  "version": "2.0.0",
   "description": "A epub-reader for React powered by ePubJS",
   "type": "module",
   "main": "./dist/react-reader.umd.js",

@@ -33,7 +33,7 @@ const TocItem = ({ data, setLocation, styles }: TocItemProps) => (
         {data.subitems.map((item, i) => (
           <TocItem
             key={i}
-            data={data}
+            data={item}
             styles={styles}
             setLocation={setLocation}
           />

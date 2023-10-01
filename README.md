@@ -1,62 +1,44 @@
 # React Reader - an easy way to embed a ePub into your webapp
 
-An ePub-reader for react powered by EpubJS #react #epubjs #webpack #babel #standardjs
+React Reader is a react-wrapper for [epub.js](https://github.com/futurepress/epub.js) - an iframe based epub-reader that can run in browser, cordova and other web-based enviroments.
 
 [See demo](https://react-reader.metabits.no)
 
-![React Reader logo](https://react-reader.metabits.no/files/react-reader.svg)
+![React Reader logo](public/files/react-reader.svg)
 
-## React wrapper for EpubJS
+## Install
 
-React Reader is a react-wrapper for [epub.js](https://github.com/futurepress/epub.js) using the v.03 branch.
+`npm i react-reader`
 
-## About
+## Usage
 
-[epub.js](https://github.com/futurepress/epub.js) is a great library and this is a wrapper for it. This wrapper makes it easy to use in a React-app.
+At the minimum you will need to give `ReactReader` you will need this:
 
-This package publish 4 named exports:
+- An url that points to the epub-file
+- location (in epub) and a locationChanged function to store the change in location
+- Set a height for the container
 
-- ReactReader - Most used, a basic epub-reader to embed into your webapp
-- ReactReaderStyle - styles for above if you need to overwrite them, [see the file](https://github.com/gerhardsletten/react-reader/blob/master/src/modules/ReactReader/style.js)
-- EpubView - Underlaying epub-canvas (wrapper for epub.js iframe)
-- EpubViewStyle - styles for above if you need to overwrite them, [see the file](https://github.com/gerhardsletten/react-reader/blob/master/src/modules/EpubView/style.js)
-
-Also note that EpubJS is a browser-based epub-reader and it works by rendering the current epub-chapter into an iframe, and then by css-columns it will display the current page. [See limitations below](#limitations)
-
-## Basic usage
-
-`npm install react-reader --save`
-
--or-
-
-`yarn add react-reader`
-
-And in your react-component...
-
-```js
+```tsx
 import React, { useState } from 'react'
 import { ReactReader } from 'react-reader'
 
-const App = () => {
-  // And your own state logic to persist state
-  const [location, setLocation] = useState(null)
-  const locationChanged = epubcifi => {
-    // epubcifi is a internal string used by epubjs to point to a location in an epub. It looks like this: epubcfi(/6/6[titlepage]!/4/2/12[pgepubid00003]/3:0)
-    setLocation(epubcifi)
-  }
+export const App = () => {
+  const [location, setLocation] = useState<string | number>(0)
   return (
     <div style={{ height: '100vh' }}>
       <ReactReader
-        location={location}
-        locationChanged={locationChanged}
         url="https://react-reader.metabits.no/files/alice.epub"
+        location={(epubcifi: string) => setLocation(epubcifi)}
+        locationChanged={locationChanged}
       />
     </div>
   )
 }
-
-export default App
 ```
+
+This will render a reader like this:
+
+![Screnshot of React Reader](public/files/screenshot-1.webp)
 
 ### ReactReader props
 
@@ -85,59 +67,40 @@ export default App
 
 ### TypeScript support
 
-[See also TypeScript definition](types/index.d.ts) for React Reader here (thanks to [@rafaelsaback](#63))
+`ReactReader` is now fully written in Typescript, so your editor should give you information of types for all props.
 
-Can community supply an example of this
+(thanks to for earlier contributions [@rafaelsaback](#63))
 
 ### Save and retrieve progress from storage
 
-Saving the current page on storage is pretty simple, but we need to keep in mind that `locationChanged` also gets called on the very
-first render of our app.
+Saving the current page on storage is pretty simple.
 
-```js
-import React, { useState, useRef } from 'react'
+```tsx
 import { ReactReader } from 'react-reader'
+import useLocalStorageState from 'use-local-storage-state'
 
-const App = () => {
-  // And your own state logic to persist state
-  const [location, setLocation] = useState(null)
-  const [firstRenderDone, setFirstRenderDone] = useState(false)
-  const renditionRef = useRef(null)
-  const locationChanged = epubcifi => {
-    // Since this function is also called on initial rendering, we are using custom state
-    // logic to check if this is the initial render.
-    // If you block this function from running (i.e not letting it change the page on the first render) your app crashes.
+import { DEMO_URL, DEMO_NAME } from '../components/config'
+import { Example } from '../components/Example'
 
-    if (!firstRenderDone) {
-      setLocation(localStorage.getItem('book-progress')) // getItem returns null if the item is not found.
-      setFirstRenderDone(true)
-      return
+export const Persist = () => {
+  const [location, setLocation] = useLocalStorageState<string | number>(
+    'persist-location',
+    {
+      defaultValue: 0,
     }
-
-    // This is the code that runs everytime the page changes, after the initial render.
-    // Saving the current epubcifi on storage...
-    localStorage.setItem('book-progress', epubcifi)
-    // And then rendering it.
-    setLocation(epubcifi) // Or setLocation(localStorage.getItem("book-progress"))
-  }
+  )
   return (
     <div style={{ height: '100vh' }}>
       <ReactReader
+        url={DEMO_URL}
+        title={DEMO_NAME}
         location={location}
-        locationChanged={locationChanged}
-        url="https://react-reader.metabits.no/files/alice.epub"
-        getRendition={rendition => (renditionRef.current = rendition)}
+        locationChanged={(loc: string) => setLocation(loc)}
       />
     </div>
   )
 }
-
-export default App
 ```
-
-Why not use `useEffect` for this?  
-Because the `locationChanged` function would overwrite the `useEffect` changes,
-and if we block it from running on initial rendering the book doesn't render.
 
 ### Overwrite styles with react-styles
 
@@ -151,8 +114,8 @@ const ownStyles = {
   ...ReactReaderStyle,
   arrow: {
     ...ReactReaderStyle.arrow,
-    color: 'red'
-  }
+    color: 'red',
+  },
 }
 
 const App = () => {
@@ -179,10 +142,10 @@ const App = () => {
   const [page, setPage] = useState('')
   const renditionRef = useRef(null)
   const tocRef = useRef(null)
-  const locationChanged = epubcifi => {
+  const locationChanged = (epubcifi) => {
     if (renditionRef.current && tocRef.current) {
       const { displayed, href } = renditionRef.current.location.start
-      const chapter = tocRef.current.find(item => item.href === href)
+      const chapter = tocRef.current.find((item) => item.href === href)
       setPage(
         `Page ${displayed.page} of ${displayed.total} in chapter ${
           chapter ? chapter.label : 'n/a'
@@ -196,8 +159,8 @@ const App = () => {
         <ReactReader
           locationChanged={locationChanged}
           url="https://react-reader.metabits.no/files/alice.epub"
-          getRendition={rendition => (renditionRef.current = rendition)}
-          tocChanged={toc => (tocRef.current = toc)}
+          getRendition={(rendition) => (renditionRef.current = rendition)}
+          tocChanged={(toc) => (tocRef.current = toc)}
         />
       </div>
       <div
@@ -207,7 +170,7 @@ const App = () => {
           right: '1rem',
           left: '1rem',
           textAlign: 'center',
-          zIndex: 1
+          zIndex: 1,
         }}
       >
         {page}
@@ -228,7 +191,7 @@ import { ReactReader } from 'react-reader'
 const App = () => {
   const [size, setSize] = useState(100)
   const renditionRef = useRef(null)
-  const changeSize = newSize => {
+  const changeSize = (newSize) => {
     setSize(newSize)
   }
   useEffect(() => {
@@ -241,7 +204,7 @@ const App = () => {
       <div style={{ height: '100vh' }}>
         <ReactReader
           url="https://react-reader.metabits.no/files/alice.epub"
-          getRendition={rendition => {
+          getRendition={(rendition) => {
             renditionRef.current = rendition
             renditionRef.current.themes.fontSize(`${size}%`)
           }}
@@ -254,7 +217,7 @@ const App = () => {
           right: '1rem',
           left: '1rem',
           textAlign: 'center',
-          zIndex: 1
+          zIndex: 1,
         }}
       >
         <button onClick={() => changeSize(Math.max(80, size - 10))}>-</button>
@@ -322,7 +285,7 @@ const App = () => {
         setSelections(
           selections.concat({
             text: renditionRef.current.getRange(cfiRange).toString(),
-            cfiRange
+            cfiRange,
           })
         )
         renditionRef.current.annotations.add(
@@ -346,12 +309,12 @@ const App = () => {
       <div style={{ height: '100vh' }}>
         <ReactReader
           url="https://react-reader.metabits.no/files/alice.epub"
-          getRendition={rendition => {
+          getRendition={(rendition) => {
             renditionRef.current = rendition
             renditionRef.current.themes.default({
               '::selection': {
-                background: 'orange'
-              }
+                background: 'orange',
+              },
             })
             setSelections([])
           }}
@@ -363,7 +326,7 @@ const App = () => {
           bottom: '1rem',
           right: '1rem',
           zIndex: 1,
-          backgroundColor: 'white'
+          backgroundColor: 'white',
         }}
       >
         Selection:
@@ -409,7 +372,7 @@ const App = () => {
       <ReactReader
         url="/my-epub-service"
         epubInitOptions={{
-          openAs: 'epub'
+          openAs: 'epub',
         }}
       />
     </div>
@@ -432,7 +395,7 @@ const App = () => {
         url="https://react-reader.metabits.no/files/alice.epub"
         epubOptions={{
           flow: 'scrolled',
-          manager: 'continuous'
+          manager: 'continuous',
         }}
       />
     </div>
@@ -445,13 +408,13 @@ Quick reference for manager and flow options:
 ```ts
 enum ManagerOptions {
   default = 'default', // Default setting, use when flow is set to auto/paginated.
-  continuous = 'continuous' // Renders stuff offscreen, use when flow is set to "scrolled".
+  continuous = 'continuous', // Renders stuff offscreen, use when flow is set to "scrolled".
 }
 
 enum FlowOptions {
   default = 'auto', // Based on OPF settings, defaults to "paginated"
   paginated = 'paginated', // Left to right, paginated rendering. Better paired with the default manager.
-  scrolled = 'scrolled' // Scrolled viewing, works best with "continuous" manager.
+  scrolled = 'scrolled', // Scrolled viewing, works best with "continuous" manager.
 }
 ```
 

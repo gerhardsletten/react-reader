@@ -153,7 +153,7 @@ export class EpubView extends Component<IEpubViewProps, IEpubViewState> {
 
   onLocationChange = (loc: Location) => {
     const { location, locationChanged } = this.props
-    const newLocation = loc.start.cfi
+    const newLocation = `${loc.start}`
     if (location !== newLocation) {
       this.location = newLocation
       locationChanged && locationChanged(newLocation)

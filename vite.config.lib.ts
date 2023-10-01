@@ -13,6 +13,8 @@ export default defineConfig({
   build: {
     copyPublicDir: false,
     emptyOutDir: true,
+    sourcemap: true,
+    minify: false,
     outDir: 'dist',
     lib: {
       entry: 'src/lib/index.ts',

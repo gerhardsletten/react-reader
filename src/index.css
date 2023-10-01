@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .h1 {
+    @apply font-bold text-2xl;
+  }
+  .btn {
+    @apply rounded-full p-1 px-4 border border-black;
+  }
+}

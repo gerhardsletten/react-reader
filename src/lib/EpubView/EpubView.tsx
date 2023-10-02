@@ -1,13 +1,9 @@
 import React, { Component } from 'react'
-import Epub, {
-  NavItem,
-  type Contents,
-  type Rendition,
-  type Location,
-} from 'epubjs'
+import Epub, { Book } from 'epubjs'
+import type { NavItem, Contents, Rendition, Location } from 'epubjs'
 import { EpubViewStyle as defaultStyles, type IEpubViewStyle } from './style'
-import Book, { type BookOptions } from 'epubjs/types/book'
-import { type RenditionOptions } from 'epubjs/types/rendition'
+import type { RenditionOptions } from 'epubjs/types/rendition'
+import type { BookOptions } from 'epubjs/types/book'
 
 export type RenditionOptionsFix = RenditionOptions & {
   allowPopups: boolean
@@ -20,13 +16,13 @@ export type IToc = {
 
 export type IEpubViewProps = {
   url: string | ArrayBuffer
-  epubInitOptions?: BookOptions
-  epubOptions?: RenditionOptionsFix
+  epubInitOptions?: Partial<BookOptions>
+  epubOptions?: Partial<RenditionOptionsFix>
   epubViewStyles?: IEpubViewStyle
   loadingView?: React.ReactNode
-  location?: string | number
+  location: string | number
+  locationChanged(value: string): void
   showToc?: boolean
-  locationChanged?(value: string): void
   tocChanged?(value: NavItem[]): void
   getRendition?(rendition: Rendition): void
   handleKeyPress?(): void

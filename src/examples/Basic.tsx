@@ -1,13 +1,13 @@
 import { useState, useRef, useEffect } from 'react'
 import { ReactReader } from '../lib/index'
-import { Rendition } from 'epubjs'
+import type { Rendition } from 'epubjs'
 
 import { DEMO_URL, DEMO_NAME } from '../components/config'
 import { Example } from '../components/Example'
 
 export const Basic = () => {
   const [largeText, setLargeText] = useState(false)
-  const rendition = useRef<any>(null)
+  const rendition = useRef<Rendition | undefined>(undefined)
   const [location, setLocation] = useState<string | number>(2)
   useEffect(() => {
     rendition.current?.themes.fontSize(largeText ? '140%' : '100%')

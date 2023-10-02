@@ -71,298 +71,41 @@ This will render a reader like this:
 
 (thanks to for earlier contributions [@rafaelsaback](#63))
 
+### Change font-size
+
+See Basic example:
+
+[See demo](https://react-reader.metabits.no) / [Source](src/examples/Basic.tsx)
+
 ### Save and retrieve progress from storage
 
-Saving the current page on storage is pretty simple.
+Use a state from local-storage.
 
-```tsx
-import { ReactReader } from 'react-reader'
-import useLocalStorageState from 'use-local-storage-state'
+[See demo](https://react-reader.metabits.no/persist) / [Source](src/examples/Persist.tsx)
 
-import { DEMO_URL, DEMO_NAME } from '../components/config'
-import { Example } from '../components/Example'
+### Customize styles for ReactReader
 
-export const Persist = () => {
-  const [location, setLocation] = useLocalStorageState<string | number>(
-    'persist-location',
-    {
-      defaultValue: 0,
-    }
-  )
-  return (
-    <div style={{ height: '100vh' }}>
-      <ReactReader
-        url={DEMO_URL}
-        title={DEMO_NAME}
-        location={location}
-        locationChanged={(loc: string) => setLocation(loc)}
-      />
-    </div>
-  )
-}
-```
+Override styles for ReactReader and Epub.js for multiple themes
 
-### Overwrite styles with react-styles
-
-Import the published styles and extend them, or you can wrap it in a custom container where you can overwrite styles by nested css-styles
-
-```js
-import React from 'react'
-import { ReactReader, ReactReaderStyle } from 'react-reader'
-
-const ownStyles = {
-  ...ReactReaderStyle,
-  arrow: {
-    ...ReactReaderStyle.arrow,
-    color: 'red',
-  },
-}
-
-const App = () => {
-  return (
-    <div style={{ height: '100vh' }} className="myReader">
-      <ReactReader
-        url="https://react-reader.metabits.no/files/alice.epub"
-        readerStyles={ownStyles}
-      />
-    </div>
-  )
-}
-```
+[See demo](https://react-reader.metabits.no/styling) / [Source](src/examples/Styling.tsx)
 
 ### Display page number for current chapter
 
-We store the epubjs rendition in a ref, and get the page numbers in the callback when location is changed. Note that in this example we also find them name of the current chapter from the toc. Also see limitation for pagination for the whole book.
+Epub.js is only rendering the current chapter so we can only get the current page and number of pages within this chapter.
 
-```js
-import React, { useRef, useState } from 'react'
-import { ReactReader } from 'react-reader'
-
-const App = () => {
-  const [page, setPage] = useState('')
-  const renditionRef = useRef(null)
-  const tocRef = useRef(null)
-  const locationChanged = (epubcifi) => {
-    if (renditionRef.current && tocRef.current) {
-      const { displayed, href } = renditionRef.current.location.start
-      const chapter = tocRef.current.find((item) => item.href === href)
-      setPage(
-        `Page ${displayed.page} of ${displayed.total} in chapter ${
-          chapter ? chapter.label : 'n/a'
-        }`
-      )
-    }
-  }
-  return (
-    <>
-      <div style={{ height: '100vh' }}>
-        <ReactReader
-          locationChanged={locationChanged}
-          url="https://react-reader.metabits.no/files/alice.epub"
-          getRendition={(rendition) => (renditionRef.current = rendition)}
-          tocChanged={(toc) => (tocRef.current = toc)}
-        />
-      </div>
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '1rem',
-          right: '1rem',
-          left: '1rem',
-          textAlign: 'center',
-          zIndex: 1,
-        }}
-      >
-        {page}
-      </div>
-    </>
-  )
-}
-```
-
-### Change font-size
-
-Hooking into epubJS rendition object is the key for this also.
-
-```js
-import React, { useRef, useState, useEffect } from 'react'
-import { ReactReader } from 'react-reader'
-
-const App = () => {
-  const [size, setSize] = useState(100)
-  const renditionRef = useRef(null)
-  const changeSize = (newSize) => {
-    setSize(newSize)
-  }
-  useEffect(() => {
-    if (renditionRef.current) {
-      renditionRef.current.themes.fontSize(`${size}%`)
-    }
-  }, [size])
-  return (
-    <>
-      <div style={{ height: '100vh' }}>
-        <ReactReader
-          url="https://react-reader.metabits.no/files/alice.epub"
-          getRendition={(rendition) => {
-            renditionRef.current = rendition
-            renditionRef.current.themes.fontSize(`${size}%`)
-          }}
-        />
-      </div>
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '1rem',
-          right: '1rem',
-          left: '1rem',
-          textAlign: 'center',
-          zIndex: 1,
-        }}
-      >
-        <button onClick={() => changeSize(Math.max(80, size - 10))}>-</button>
-        <span>Current size: {size}%</span>
-        <button onClick={() => changeSize(Math.min(130, size + 10))}>+</button>
-      </div>
-    </>
-  )
-}
-```
-
-### Add / adjust custom css for the epub-html
-
-EpubJS render the epub-file inside a iframe so you will need to create a custom theme and apply it.  
-This is useful for when you want to set custom font families, custom background and text colors, and everything CSS related.
-
-```js
-import React from "react"
-import { ReactReader } from "react-reader"
-
-const App = () => {
-  return (
-    <div style={{ height: "100vh" }}>
-      <ReactReader
-        url="https://react-reader.metabits.no/files/alice.epub"
-        getRendition={(rendition) => {
-          rendition.themes.register('custom', {
-            "*": {
-              color: #FFFFFF,
-              backgroundColor: "#252525",
-            },
-
-            img: {
-              border: '1px solid red'
-            },
-            p: {
-              'font-family': 'Helvetica, sans-serif',
-              'font-weight': '400',
-              'font-size': '20px',
-              border: '1px solid green'
-            }
-          })
-          rendition.themes.select('custom')
-        }}
-      />
-    </div>
-  )
-}
-```
+[See demo](https://react-reader.metabits.no/paging) / [Source](src/examples/Paging.tsx)
 
 ### Hightlight selection in epub
 
 This shows how to hook into epubJS annotations object and let the user highlight selection and store this in a list where user can go to a selection or delete it.
 
-```js
-import React, { useRef, useState, useEffect } from 'react'
-import { ReactReader } from 'react-reader'
-
-const App = () => {
-  const [selections, setSelections] = useState([])
-  const renditionRef = useRef(null)
-  useEffect(() => {
-    if (renditionRef.current) {
-      function setRenderSelection(cfiRange, contents) {
-        setSelections(
-          selections.concat({
-            text: renditionRef.current.getRange(cfiRange).toString(),
-            cfiRange,
-          })
-        )
-        renditionRef.current.annotations.add(
-          'highlight',
-          cfiRange,
-          {},
-          null,
-          'hl',
-          { fill: 'red', 'fill-opacity': '0.5', 'mix-blend-mode': 'multiply' }
-        )
-        contents.window.getSelection().removeAllRanges()
-      }
-      renditionRef.current.on('selected', setRenderSelection)
-      return () => {
-        renditionRef.current.off('selected', setRenderSelection)
-      }
-    }
-  }, [setSelections, selections])
-  return (
-    <>
-      <div style={{ height: '100vh' }}>
-        <ReactReader
-          url="https://react-reader.metabits.no/files/alice.epub"
-          getRendition={(rendition) => {
-            renditionRef.current = rendition
-            renditionRef.current.themes.default({
-              '::selection': {
-                background: 'orange',
-              },
-            })
-            setSelections([])
-          }}
-        />
-      </div>
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '1rem',
-          right: '1rem',
-          zIndex: 1,
-          backgroundColor: 'white',
-        }}
-      >
-        Selection:
-        <ul>
-          {selections.map(({ text, cfiRange }, i) => (
-            <li key={i}>
-              {text}{' '}
-              <button
-                onClick={() => {
-                  renditionRef.current.display(cfiRange)
-                }}
-              >
-                Show
-              </button>
-              <button
-                onClick={() => {
-                  renditionRef.current.annotations.remove(cfiRange, 'highlight')
-                  setSelections(selections.filter((item, j) => j !== i))
-                }}
-              >
-                x
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </>
-  )
-}
-```
+[See demo](https://react-reader.metabits.no/selection) / [Source](src/examples/Selection.tsx)
 
 ### Handling missing mime-types on server
 
 EpubJS will try to parse the epub-file you pass to it, but if the server send wrong mine-types or the file does not contain `.epub` you can use the epubInitOptions prop to force reading it right.
 
-```js
+```tsx
 import React from 'react'
 import { ReactReader } from 'react-reader'
 
@@ -384,24 +127,7 @@ const App = () => {
 
 Pass options for this into epubJS in the prop `epubOptions`
 
-```js
-import React from 'react'
-import { ReactReader } from 'react-reader'
-
-const App = () => {
-  return (
-    <div style={{ height: '100vh' }}>
-      <ReactReader
-        url="https://react-reader.metabits.no/files/alice.epub"
-        epubOptions={{
-          flow: 'scrolled',
-          manager: 'continuous',
-        }}
-      />
-    </div>
-  )
-}
-```
+[See demo](https://react-reader.metabits.no/scroll) / [Source](src/examples/Scroll.tsx)
 
 Quick reference for manager and flow options:
 

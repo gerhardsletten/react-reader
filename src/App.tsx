@@ -3,6 +3,10 @@ import cx from 'classnames'
 
 import { Basic } from './examples/Basic'
 import { Persist } from './examples/Persist'
+import { Styling } from './examples/Styling'
+import { Paging } from './examples/Paging'
+import { Selection } from './examples/Selection'
+import { Scroll } from './examples/Scroll'
 
 const App = () => {
   return (
@@ -26,6 +30,10 @@ const App = () => {
               {[
                 ['Basic', '/'],
                 ['Persist', '/persist'],
+                ['Styling', '/styling'],
+                ['Paging', '/paging'],
+                ['Selection', '/selection'],
+                ['Scroll', '/scroll'],
               ].map(([label, link], key) => (
                 <NavLink
                   to={link}
@@ -41,7 +49,11 @@ const App = () => {
           </header>
           <main>
             <Routes>
+              <Route path="/styling" element={<Styling />} />
               <Route path="/persist" element={<Persist />} />
+              <Route path="/paging" element={<Paging />} />
+              <Route path="/selection" element={<Selection />} />
+              <Route path="/scroll" element={<Scroll />} />
               <Route path="*" element={<Basic />} />
             </Routes>
           </main>

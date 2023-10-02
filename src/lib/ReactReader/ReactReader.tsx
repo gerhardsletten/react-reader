@@ -1,11 +1,11 @@
-import React, { CSSProperties, PureComponent, ReactNode } from 'react'
-import { SwipeableProps, useSwipeable } from 'react-swipeable'
+import React, { type CSSProperties, PureComponent, type ReactNode } from 'react'
+import { type SwipeableProps, useSwipeable } from 'react-swipeable'
 import { EpubView, type IEpubViewStyle, type IEpubViewProps } from '..'
 import {
   ReactReaderStyle as defaultStyles,
   type IReactReaderStyle,
 } from './style'
-import { NavItem } from 'epubjs'
+import { type NavItem } from 'epubjs'
 
 type SwipeWrapperProps = {
   children: ReactNode
@@ -69,7 +69,6 @@ export class ReactReader extends PureComponent<
   static defaultProps: Partial<IReactReaderProps> = {
     loadingView: <div style={defaultStyles.loadingView}>Loading…</div>,
     showToc: true,
-    swipeable: true,
   }
   readerRef = React.createRef<EpubView>()
   constructor(props: IReactReaderProps) {

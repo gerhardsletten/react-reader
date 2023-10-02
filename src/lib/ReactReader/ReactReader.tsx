@@ -66,10 +66,6 @@ export class ReactReader extends PureComponent<
     expandedToc: false,
     toc: [],
   }
-  static defaultProps: Partial<IReactReaderProps> = {
-    loadingView: <div style={defaultStyles.loadingView}>Loading…</div>,
-    showToc: true,
-  }
   readerRef = React.createRef<EpubView>()
   constructor(props: IReactReaderProps) {
     super(props)
@@ -171,7 +167,7 @@ export class ReactReader extends PureComponent<
   render() {
     const {
       title,
-      showToc,
+      showToc = true,
       loadingView,
       readerStyles = defaultStyles,
       locationChanged,
@@ -201,7 +197,13 @@ export class ReactReader extends PureComponent<
             <div style={readerStyles.reader}>
               <EpubView
                 ref={this.readerRef}
-                loadingView={loadingView}
+                loadingView={
+                  loadingView === undefined ? (
+                    <div style={readerStyles.loadingView}>Loading…</div>
+                  ) : (
+                    loadingView
+                  )
+                }
                 epubViewStyles={epubViewStyles}
                 {...props}
                 tocChanged={this.onTocChange}

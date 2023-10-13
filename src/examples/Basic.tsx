@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { ReactReader } from '../lib/index'
-import type { Rendition } from 'epubjs'
+import type { Contents, Rendition } from 'epubjs'
 
 import { DEMO_URL, DEMO_NAME } from '../components/config'
 import { Example } from '../components/Example'
@@ -30,6 +30,14 @@ export const Basic = () => {
         locationChanged={(loc: string) => setLocation(loc)}
         getRendition={(_rendition: Rendition) => {
           rendition.current = _rendition
+          _rendition.hooks.content.register((contents: Contents) => {
+            const body = contents.window.document.querySelector('body')
+            if (body) {
+              body.oncontextmenu = () => {
+                return false
+              }
+            }
+          })
           rendition.current.themes.fontSize(largeText ? '140%' : '100%')
         }}
       />

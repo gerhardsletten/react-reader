@@ -23,13 +23,13 @@ import React, { useState } from 'react'
 import { ReactReader } from 'react-reader'
 
 export const App = () => {
-  const [location, setLocation] = useState<string | number>(0)
+  const [location, setLocation] = useState<string | number | null>(null)
   return (
     <div style={{ height: '100vh' }}>
       <ReactReader
         url="https://react-reader.metabits.no/files/alice.epub"
-        location={(epubcifi: string) => setLocation(epubcifi)}
-        locationChanged={locationChanged}
+        location={location}
+        locationChanged={(epubcfi: string) => setLocation(epubcfi)}
       />
     </div>
   )

@@ -8,7 +8,7 @@ export const Persist = () => {
   const [location, setLocation] = useLocalStorageState<string | number>(
     'persist-location',
     {
-      defaultValue: 2,
+      defaultValue: 0,
     }
   )
   return (

@@ -29,7 +29,7 @@ function updateTheme(rendition: Rendition, theme: ITheme) {
 }
 
 export const Styling = () => {
-  const [location, setLocation] = useState<string | number>(2)
+  const [location, setLocation] = useState<string | number>(0)
   const rendition = useRef<Rendition | undefined>(undefined)
   const [theme, setTheme] = useState<ITheme>('dark')
   useEffect(() => {

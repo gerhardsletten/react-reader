@@ -23,7 +23,7 @@ import React, { useState } from 'react'
 import { ReactReader } from 'react-reader'
 
 export const App = () => {
-  const [location, setLocation] = useState<string | number | null>(null)
+  const [location, setLocation] = useState<string | number>(0)
   return (
     <div style={{ height: '100vh' }}>
       <ReactReader
@@ -52,7 +52,7 @@ This will render a reader like this:
 
 - `url` [string, required] - url to the epub-file, if its on another domain, remember to add cors for the file. Epubjs fetch this by a http-call, so it need to be public available.
 - `loadingView` [element] - if you want to customize the loadingView
-- `location` [string, number] - set / update location of the epub
+- `location` [string, number, null] - set / update location of the epub
 - `locationChanged` [func] - a function that receives the current location while user is reading. This function is called everytime the page changes, and also when it first renders.
 - `tocChanged` [func] - when the reader has parsed the book you will receive an array of the chapters
 - `epubInitOptions` [object] - pass custom properties to the epub init function, see [epub.js](http://epubjs.org/documentation/0.3/#epub)

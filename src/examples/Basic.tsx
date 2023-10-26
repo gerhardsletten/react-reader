@@ -8,7 +8,7 @@ import { Example } from '../components/Example'
 export const Basic = () => {
   const [largeText, setLargeText] = useState(false)
   const rendition = useRef<Rendition | undefined>(undefined)
-  const [location, setLocation] = useState<string | number>(2)
+  const [location, setLocation] = useState<string | number>(0)
   useEffect(() => {
     rendition.current?.themes.fontSize(largeText ? '140%' : '100%')
   }, [largeText])

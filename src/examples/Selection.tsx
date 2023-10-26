@@ -13,7 +13,7 @@ type ITextSelection = {
 export const Selection = () => {
   const [selections, setSelections] = useState<ITextSelection[]>([])
   const [rendition, setRendition] = useState<Rendition | undefined>(undefined)
-  const [location, setLocation] = useState<string | number>(2)
+  const [location, setLocation] = useState<string | number>(0)
   useEffect(() => {
     if (rendition) {
       function setRenderSelection(cfiRange: string, contents: Contents) {

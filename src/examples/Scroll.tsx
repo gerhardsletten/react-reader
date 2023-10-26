@@ -5,7 +5,7 @@ import { DEMO_URL, DEMO_NAME } from '../components/config'
 import { Example } from '../components/Example'
 
 export const Scroll = () => {
-  const [location, setLocation] = useState<string | number>(2)
+  const [location, setLocation] = useState<string | number>(0)
   return (
     <Example title="Scroll example">
       <ReactReader

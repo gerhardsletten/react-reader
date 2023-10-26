@@ -20,7 +20,7 @@ export type IEpubViewProps = {
   epubOptions?: Partial<RenditionOptionsFix>
   epubViewStyles?: IEpubViewStyle
   loadingView?: React.ReactNode
-  location: string | number
+  location: string | number | null
   locationChanged(value: string): void
   showToc?: boolean
   tocChanged?(value: NavItem[]): void

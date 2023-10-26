@@ -9,7 +9,7 @@ export const Paging = () => {
   const [page, setPage] = useState('')
   const rendition = useRef<Rendition | undefined>(undefined)
   const toc = useRef<NavItem[]>([])
-  const [location, setLocation] = useState<string | number>(2)
+  const [location, setLocation] = useState<string | number>(0)
   return (
     <Example title="Paging example" actions={<div>{page}</div>}>
       <ReactReader

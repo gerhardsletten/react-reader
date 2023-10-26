@@ -39,7 +39,7 @@ export class EpubView extends Component<IEpubViewProps, IEpubViewState> {
     toc: [],
   }
   viewerRef = React.createRef<HTMLDivElement>()
-  location?: string | number
+  location?: string | number | null
   book?: Book
   rendition?: Rendition
   prevPage?: () => void

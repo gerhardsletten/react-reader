@@ -8,8 +8,14 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/react-reader.es.js",
-      "require": "./dist/react-reader.umd.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/react-reader.es.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/react-reader.umd.js"
+      }
     }
   },
   "files": [

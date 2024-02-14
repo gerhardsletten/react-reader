@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     react(),
     dts({
-      insertTypesEntry: true,
+      include: ['lib'],
     }),
   ],
   build: {
@@ -17,7 +17,7 @@ export default defineConfig({
     minify: false,
     outDir: 'dist',
     lib: {
-      entry: 'src/lib/index.ts',
+      entry: 'lib/index.ts',
       name: 'react-reader',
       fileName: (format) => `react-reader.${format}.js`,
     },

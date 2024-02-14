@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { ReactReader } from '../lib/index'
+import { ReactReader } from '../../lib/index'
 import type { Contents, Rendition } from 'epubjs'
 
 import { DEMO_URL, DEMO_NAME } from '../components/config'

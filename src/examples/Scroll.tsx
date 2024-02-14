@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ReactReader } from '../lib/index'
+import { ReactReader } from '../../lib/index'
 
 import { DEMO_URL, DEMO_NAME } from '../components/config'
 import { Example } from '../components/Example'

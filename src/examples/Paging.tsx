@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from 'react'
-import { ReactReader } from '../lib/index'
+import { useState, useRef } from 'react'
+import { ReactReader } from '../../lib/index'
 import type { NavItem, Rendition } from 'epubjs'
 
 import { DEMO_URL, DEMO_NAME } from '../components/config'

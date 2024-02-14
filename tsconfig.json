@@ -17,6 +17,6 @@
     "jsx": "react-jsx",
     "verbatimModuleSyntax": true
   },
-  "include": ["src"],
+  "include": ["src", "lib"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

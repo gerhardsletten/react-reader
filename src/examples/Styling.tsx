@@ -4,7 +4,7 @@ import {
   ReactReader,
   ReactReaderStyle,
   type IReactReaderStyle,
-} from '../lib/index'
+} from '../../lib/index'
 
 import { DEMO_URL, DEMO_NAME } from '../components/config'
 import { Example } from '../components/Example'

@@ -1,4 +1,4 @@
-import { ReactReader } from '../lib/index'
+import { ReactReader } from '../../lib/index'
 import useLocalStorageState from 'use-local-storage-state'
 
 import { DEMO_URL, DEMO_NAME } from '../components/config'

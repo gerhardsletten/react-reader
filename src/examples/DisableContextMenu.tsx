@@ -5,22 +5,15 @@ import type { Contents, Rendition } from 'epubjs'
 import { DEMO_URL, DEMO_NAME } from '../components/config'
 import { Example } from '../components/Example'
 
-export const Basic = () => {
-  const [largeText, setLargeText] = useState(false)
-  const rendition = useRef<Rendition | undefined>(undefined)
+export const DisableContextMenu = () => {
   const [location, setLocation] = useState<string | number>(0)
-  useEffect(() => {
-    rendition.current?.themes.fontSize(largeText ? '140%' : '100%')
-  }, [largeText])
   return (
     <Example
-      title="Basic example"
+      title="Disable context menu example"
       actions={
-        <>
-          <button onClick={() => setLargeText(!largeText)} className="btn">
-            Toggle font-size
-          </button>
-        </>
+        <p>
+          This examle shows how the default browser context menu is disabled.
+        </p>
       }
     >
       <ReactReader
@@ -29,8 +22,14 @@ export const Basic = () => {
         location={location}
         locationChanged={(loc: string) => setLocation(loc)}
         getRendition={(_rendition: Rendition) => {
-          rendition.current = _rendition
-          rendition.current.themes.fontSize(largeText ? '140%' : '100%')
+          _rendition.hooks.content.register((contents: Contents) => {
+            const body = contents.window.document.querySelector('body')
+            if (body) {
+              body.oncontextmenu = () => {
+                return false
+              }
+            }
+          })
         }}
       />
     </Example>

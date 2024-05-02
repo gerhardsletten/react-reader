@@ -7,6 +7,8 @@ import { Styling } from './examples/Styling'
 import { Paging } from './examples/Paging'
 import { Selection } from './examples/Selection'
 import { Scroll } from './examples/Scroll'
+import { DisableContextMenu } from './examples/DisableContextMenu'
+import { SmoothScroll } from './examples/SmoothScroll'
 
 const App = () => {
   return (
@@ -33,7 +35,9 @@ const App = () => {
                 ['Styling', '/styling'],
                 ['Paging', '/paging'],
                 ['Selection', '/selection'],
+                ['Smooth Scroll', '/smooth-scroll'],
                 ['Scroll', '/scroll'],
+                ['Disable context menu', '/disable-context-menu'],
               ].map(([label, link], key) => (
                 <NavLink
                   to={link}
@@ -54,6 +58,12 @@ const App = () => {
               <Route path="/paging" element={<Paging />} />
               <Route path="/selection" element={<Selection />} />
               <Route path="/scroll" element={<Scroll />} />
+              <Route
+                path="/disable-context-menu"
+                element={<DisableContextMenu />}
+              />
+              <Route path="/smooth-scroll" element={<SmoothScroll />} />
+
               <Route path="*" element={<Basic />} />
             </Routes>
           </main>

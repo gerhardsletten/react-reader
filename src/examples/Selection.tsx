@@ -28,7 +28,7 @@ export const Selection = () => {
             'highlight',
             cfiRange,
             {},
-            undefined,
+            (e: MouseEvent) => console.log('click on selection', cfiRange, e),
             'hl',
             { fill: 'red', 'fill-opacity': '0.5', 'mix-blend-mode': 'multiply' }
           )

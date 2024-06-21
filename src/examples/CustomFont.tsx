@@ -62,7 +62,7 @@ export const CustomFont = () => {
                 font-family: "OpenDyslexic";
                 font-weight: 400;
                 font-style: normal;
-                src: url("https://fonts.cdnfonts.com/s/29616/open-dyslexic.woff") format("woff");
+                src: url("/files/open-dyslexic.woff") format("woff");
               }
               `
               const style = document.createElement('style')

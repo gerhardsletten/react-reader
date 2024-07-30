@@ -49,6 +49,7 @@ export type IReactReaderProps = IEpubViewProps & {
   readerStyles?: IReactReaderStyle
   epubViewStyles?: IEpubViewStyle
   swipeable?: boolean
+  isRTL?: boolean
 }
 
 type IReactReaderState = {
@@ -173,6 +174,7 @@ export class ReactReader extends PureComponent<
       locationChanged,
       swipeable,
       epubViewStyles,
+      isRTL = false,
       ...props
     } = this.props
     const { toc, expandedToc } = this.state
@@ -189,8 +191,8 @@ export class ReactReader extends PureComponent<
           <div style={readerStyles.titleArea}>{title}</div>
           <SwipeWrapper
             swipeProps={{
-              onSwipedRight: this.prev,
-              onSwipedLeft: this.next,
+              onSwipedRight: isRTL ? this.prev : this.next,
+              onSwipedLeft: isRTL ? this.next : this.prev,
               trackMouse: true,
             }}
           >
@@ -214,13 +216,13 @@ export class ReactReader extends PureComponent<
           </SwipeWrapper>
           <button
             style={Object.assign({}, readerStyles.arrow, readerStyles.prev)}
-            onClick={this.prev}
+            onClick={isRTL ? this.next : this.prev}
           >
             ‹
           </button>
           <button
             style={Object.assign({}, readerStyles.arrow, readerStyles.next)}
-            onClick={this.next}
+            onClick={isRTL ? this.prev : this.next}
           >
             ›
           </button>

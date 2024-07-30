@@ -43,10 +43,10 @@ This will render a reader like this:
 ### ReactReader props
 
 - `title` [string] - the title of the book, displayed above the reading-canvas
-- `showToc` [bool] - whether to show the toc / toc-nav
+- `showToc` [boolean] - whether to show the toc / toc-nav
 - `readerStyles` [object] - override the default styles
 - `epubViewStyles` [object] - override the default styles for inner EpubView
-- `swipeable` [bool, default false] - enable swiping left/right with [react-swipeable](https://github.com/dogfessional/react-swipeable). _Warning_ this will disable interacting with epub.js iframe content like selection
+- `swipeable` [boolean, default false] - enable swiping left/right with [react-swipeable](https://github.com/dogfessional/react-swipeable). _Warning_ this will disable interacting with epub.js iframe content like selection
 
 ### ReactReader props passed to inner EpubView
 
@@ -58,6 +58,7 @@ This will render a reader like this:
 - `epubInitOptions` [object] - pass custom properties to the epub init function, see [epub.js](http://epubjs.org/documentation/0.3/#epub)
 - `epubOptions` [object] - pass custom properties to the epub rendition, see [epub.js's book.renderTo function](http://epubjs.org/documentation/0.3/#rendition)
 - `getRendition` [func] - when epubjs has rendered the epub-file you can get access to the epubjs-rendition object here
+- `isRTL` [boolean] - support for RTL reading direction, thanks to @ktpm489
 
 ### EpubView props
 

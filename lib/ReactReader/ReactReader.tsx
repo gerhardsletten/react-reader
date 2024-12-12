@@ -1,5 +1,9 @@
 import React, { type CSSProperties, PureComponent, type ReactNode } from 'react'
-import { type SwipeableProps, useSwipeable } from 'react-swipeable'
+import {
+  type SwipeableProps,
+  type SwipeEventData,
+  useSwipeable,
+} from 'react-swipeable'
 import { EpubView, type IEpubViewStyle, type IEpubViewProps } from '..'
 import {
   ReactReaderStyle as defaultStyles,
@@ -14,7 +18,11 @@ type SwipeWrapperProps = {
 
 const SwipeWrapper = ({ children, swipeProps }: SwipeWrapperProps) => {
   const handlers = useSwipeable(swipeProps)
-  return <div {...handlers}>{children}</div>
+  return (
+    <div style={{ height: '100%' }} {...handlers}>
+      {children}
+    </div>
+  )
 }
 
 type TocItemProps = {
@@ -191,8 +199,18 @@ export class ReactReader extends PureComponent<
           <div style={readerStyles.titleArea}>{title}</div>
           <SwipeWrapper
             swipeProps={{
-              onSwipedRight: isRTL ? this.prev : this.next,
-              onSwipedLeft: isRTL ? this.next : this.prev,
+              onSwiped: (eventData: SwipeEventData) => {
+                const { dir } = eventData
+                if (dir === 'Left') {
+                  isRTL ? this.prev() : this.next()
+                }
+                if (dir === 'Right') {
+                  isRTL ? this.next() : this.prev()
+                }
+              },
+              onTouchStartOrOnMouseDown: ({ event }) => event.preventDefault(),
+              touchEventOptions: { passive: false },
+              preventScrollOnSwipe: true,
               trackMouse: true,
             }}
           >

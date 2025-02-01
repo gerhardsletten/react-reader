@@ -1,9 +1,10 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { ReactReader } from '../../lib/index'
 import type { Contents, Rendition } from 'epubjs'
 
 import { DEMO_URL, DEMO_NAME } from '../components/config'
 import { Example } from '../components/Example'
+import type { Annotation } from 'epubjs/types/annotations'
 
 type ITextSelection = {
   text: string
@@ -14,6 +15,17 @@ export const Selection = () => {
   const [selections, setSelections] = useState<ITextSelection[]>([])
   const [rendition, setRendition] = useState<Rendition | undefined>(undefined)
   const [location, setLocation] = useState<string | number>(0)
+  const [color, setColor] = useState('red')
+  useEffect(() => {
+    console.log('effect', color)
+    if (rendition) {
+      /*
+      rendition.annotations.each().forEach((annotation) => {
+        annotation.style = { fill: color }
+      })*/
+      console.log('set color', rendition)
+    }
+  }, [rendition, color])
   useEffect(() => {
     if (rendition) {
       function setRenderSelection(cfiRange: string, contents: Contents) {
@@ -29,9 +41,10 @@ export const Selection = () => {
             cfiRange,
             {},
             (e: MouseEvent) => console.log('click on selection', cfiRange, e),
-            'hl',
-            { fill: 'red', 'fill-opacity': '0.5', 'mix-blend-mode': 'multiply' }
+            'my-class',
+            { fill: color }
           )
+          console.log('rendition', { rendition, contents })
           const selection = contents.window.getSelection()
           selection?.removeAllRanges()
         }
@@ -73,6 +86,18 @@ export const Selection = () => {
               </li>
             ))}
           </ul>
+          <div className="flex items-center gap-2 flex-wrap mt-2">
+            {['red', 'pink'].map((item) => (
+              <button
+                key={item}
+                onClick={() => setColor(item)}
+                className="flex items-center size-10 rounded-full bg-[--color] border-2 border-transparent aria-[current]:border-black"
+                aria-current={item === color ? 'true' : undefined}
+                aria-label={`Change color to ${item}`}
+                style={{ '--color': item } as React.CSSProperties}
+              ></button>
+            ))}
+          </div>
         </div>
       }
     >
@@ -83,6 +108,23 @@ export const Selection = () => {
         locationChanged={(loc: string) => setLocation(loc)}
         getRendition={(_rendition: Rendition) => {
           setRendition(_rendition)
+          _rendition.hooks.content.register((contents: Contents) => {
+            const document = contents.window.document
+            console.log('document', document)
+            if (document) {
+              const css = `
+                        .epubjs-hl {
+                          border: 1px solid black;
+                        }
+                        p {
+                          border: 1px solid red;
+                        }
+                        `
+              const style = document.createElement('style')
+              style.appendChild(document.createTextNode(css))
+              document.head.appendChild(style)
+            }
+          })
         }}
       />
     </Example>

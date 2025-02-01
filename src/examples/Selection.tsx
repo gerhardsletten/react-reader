@@ -4,12 +4,15 @@ import type { Contents, Rendition } from 'epubjs'
 
 import { DEMO_URL, DEMO_NAME } from '../components/config'
 import { Example } from '../components/Example'
-import type { Annotation } from 'epubjs/types/annotations'
 
 type ITextSelection = {
   text: string
   cfiRange: string
 }
+
+/* 
+ This example are trying out dynamic change color of epubjs hightlight, but its not working..
+*/
 
 export const Selection = () => {
   const [selections, setSelections] = useState<ITextSelection[]>([])
@@ -91,7 +94,7 @@ export const Selection = () => {
               <button
                 key={item}
                 onClick={() => setColor(item)}
-                className="flex items-center size-10 rounded-full bg-[--color] border-2 border-transparent aria-[current]:border-black"
+                className="flex items-center size-10 rounded-full bg-(--color) border-2 border-transparent aria-[current]:border-black"
                 aria-current={item === color ? 'true' : undefined}
                 aria-label={`Change color to ${item}`}
                 style={{ '--color': item } as React.CSSProperties}

@@ -8,4 +8,13 @@
   .btn {
     @apply rounded-full p-1 px-4 border border-black;
   }
+  .search {
+    @apply flex bg-white gap-1 border-[1px] rounded-[10px];
+  }
+  .searchInput {
+    @apply w-full bg-white p-0.5 rounded-l-[10px];
+  }
+  .nextResultBtn {
+    @apply rounded-r-[10px] w-36;
+  }
 }

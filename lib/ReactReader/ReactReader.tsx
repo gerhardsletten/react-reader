@@ -58,7 +58,13 @@ export type IReactReaderProps = IEpubViewProps & {
   epubViewStyles?: IEpubViewStyle
   swipeable?: boolean
   isRTL?: boolean
+  pageTurnOnScroll?: boolean
+  searchQuery?: string
+  contextLength?: number
+  onSearchResults?: (results: SearchResult[]) => void
 }
+
+type SearchResult = { cfi: string; excerpt: string }
 
 type IReactReaderState = {
   isLoaded: boolean
@@ -173,6 +179,142 @@ export class ReactReader extends PureComponent<
     )
   }
 
+  // Changing Page based on direction of scroll
+  handleWheel = (event: WheelEvent) => {
+    event.preventDefault()
+
+    const node = this.readerRef.current
+    if (!node) return
+
+    if (event.deltaY > 0) {
+      node.nextPage?.()
+    } else if (event.deltaY < 0) {
+      node.prevPage?.()
+    }
+  }
+
+  // Setting up event listener in the iframe of the viewer
+  attachWheelListener = () => {
+    if (!this.readerRef.current) return
+
+    const rendition = this.readerRef.current.rendition
+
+    if (rendition) {
+      rendition.hooks.content.register(
+        (contents: { window: { document: any } }) => {
+          const iframeDoc = contents.window.document
+
+          // Remove any existing listener before adding a new one
+          iframeDoc.removeEventListener('wheel', this.handleWheel)
+          iframeDoc.addEventListener('wheel', this.handleWheel, {
+            passive: false,
+          })
+        }
+      )
+    }
+  }
+
+  //search function to find all occurence and set amount of charecters for context
+  searchInBook = async (query?: string) => {
+    if (!this.readerRef.current) return
+    const rendition = this.readerRef.current?.rendition
+    const book = rendition?.book
+    if (!book) return
+
+    if (!query) {
+      this.props.onSearchResults?.([])
+      return
+    }
+
+    await book.ready
+    const results: SearchResult[] = []
+    const promises: Promise<void>[] = []
+
+    book.spine.each((item: any) => {
+      if (query == '' || query == null) results
+      const promise = (async () => {
+        try {
+          await item.load(book.load.bind(book))
+          const doc = item.document
+          const textNodes: Node[] = []
+
+          const treeWalker = doc.createTreeWalker(
+            doc,
+            NodeFilter.SHOW_TEXT,
+            null,
+            false
+          )
+          let node
+          while ((node = treeWalker.nextNode())) {
+            textNodes.push(node)
+          }
+
+          const fullText = textNodes
+            .map((n) => n.textContent)
+            .join('')
+            .toLowerCase()
+          const searchQuery = query.toLowerCase()
+          let pos = fullText.indexOf(searchQuery)
+
+          while (pos !== -1) {
+            let nodeIndex = 0
+            let foundOffset = pos
+
+            while (nodeIndex < textNodes.length) {
+              const nodeText = textNodes[nodeIndex].textContent || ''
+              if (foundOffset < nodeText.length) break
+              foundOffset -= nodeText.length
+              nodeIndex++
+            }
+
+            if (nodeIndex < textNodes.length) {
+              let range = doc.createRange()
+              try {
+                range.setStart(textNodes[nodeIndex], foundOffset)
+                range.setEnd(
+                  textNodes[nodeIndex],
+                  foundOffset + searchQuery.length
+                )
+                const cfi = item.cfiFromRange(range)
+                const excerpt = `${fullText.substring(
+                  Math.max(0, pos - (this.props.contextLength || 15)),
+                  pos + searchQuery.length + (this.props.contextLength || 15)
+                )}`
+
+                results.push({ cfi, excerpt })
+              } catch (e) {
+                console.warn('Skipping invalid range:', e)
+              }
+            }
+
+            pos = fullText.indexOf(searchQuery, pos + 1)
+          }
+
+          item.unload()
+        } catch (error) {
+          console.error('Error searching chapter:', error)
+        }
+      })()
+      promises.push(promise)
+    })
+
+    await Promise.all(promises)
+    this.props.onSearchResults?.(results) //passing result as an array of objects with cfi and excerpt
+  }
+
+  //Actions to perform when the component updates
+  componentDidUpdate(prevProps: IReactReaderProps) {
+    //searching only when new search query is passed
+    if (prevProps.searchQuery !== this.props.searchQuery) {
+      this.searchInBook(this.props.searchQuery)
+    }
+
+    //attaching the wheel listner only when pageTurnOnScroll is set as true
+    if (this.props.pageTurnOnScroll === true) {
+      this.attachWheelListener()
+    }
+  }
+
   render() {
     const {
       title,
@@ -183,6 +325,9 @@ export class ReactReader extends PureComponent<
       swipeable,
       epubViewStyles,
       isRTL = false,
+      pageTurnOnScroll = false,
+      searchQuery,
+      contextLength,
       ...props
     } = this.props
     const { toc, expandedToc } = this.state

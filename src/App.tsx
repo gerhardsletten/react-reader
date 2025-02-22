@@ -10,6 +10,8 @@ import { Scroll } from './examples/Scroll'
 import { DisableContextMenu } from './examples/DisableContextMenu'
 import { SmoothScroll } from './examples/SmoothScroll'
 import { CustomFont } from './examples/CustomFont'
+import { PageTurnOnScroll } from './examples/PageTurnOnScroll'
+import { Search } from './examples/Search'
 
 const App = () => {
   return (
@@ -40,6 +42,8 @@ const App = () => {
                 ['Scroll', '/scroll'],
                 ['Disable context menu', '/disable-context-menu'],
                 ['Custom font', '/custom-font'],
+                ['Page Turn on Scroll', '/page-turn-on-scroll'],
+                ['Search', '/search '],
               ].map(([label, link], key) => (
                 <NavLink
                   to={link}
@@ -66,6 +70,11 @@ const App = () => {
                 element={<DisableContextMenu />}
               />
               <Route path="/smooth-scroll" element={<SmoothScroll />} />
+              <Route
+                path="/page-turn-on-scroll"
+                element={<PageTurnOnScroll />}
+              />
+              <Route path="/search" element={<Search />} />
 
               <Route path="*" element={<Basic />} />
             </Routes>

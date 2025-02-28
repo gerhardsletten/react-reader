@@ -14,6 +14,7 @@ export const Search = () => {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]) //Array that stores the search results from ReactReader
   const [currentResultIndex, setCurrentResultIndex] = useState(0) //Storing the current index for switching to next result
   const rendition = useRef<Rendition | undefined>(undefined)
+  const [prevResults, setPrevResults] = useState<SearchResult[]>([])
 
   useEffect(() => {
     rendition.current?.themes.fontSize(largeText ? '140%' : '100%')
@@ -29,9 +30,28 @@ export const Search = () => {
 
   useEffect(() => {
     if (searchResults.length) setLocation(searchResults[0].cfi) //once search result is returned with data, go to the corresponding page with occurence of search term
+    clearHighlights()
+    highlightSearchResults(searchResults)
     setCurrentResultIndex(0)
+    setPrevResults(searchResults)
     // console.log(searchResults);
   }, [searchResults])
+
+  const highlightSearchResults = (
+    results: { cfi: string; excerpt: string }[]
+  ) => {
+    if (!rendition.current) return
+    results.forEach((result) => {
+      rendition.current?.annotations.add('highlight', result.cfi)
+    })
+  }
+
+  const clearHighlights = () => {
+    if (!rendition.current) return
+    prevResults.forEach((result) => {
+      rendition.current?.annotations.remove(result.cfi, 'highlight')
+    })
+  }
 
   return (
     <Example

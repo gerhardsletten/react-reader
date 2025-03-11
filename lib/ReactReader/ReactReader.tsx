@@ -299,7 +299,10 @@ export class ReactReader extends PureComponent<
     })
 
     await Promise.all(promises)
-    this.props.onSearchResults?.(results) //passing result as an array of objects with cfi and excerpt
+    //Fix for Search Result of previous query retaining when
+    if (query == this.props.searchQuery) {
+      this.props.onSearchResults?.(results) //passing result as an array of objects with cfi and excerpt
+    }
   }
 
   //Actions to perform when the component updates

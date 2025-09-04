@@ -20,6 +20,7 @@ export interface IReactReaderStyle {
   tocButtonBar: CSSProperties
   tocButtonBarTop: CSSProperties
   loadingView: CSSProperties
+  errorView: CSSProperties
   tocButtonBottom: CSSProperties
 }
 
@@ -163,6 +164,15 @@ export const ReactReaderStyle: IReactReaderStyle = {
     left: '10%',
     right: '10%',
     color: '#ccc',
+    textAlign: 'center',
+    marginTop: '-.5em',
+  },
+  errorView: {
+    position: 'absolute',
+    top: '50%',
+    left: '10%',
+    right: '10%',
+    color: '#c00',
     textAlign: 'center',
     marginTop: '-.5em',
   },

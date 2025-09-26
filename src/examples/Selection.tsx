@@ -109,6 +109,10 @@ export const Selection = () => {
         title={DEMO_NAME}
         location={location}
         locationChanged={(loc: string) => setLocation(loc)}
+        epubOptions={{
+          allowPopups: true, // Adds `allow-popups` to sandbox-attribute
+          allowScriptedContent: true, // Adds `allow-scripts` to sandbox-attribute
+        }}
         getRendition={(_rendition: Rendition) => {
           setRendition(_rendition)
           _rendition.hooks.content.register((contents: Contents) => {
@@ -118,9 +122,6 @@ export const Selection = () => {
               const css = `
                         .epubjs-hl {
                           border: 1px solid black;
-                        }
-                        p {
-                          border: 1px solid red;
                         }
                         `
               const style = document.createElement('style')

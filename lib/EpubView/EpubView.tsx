@@ -67,7 +67,7 @@ export class EpubView extends Component<IEpubViewProps, IEpubViewState> {
     this.book = Epub(url, epubInitOptions)
     this.book.on('openFailed', (error: Error) => {
       this.setState({
-        isError: true
+        isError: true,
       })
     })
     this.book.loaded.navigation.then(({ toc }) => {
@@ -171,17 +171,23 @@ export class EpubView extends Component<IEpubViewProps, IEpubViewState> {
   }
 
   handleKeyPress = (event: KeyboardEvent) => {
-    if (event.key === 'ArrowRight' && this.nextPage) {
-      this.nextPage()
-    }
-    if (event.key === 'ArrowLeft' && this.prevPage) {
-      this.prevPage()
+    if (!this.props.handleKeyPress) {
+      if (event.key === 'ArrowRight' && this.nextPage) {
+        this.nextPage()
+      }
+      if (event.key === 'ArrowLeft' && this.prevPage) {
+        this.prevPage()
+      }
     }
   }
 
   render() {
     const { isLoaded, isError } = this.state
-    const { loadingView = null, errorView = null, epubViewStyles = defaultStyles } = this.props
+    const {
+      loadingView = null,
+      errorView = null,
+      epubViewStyles = defaultStyles,
+    } = this.props
     return (
       <div style={epubViewStyles.viewHolder}>
         {isLoaded && this.renderBook()}

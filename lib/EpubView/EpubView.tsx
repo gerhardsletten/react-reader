@@ -20,6 +20,7 @@ export type IEpubViewProps = {
   epubOptions?: Partial<RenditionOptionsFix>
   epubViewStyles?: IEpubViewStyle
   loadingView?: React.ReactNode
+  errorView?: React.ReactNode
   location: string | number | null
   locationChanged(value: string): void
   showToc?: boolean
@@ -30,12 +31,14 @@ export type IEpubViewProps = {
 }
 type IEpubViewState = {
   isLoaded: boolean
+  isError: boolean
   toc: NavItem[]
 }
 
 export class EpubView extends Component<IEpubViewProps, IEpubViewState> {
   state: Readonly<IEpubViewState> = {
     isLoaded: false,
+    isError: false,
     toc: [],
   }
   viewerRef = React.createRef<HTMLDivElement>()
@@ -62,10 +65,16 @@ export class EpubView extends Component<IEpubViewProps, IEpubViewState> {
       this.book.destroy()
     }
     this.book = Epub(url, epubInitOptions)
+    this.book.on('openFailed', (error: Error) => {
+      this.setState({
+        isError: true
+      })
+    })
     this.book.loaded.navigation.then(({ toc }) => {
       this.setState(
         {
           isLoaded: true,
+          isError: false,
           toc: toc,
         },
         () => {
@@ -171,11 +180,13 @@ export class EpubView extends Component<IEpubViewProps, IEpubViewState> {
   }
 
   render() {
-    const { isLoaded } = this.state
-    const { loadingView = null, epubViewStyles = defaultStyles } = this.props
+    const { isLoaded, isError } = this.state
+    const { loadingView = null, errorView = null, epubViewStyles = defaultStyles } = this.props
     return (
       <div style={epubViewStyles.viewHolder}>
-        {(isLoaded && this.renderBook()) || loadingView}
+        {isLoaded && this.renderBook()}
+        {!isLoaded && !isError && loadingView}
+        {!isLoaded && isError && errorView}
       </div>
     )
   }

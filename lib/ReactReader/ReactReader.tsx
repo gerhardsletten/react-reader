@@ -323,6 +323,7 @@ export class ReactReader extends PureComponent<
       title,
       showToc = true,
       loadingView,
+      errorView,
       readerStyles = defaultStyles,
       locationChanged,
       swipeable,
@@ -370,6 +371,13 @@ export class ReactReader extends PureComponent<
                     <div style={readerStyles.loadingView}>Loading…</div>
                   ) : (
                     loadingView
+                  )
+                }
+                errorView={
+                  errorView === undefined ? (
+                    <div style={readerStyles.errorView}>Error loading book</div>
+                  ) : (
+                    errorView
                   )
                 }
                 epubViewStyles={epubViewStyles}

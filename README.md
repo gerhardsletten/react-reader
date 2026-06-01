@@ -96,7 +96,7 @@ Epub.js is only rendering the current chapter so we can only get the current pag
 
 [See demo](https://react-reader.metabits.no/paging) / [Source](src/examples/Paging.tsx)
 
-### Hightlight selection in epub
+### Highlight selection in epub
 
 This shows how to hook into epubJS annotations object and let the user highlight selection and store this in a list where user can go to a selection or delete it.
 
